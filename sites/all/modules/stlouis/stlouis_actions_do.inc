@@ -2112,7 +2112,7 @@ EOF;
 
     
   function _stlouis_action_count_your_benefactors_function(&$outcome_reason,
-    $target) {
+    $target, &$can_do_again) {
     
     global $game, $phone_id;
     $fetch_user = '_' . arg(0) . '_fetch_user';
@@ -2193,6 +2193,15 @@ EOF;
        
     return TRUE;
     
+  }
+
+
+  function _celestial_glory_action_check_for_gifts_function(&$outcome_reason,
+    $target, &$can_do_again) {
+
+    return _stlouis_action_count_your_benefactors_function($outcome_reason,
+    $target, $can_do_again);
+
   }
   
 
