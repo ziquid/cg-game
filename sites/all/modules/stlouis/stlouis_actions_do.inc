@@ -1426,8 +1426,13 @@ function _celestial_glory_action_bear_your_testimony_function(&$outcome_reason,
       where fkey_users_id = %d and fkey_equipment_id = 1;';
     $result = db_query($sql, $game_user->id);
 
-    $sql = 'update users set energy = energy + 10 where id = %d;';
-    $result = db_query($sql, $game_user->id);
+// calculate energy bonus
+    $energy_bonus = 10 + $game_user->ep_energy_bonus +
+      $game_user->eq_energy_increase + $game_user->st_energy_increase;
+    if (!empty($game_user->fkey_clans_id)) $energy_bonus++; // bonus for joining a clan 
+
+    $sql = 'update users set energy = energy + %d where id = %d;';
+    $result = db_query($sql, $energy_bonus, $game_user->id);
     
     $outcome_reason .= '<div class="action-effect">' . 
       t('You have eaten and feel more energetic') . '</div>';
