@@ -1435,7 +1435,8 @@ function _celestial_glory_action_bear_your_testimony_function(&$outcome_reason,
     $result = db_query($sql, $energy_bonus, $game_user->id);
     
     $outcome_reason .= '<div class="action-effect">' . 
-      t('You have eaten and feel more energetic') . '</div>';
+      t('You have eaten and feel more energetic') . '</div><div class="action-effect">' .
+      t('(You gained %energy energy)', array('%energy' => $energy_bonus)) . '</div>';
     
     return true;
     
