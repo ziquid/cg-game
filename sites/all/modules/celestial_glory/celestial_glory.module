@@ -29,7 +29,7 @@ require_once(drupal_get_path('module', 'celestial_glory') . '/menu.inc');
 
 
 function celestial_glory_copy_of_stlouis_cron() {
-
+return; // USL not active now -- jwc 27Feb2014
   db_set_active('game_celestial_glory');
 
 // save old approval ratings
@@ -191,7 +191,8 @@ function celestial_glory_copy_of_stlouis_cron() {
   $result = db_query($sql, $item->id);
 
   $addition = 0; // winter
-  $addition = 10; // spring / fall
+//  $addition = 5; // spring / fall
+//  $addition = 10; // summer
 
 // give hoods residents to match - each rating / 5 plus $addition
   $sql = 'UPDATE `neighborhoods` SET residents = residents + 1
@@ -277,16 +278,6 @@ function celestial_glory_copy_of_stlouis_cron() {
   imagecopy($map_large_bottom, $map_large, 0, 0, 0, imagesy($map_large) - 600,
     imagesx($map_large), 600);
 
-/*  
-  imagepng($map_large,
-    "sites/default/files/images/celestial_glory_map_large_colored.png");
-  imagepng($map_mid,
-    "sites/default/files/images/celestial_glory_map_mid.png");
-  imagepng($map_top,
-    "sites/default/files/images/celestial_glory_map_top.png");
-  imagepng($map_bottom,
-    "sites/default/files/images/celestial_glory_map_bottom.png");
-*/
   imagejpeg($map_large_mid,
     "sites/default/files/images/celestial_glory_map_large_colored.jpg");
   imagejpeg($map_large_bottom,
@@ -377,14 +368,18 @@ function celestial_glory_cron() {
     where rating > 50.1;';
   $result = db_query($sql);
 
+  $addition = 0; // winter
+//  $addition = 5; // spring / fall
+//  $addition = 10; // summer
+
 // give hoods residents to match - each gets 5 plus rating / 5
   $sql = 'UPDATE `neighborhoods` SET residents = residents + 1
-    WHERE floor(rating / 5) > (residents - 5) AND rand() > 0.95';
-  $result = db_query($sql);
+    WHERE floor(rating / 5) > (residents - %d) AND rand() > 0.95';
+  $result = db_query($sql, $addition);
 
   $sql = 'UPDATE `neighborhoods` SET residents = residents - 1
-    WHERE floor(rating / 5) < (residents - 5) AND rand() > 0.95';
-  $result = db_query($sql);
+    WHERE floor(rating / 5) < (residents - %d) AND rand() > 0.95';
+  $result = db_query($sql, $addition);
 
 
 // april fools' 2013 -- move 50 people at random
@@ -415,8 +410,9 @@ function celestial_glory_cron() {
   
 // update maps
 
-  $map_large =
-    imagecreatefromjpeg('sites/default/files/images/celestial_glory_map_large.jpg');
+  $map_large = imagecreatefromjpeg(
+    'sites/default/files/images/celestial_glory_map_large.jpg'
+  );
   $map_mid = imagecreatetruecolor(530, 600);
   $map_large_colored = imagecreatetruecolor(800, 500);
   $map_bottom = imagecreatetruecolor(530, 300);
