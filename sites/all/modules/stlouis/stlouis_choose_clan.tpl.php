@@ -86,7 +86,9 @@
     if ($game_user->clan == 0) // first time choosing?  go to debates
       drupal_goto($game . '/debates/' . $arg2);
 
-// otherwise show your character profile
+// otherwise keep him/her from challenging for an hour
+// and show his/her character profile
+    $set_value($game_user->id, 'cant_challenge', time() + 86400);
     drupal_goto($game . '/user/' . $arg2);
     
   }
