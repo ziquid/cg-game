@@ -1,22 +1,22 @@
-<?php 
-                                                                             
+<?php
+
 // includes for special functions
 
   function _stlouis_action_start_your_own_clan_function(&$outcome_reason,
     $target, &$can_do_again) {
-    
+
     global $game, $phone_id;
-    
+
     $fetch_user = '_' . arg(0) . '_fetch_user';
 
     $game_user = $fetch_user();
     include(drupal_get_path('module', $game) . '/game_defs.inc');
     $action_id = arg(3);
     $can_do_again = FALSE;
-     
+
     $clan_name = trim(check_plain($_GET['name']));
     $clan_acronym = trim(check_plain($_GET['acronym']));
-     
+
     $sql = 'select * from clan_members where fkey_users_id = %d;';
 // limited to 1 in db
     $result = db_query($sql, $game_user->id);
@@ -24,16 +24,16 @@
 firep($item);
 
     if (!empty($item)) { // already a member of a clan
-      
-      $outcome_reason = '<div class="land-failed">' . 
-        t('Already a member of a clan!') . 
+
+      $outcome_reason = '<div class="land-failed">' .
+        t('Already a member of a clan!') .
         '</div><div class="action-effect">You already belong to a clan.&nbsp;
         You must secede from it first.</div>';
-        
+
       return false;
-      
+
     }
-    
+
 
 // do they have the appropriate aides?
 
@@ -49,26 +49,26 @@ firep($item);
     $max_clan_size = $item->max_clan_size;
 
     if ($max_clan_size <= 0) { // no aides to create a clan
-      
-      $outcome_reason = '<div class="land-failed">' . 
-        t('No place to hold meetings!') . 
+
+      $outcome_reason = '<div class="land-failed">' .
+        t('No place to hold meetings!') .
         '</div><div class="action-effect">You need a place to hold
         your clan meetings.</div>';
-        
+
       return FALSE;
-      
+
     }
-    
+
 
     if (empty($clan_name) XOR empty($clan_acronym)) { // didn't fill both out
-    
-      $form_reminder = '<div class="land-failed">' . 
-        t('Both fields are required') . 
+
+      $form_reminder = '<div class="land-failed">' .
+        t('Both fields are required') .
         '</div><div class="action-effect">Please give both a name and three
           letters for your clan.</div>';
-        
+
     } // didn't fill out both fields
-    
+
     if (empty($clan_name) || empty($clan_acronym)) { // ask for name, acronym
 
       $outcome_reason = $form_reminder;
@@ -85,9 +85,9 @@ firep($item);
 EOF;
 
       return false;
-  
+
     } // no name nor acronym
-  
+
 // see if the clan already exists
 
     $sql = 'select * from clans where acronym = "%s" or name = "%s" limit 1;';
@@ -96,18 +96,18 @@ EOF;
 firep($item);
 
     if (!empty($item)) { // clan does exist
-      
-      $outcome_reason = '<div class="land-failed">' . 
-        t('You have chosen an existing clan name or set of three letters') . 
+
+      $outcome_reason = '<div class="land-failed">' .
+        t('You have chosen an existing clan name or set of three letters') .
         '</div><div class="action-effect">Please check that you enter a unique
         clan name and three letters and try again</div>
         <div class="try-an-election-wrapper"><div
         class="try-an-election"><a
         href="/' . $game . '/actions_do/' . $phone_id . '/' . $action_id .
         '">Try again</a></div></div>';
-        
+
       return false;
-      
+
     }
 
 
@@ -115,33 +115,33 @@ firep($item);
 
     $sql = 'insert into clans (name, acronym) values ("%s", "%s");';
     $result = db_query($sql, $clan_name, $clan_acronym);
-    
+
     $sql = 'insert into clan_members (fkey_clans_id, fkey_users_id,
       is_clan_leader) values ((select id from clans where name = "%s"),
       %d, 1);';
     $result = db_query($sql, $clan_name, $game_user->id);
-    
+
     $outcome_reason .= '<div class="action-effect">The clan ' .
       $clan_name . ' (' . $clan_acronym . ') has been created!';
-    
+
     return true;
-    
+
   }
 
-  
+
   function _celestial_glory_action_start_your_own_clan_function(&$outcome_reason, $target) {
-    
+
     return _stlouis_action_start_your_own_clan_function($outcome_reason, $target);
-    
+
   }
 
-  
+
   function _stlouis_action_join_a_clan_function(&$outcome_reason, $target,
     &$can_do_again) {
-    
-    
+
+
     global $game, $phone_id;
-    
+
     $get_value = '_' . $game . '_get_value';
     $set_value = '_' . $game . '_set_value';
     $remove_value = '_' . $game . '_remove_value';
@@ -152,9 +152,9 @@ firep($item);
     $action_id = arg(3);
     $arg2 = check_plain(arg(2));
     $can_do_again = FALSE;
-         
+
     $clan_acronym = check_plain($_GET['acronym']);
-     
+
     $sql = 'select * from clan_members where fkey_users_id = %d;';
 // limited to 1 in db
     $result = db_query($sql, $game_user->id);
@@ -162,16 +162,16 @@ firep($item);
 firep($item);
 
     if (!empty($item)) { // already a member of a clan
-      
-      $outcome_reason = '<div class="land-failed">' . 
-        t('Already a member of a clan!') . 
+
+      $outcome_reason = '<div class="land-failed">' .
+        t('Already a member of a clan!') .
         '</div><div class="action-effect">You already belong to a clan.&nbsp;
         You must leave it first.</div>';
-        
+
       return FALSE;
 
     }
-    
+
     if (empty($clan_acronym)) { // ask for acronym
 
       $outcome_reason =<<< EOF
@@ -185,9 +185,9 @@ firep($item);
 EOF;
 
       return FALSE;
-  
+
     } // no acronym
-  
+
 // does clan exist?
 
     $sql = 'select * from clans where acronym = "%s";';
@@ -197,16 +197,16 @@ EOF;
 firep($item);
 
     if (empty($item)) { // clan does not exist
-      
-      $outcome_reason = '<div class="land-failed">' . 
-        t('The %clan clan does not exist', array('%clan' => $clan_acronym)) . 
+
+      $outcome_reason = '<div class="land-failed">' .
+        t('The %clan clan does not exist', array('%clan' => $clan_acronym)) .
         '</div><div class="action-effect">Please check that you entered the
         clan\'s three letters correctly and try again</div>
         <div class="try-an-election-wrapper"><div
         class="try-an-election"><a
         href="/' . $game . '/actions_do/' . $phone_id . '/' . $action_id .
         '">Try again</a></div></div>';
-        
+
       return FALSE;
 
     }
@@ -214,7 +214,7 @@ firep($item);
     $clan_name = $item->name;
     $clan_id = $item->id;
     $clan_password = strtolower($item->password);
-    
+
     $sql = 'select users.fkey_values_id, users.id from clan_members
       left join clans on clan_members.fkey_clans_id = clans.id
       left join users on clan_members.fkey_users_id = users.id
@@ -226,16 +226,16 @@ firep($item);
 
     if ($item->fkey_values_id != $game_user->fkey_values_id) {
 // different political party
-      
-      $outcome_reason = '<div class="land-failed">' . 
-        t('Different political party') . 
-        '</div><div class="action-effect">' . 
+
+      $outcome_reason = '<div class="land-failed">' .
+        t('Different political party') .
+        '</div><div class="action-effect">' .
         t('That clan belongs to a different political party') . '</div>';
-        
+
       return FALSE;
 
     }
-    
+
     $sql = 'select sum(clan_size * quantity) as max_clan_size from users
       left join equipment_ownership
       on equipment_ownership.fkey_users_id = users.id
@@ -253,18 +253,18 @@ firep($item);
     $item = db_fetch_object($result);
 firep($item);
     $current_clan_size = $item->current_clan_size;
-    
+
     if ($current_clan_size >= $max_clan_size) { // clan full!
-      
-      $outcome_reason = '<div class="land-failed">' . 
-        t('The clan is full!') . 
-        '</div><div class="action-effect">' . 
+
+      $outcome_reason = '<div class="land-failed">' .
+        t('The clan is full!') .
+        '</div><div class="action-effect">' .
         t('There is no room for new members in this clan.  ' .
           'This clan can only hold @num members.',
           array('@num' => $max_clan_size)) . '</div>';
-        
+
       return false;
-      
+
     }
 
 
@@ -274,11 +274,11 @@ firep($item);
 
     if (!empty($clan_password) && empty($password)) {
 
-      $outcome_reason = '<div class="land-failed">' . 
-        t('Enter the password') . 
-        '</div><div class="action-effect">' . 
+      $outcome_reason = '<div class="land-failed">' .
+        t('Enter the password') .
+        '</div><div class="action-effect">' .
         t('This clan has a password.  What is it?') . '</div>';
-        
+
       $outcome_reason .=<<< EOF
 <div class="ask-clan-name">
   <form method=get action="/$game/actions_do/$arg2/$action_id">
@@ -292,17 +292,17 @@ EOF;
       return FALSE;
 
     }
-    
+
 
 // wrong password
 
     if (!empty($clan_password) && ($clan_password != $password)) {
 
-      $outcome_reason = '<div class="land-failed">' . 
-        t('Wrong password!') . 
-        '</div><div class="action-effect">' . 
+      $outcome_reason = '<div class="land-failed">' .
+        t('Wrong password!') .
+        '</div><div class="action-effect">' .
         t('The password you entered is incorrect.') . '</div>';
-        
+
       return FALSE;
 
     }
@@ -319,13 +319,13 @@ firep(time());
       $min = floor(($join_allowed_time - time()) / 60);
       $sec = ($join_allowed_time - time()) % 60;
 
-      $outcome_reason = '<div class="land-failed">' . 
-        t('Too soon!') . 
-        '</div><div class="action-effect">' . 
+      $outcome_reason = '<div class="land-failed">' .
+        t('Too soon!') .
+        '</div><div class="action-effect">' .
         t('You can join a clan in @min minutes and @sec seconds',
           array('@min' => $min, '@sec' => $sec))
         . '</div>';
-        
+
 mail('joseph@cheek.com', $target_name . ' tried to join a clan',
   "but isn't allowed to for $min:$sec longer.");
 
@@ -334,70 +334,70 @@ mail('joseph@cheek.com', $target_name . ' tried to join a clan',
     }
 
 // join succeeded!
-    
+
     $remove_value($target_id, 'cant_join_clan');
     $sql = 'insert into clan_members (fkey_clans_id, fkey_users_id,
       is_clan_leader) values ((select id from clans where acronym = "%s"),
       %d, 0);';
     $result = db_query($sql, $clan_acronym, $game_user->id);
-    
+
     $sql = 'insert into clan_messages (fkey_users_from_id,
       fkey_neighborhoods_id, message) values
       (%d, (select id from clans where acronym = "%s"), "%s");';
     $message = $game_user->username . ' has joined your clan.  Please welcome
       him or her.';
     $result = db_query($sql, $game_user->id, $clan_acronym, $message);
-    
+
     $outcome_reason .= '<div class="action-effect">You have successfully joined
       the ' . $clan_name . ' (' . $clan_acronym . ') clan!';
-    
+
     $can_do_again = FALSE;
     return TRUE;
-    
-  }
-  
-  
-  function _celestial_glory_action_join_a_clan_function(&$outcome_reason,
-    $target) {
-    
-    return _stlouis_action_join_a_clan_function($outcome_reason, $target);
-    
+
   }
 
-  
+
+  function _celestial_glory_action_join_a_clan_function(&$outcome_reason,
+    $target) {
+
+    return _stlouis_action_join_a_clan_function($outcome_reason, $target);
+
+  }
+
+
   function _stlouis_action_leave_your_clan_function(&$outcome_reason, $target,
     &$can_do_again) {
-    
+
     global $game, $phone_id;
-    
+
     $fetch_user = '_' . arg(0) . '_fetch_user';
 
     $game_user = $fetch_user();
     include(drupal_get_path('module', $game) . '/game_defs.inc');
     $action_id = arg(3);
     $can_do_again = FALSE;
-  
+
     if (empty($game_user->fkey_clans_id)) { // not a member of a clan
-      
-      $outcome_reason = '<div class="land-failed">' . 
-        t('Not a member of a clan!') . 
+
+      $outcome_reason = '<div class="land-failed">' .
+        t('Not a member of a clan!') .
         '</div><div class="action-effect">You don\'t belong to a clan.&nbsp;
         You cannot leave it.</div>';
-        
+
       return false;
-      
+
     }
-    
+
     $sql = 'select * from clan_members where fkey_users_id = %d;';
     $result = db_query($sql, $game_user->id);
     $item = db_fetch_object($result);
-    
+
     if ($item->is_clan_leader) { // clan leader? delete entire clan
-      
+
       $sure = check_plain($_GET['sure']);
-    
+
       if ($sure != 'yes') {
-        
+
         $outcome_reason = '<div class="subtitle">Are you sure?</div>
           <div class="subsubtitle">
             This dissolves <strong>the entire clan</strong> and cannot be undone!
@@ -408,15 +408,15 @@ mail('joseph@cheek.com', $target_name . ' tried to join a clan',
               $phone_id . '/' . $action_id . '?sure=yes">Yes,  I\'m sure</a>
             </div>
             <div class="try-an-election">
-              <a href="/' . $game . '/actions/' . $phone_id . 
+              <a href="/' . $game . '/actions/' . $phone_id .
               '">No, I\'m not sure</a>
             </div>
           </div>';
-          
+
           return false;
-          
+
       }
-      
+
       $sql = 'delete from clan_messages where fkey_neighborhoods_id = %d;';
       $result = db_query($sql, $game_user->fkey_clans_id);
       $sql = 'delete from clan_members where fkey_clans_id = %d;';
@@ -425,9 +425,9 @@ mail('joseph@cheek.com', $target_name . ' tried to join a clan',
       $result = db_query($sql, $game_user->fkey_clans_id);
       $outcome_reason .= '<div class="action-effect">' .
         t('You have dissolved your clan') . '</div>';
-              
+
     } else {
-      
+
       $sql = 'delete from clan_members where fkey_users_id = %d;';
       $result = db_query($sql, $game_user->id);
       $sql = 'delete from clan_messages where fkey_users_from_id = %d;';
@@ -438,30 +438,30 @@ mail('joseph@cheek.com', $target_name . ' tried to join a clan',
         fkey_neighborhoods_id, message) values (%d, %d, "%s");';
       $message = $game_user->username . ' has left your clan.';
       $result = db_query($sql, $game_user->id, $game_user->fkey_clans_id, $message);
-  
+
       $outcome_reason .= '<div class="action-effect">' .
         t('You have left your clan') . '</div>';
-      
+
     }
-    
+
     return TRUE;
-    
+
   }
-  
-  
+
+
   function _celestial_glory_action_leave_your_clan_function(&$outcome_reason,
     $target) {
-    
+
     return _stlouis_action_leave_your_clan_function($outcome_reason, $target);
-    
+
   }
-  
-  
+
+
   function _stlouis_action_remove_a_clan_member_function(&$outcome_reason,
     $target, &$can_do_again) {
 
     global $game, $phone_id;
-    
+
     $set_value = '_' . $game . '_set_value';
     $fetch_user = '_' . $game . '_fetch_user';
 
@@ -472,40 +472,40 @@ mail('joseph@cheek.com', $target_name . ' tried to join a clan',
 
     $target_name = $target->ep_name . ' ' . $target->username;
     $target_id = $_GET['target'];
-    
+
     $sql = 'select * from clan_members where fkey_users_id = %d;';
     $result = db_query($sql, $target_id);
     $item = db_fetch_object($result);
-    
+
     if ((empty($item)) || ($item->fkey_clans_id != $game_user->fkey_clans_id)) {
 // not a member of any or the same clan
-      
-      $outcome_reason = '<div class="land-failed">' . 
-        t('Not a member of your clan!') . 
-        '</div><div class="action-effect">' . $target_name . 
+
+      $outcome_reason = '<div class="land-failed">' .
+        t('Not a member of your clan!') .
+        '</div><div class="action-effect">' . $target_name .
         ' doesn\'t belong to your clan.&nbsp; You cannot remove him or her.</div>';
-        
+
       return FALSE;
-      
+
     }
 
     if ($item->is_clan_leader) { // clan leader? must dissolve clan instead
-      
-      $outcome_reason = '<div class="land-failed">' . 
-        t('Clan leader!') . 
-        '</div><div class="action-effect">' . $target_name . 
+
+      $outcome_reason = '<div class="land-failed">' .
+        t('Clan leader!') .
+        '</div><div class="action-effect">' . $target_name .
         ' is a clan leader and cannot be removed.</div>';
-        
+
       return FALSE;
 
     }
-      
+
     $sql = 'delete from clan_members where fkey_users_id = %d;';
     $result = db_query($sql, $target_id);
-    
+
     $sql = 'delete from clan_messages where fkey_users_from_id = %d;';
     $result = db_query($sql, $target_id);
-    
+
     $set_value($target_id, 'cant_join_clan', time() + 7200);
 
     $sql = 'insert into clan_messages (fkey_users_from_id,
@@ -513,33 +513,33 @@ mail('joseph@cheek.com', $target_name . ' tried to join a clan',
     $message = $target_name . ' has been forcibly removed from your clan.';
     $result = db_query($sql, $game_user->id, $game_user->fkey_clans_id,
       $message);
-    
-    $outcome_reason .= '<div class="action-effect">' . 
+
+    $outcome_reason .= '<div class="action-effect">' .
       t('@name has been removed from your clan',
       array('@name' => $target_name)) . '</div>';
-     
+
 mail('joseph@cheek.com', $target_name . ' has been forcibly removed',
   'from the clan in which s/he was a member.');
 
     return TRUE;
-    
+
   }
-  
-  
+
+
   function _celestial_glory_action_remove_a_clan_member_function(
     &$outcome_reason, $target) {
-    
+
     return _stlouis_action_remove_a_clan_member_function($outcome_reason,
       $target);
-    
+
   }
-  
-  
+
+
   function _stlouis_action_change_clan_leadership_function(&$outcome_reason,
     $target) {
-    
+
     global $game, $phone_id;
-    
+
     $fetch_user = '_' . arg(0) . '_fetch_user';
 
     $game_user = $fetch_user();
@@ -548,61 +548,61 @@ mail('joseph@cheek.com', $target_name . ' has been forcibly removed',
 
     $target_name = $target->ep_name . ' ' . $target->username;
     $target_id = $_GET['target'];
-    
+
     $sql = 'select * from clan_members where fkey_users_id = %d;';
     $result = db_query($sql, $target_id);
     $item = db_fetch_object($result);
-    
+
     if (empty($item)) { // not a member of a clan
-      
-      $outcome_reason = '<div class="land-failed">' . 
-        t('Not a member of your clan!') . 
-        '</div><div class="action-effect">' . $target_name . 
+
+      $outcome_reason = '<div class="land-failed">' .
+        t('Not a member of your clan!') .
+        '</div><div class="action-effect">' . $target_name .
         ' doesn\'t belong to your clan.&nbsp; You cannot have him or her lead.</div>';
-        
+
       return false;
-      
+
     }
-      
+
     $sql = 'update clan_members set is_clan_leader = 0 where fkey_users_id = %d;';
     $result = db_query($sql, $game_user->id);
 
     $sql = 'update clan_members set is_clan_leader = 1 where fkey_users_id = %d;';
     $result = db_query($sql, $target_id);
-    
+
     $sql = 'insert into clan_messages (fkey_users_from_id,
       fkey_users_to_id, message) values (%d, %d, "%s");';
     $message = $target_name . ' has been named the new leader of the clan.';
     $result = db_query($sql, $game_user->id, $game_user->fkey_clans_id, $message);
-    
-    $outcome_reason .= '<div class="action-effect">' . 
+
+    $outcome_reason .= '<div class="action-effect">' .
       t('@name has made the leader of your clan',
       array('@name' => $target_name)) . '</div>';
-      
+
     return true;
-    
+
   }
-  
-  
+
+
   function _celestial_glory_action_change_clan_leadership_function(&$outcome_reason, $target) {
-    
+
     return _stlouis_action_change_clan_leadership_function($outcome_reason, $target);
-    
+
   }
-  
-  
+
+
   function _stlouis_action_change_clan_rules_function(&$outcome_reason, $target) {
-    
+
     global $game, $phone_id;
-    
+
     $fetch_user = '_' . arg(0) . '_fetch_user';
 
     $game_user = $fetch_user();
     include(drupal_get_path('module', $game) . '/game_defs.inc');
     $action_id = arg(3);
-     
+
     $clan_rules = check_plain($_GET['rules']);
-     
+
     $sql = 'select * from clan_members where fkey_users_id = %d;';
 // limited to 1 in db
     $result = db_query($sql, $game_user->id);
@@ -610,18 +610,18 @@ mail('joseph@cheek.com', $target_name . ' has been forcibly removed',
 firep($item);
 
     if ($item->is_clan_leader != 1) { // not clan leader
-      
-      $outcome_reason = '<div class="land-failed">' . 
-        t('Not clan leader!') . 
+
+      $outcome_reason = '<div class="land-failed">' .
+        t('Not clan leader!') .
         '</div><div class="action-effect">You are not the clan leader.&nbsp;
         You cannot perform this action.</div>';
-        
+
       return false;
-      
+
     }
-    
+
     if (empty($clan_rules)) { // ask for rules
-      
+
       $sql = 'select rules from clans where id = %d;';
 // limited to 1 in db
     $result = db_query($sql, $game_user->fkey_clans_id);
@@ -638,48 +638,48 @@ firep($item);
 EOF;
 
       return false;
-  
+
     } // no new rules
-    
+
     $sql = 'update clans set rules = "%s"
       where id = %d;';
     $result = db_query($sql, $clan_rules, $game_user->fkey_clans_id);
-    
+
     $sql = 'insert into clan_messages (fkey_users_from_id,
       fkey_users_to_id, message) values
       (%d, (select id from clans where acronym = "%s"), "%s");';
     $message = 'The clan rules have changed.&nbsp; Please read them at your
       earliest convenience.';
     $result = db_query($sql, $game_user->id, $clan_acronym, $message);
-    
+
     $outcome_reason .= '<div class="action-effect">The clan rules have
       successfully been changed.';
-    
+
     return true;
-    
+
   }
-  
-  
+
+
   function _celestial_glory_action_change_clan_rules_function(&$outcome_reason,
     $target) {
-    
+
       return _stlouis_action_change_clan_rules_function($outcome_reason,
         $target);
-      
+
   }
-  
-  
+
+
   function _stlouis_action_write_on_a_billboard_function(&$outcome_reason,
     $target) {
-    
+
     global $game, $phone_id;
-    
+
     $fetch_user = '_' . arg(0) . '_fetch_user';
 
     $game_user = $fetch_user();
     include(drupal_get_path('module', $game) . '/game_defs.inc');
     $action_id = arg(3);
-     
+
     $welcome_msg = check_plain($_GET['welcome_msg']);
     $welcome_msg = _stlouis_filter_profanity($welcome_msg);
 firep('welcome message = ' . $welcome_msg);
@@ -691,27 +691,27 @@ firep('welcome message = ' . $welcome_msg);
 firep($item);
 /*
     if ($item->fkey_elected_positions_id != 1) { // not Alderman // FIXME hardcoded ep_id
-      
-      $outcome_reason = '<div class="land-failed">' . 
-        t('Not Alderman!') . 
+
+      $outcome_reason = '<div class="land-failed">' .
+        t('Not Alderman!') .
         '</div><div class="action-effect">You are not the Alderman.&nbsp;
         You cannot perform this action.</div>';
-        
+
       return false;
-      
+
     }
 */
     $error = '';
     if (substr($welcome_msg, 0, 3) == 'XXX') {
-    
+
        $error = '<div class="message-error">Your message contains words that are not
           allowed.&nbsp; Please rephrase.&nbsp; ' . $welcome_msg . '</div>';
         $welcome_msg = '';
-    
+
     }
-       
+
     if ($welcome_msg == '') { // ask for message
-      
+
       $sql = 'select welcome_msg from neighborhoods where id = %d;';
 // limited to 1 in db
       $result = db_query($sql, $game_user->fkey_neighborhoods_id);
@@ -730,9 +730,9 @@ firep($item);
 EOF;
 
       return false;
-  
+
     } // no new msg
-    
+
     $sql = 'update neighborhoods set welcome_msg = "%s"
       where id = %d;';
     $result = db_query($sql, $welcome_msg, $game_user->fkey_neighborhoods_id);
@@ -744,21 +744,21 @@ EOF;
 
     $outcome_reason .= '<div class="action-effect">The sign has been
       successfully created.';
-    
+
     return true;
-    
+
   }
-  
-  
+
+
   function _stlouis_action_change_clan_password_function(&$outcome_reason,
     $target) {
-    
+
     global $game, $phone_id;
     $game_user = _stlouis_fetch_user();
     $action_id = arg(3);
-     
+
     $clan_password = trim(check_plain($_GET['password']));
-     
+
     $sql = 'select * from clan_members where fkey_users_id = %d;';
 // limited to 1 in db
     $result = db_query($sql, $game_user->id);
@@ -766,18 +766,18 @@ EOF;
 firep($item);
 
     if ($item->is_clan_leader != 1) { // not clan leader
-      
-      $outcome_reason = '<div class="land-failed">' . 
-        t('Not clan leader!') . 
+
+      $outcome_reason = '<div class="land-failed">' .
+        t('Not clan leader!') .
         '</div><div class="action-effect">You are not the clan leader.&nbsp;
         You cannot perform this action.</div>';
-        
+
       return false;
-      
+
     }
-    
+
     if (empty($clan_password)) { // ask for password
-      
+
       $sql = 'select password from clans where id = %d;';
 // limited to 1 in db
        $result = db_query($sql, $game_user->fkey_clans_id);
@@ -795,32 +795,32 @@ firep($item);
 EOF;
 
       return false;
-  
+
     } // no new password
 
     if (strtolower($clan_password) == 'delete') $clan_password = '';
-    
+
     $sql = 'update clans set password = "%s"
       where id = %d;';
     $result = db_query($sql, $clan_password, $game_user->fkey_clans_id);
-    
+
     $sql = 'insert into clan_messages (fkey_users_from_id,
       fkey_users_to_id, message) values
       (%d, (select id from clans where acronym = "%s"), "%s");';
     $message = 'Notice: the clan password has changed.';
     $result = db_query($sql, $game_user->id, $clan_acronym, $message);
-    
+
     $outcome_reason .= '<div class="action-effect">The clan password has
       successfully been changed.';
-    
+
     return true;
-    
+
   }
 
-  
+
   function _stlouis_action_declare_someone_persona_non_grata_function(&$outcome_reason,
     $target, &$can_do_again) {
-    
+
     global $game, $phone_id;
     $fetch_user = '_' . arg(0) . '_fetch_user';
     $game_user = $fetch_user();
@@ -841,7 +841,7 @@ EOF;
       return FALSE;
 
     }
-    
+
     $sql = 'SELECT elected_positions.name as ep_name,
       elected_positions.type as ep_type
       FROM `users`
@@ -867,32 +867,32 @@ EOF;
 
     if ($ep_type == 1) $actions_required = min($actions_required, 35);
 // actions cap of 35 for alderman
-  
+
     if ($game_user->actions < $actions_required) { // not enough actions
-      
-      $outcome_reason = '<div class="land-failed">' . 
-        t('Not enough Action!') . 
+
+      $outcome_reason = '<div class="land-failed">' .
+        t('Not enough Action!') .
         '</div><div class="action-effect">You do not have enough Action to
         declare this Level ' . $target_user->level .
         ' player <em>persona non grata</em>.</div>';
-        
+
       $outcome_reason .= '<div class="try-an-election-wrapper"><div
         class="try-an-election"><a href="/' . $game . '/elders_do_fill/' .
         $phone_id . '/action?destination=/' .  $game . '/actions/' . $phone_id .
         '">Refill your Action (1&nbsp;Luck)</a></div></div>';
-        
+
       return FALSE;
-      
+
     }
-    
+
     if ($game_user->money < $money_required) { // not enough money
-      
-      $outcome_reason = '<div class="land-failed">' . 
-        t('Not enough @value', array('@value' => $game_user->values)) . 
-        '</div><div class="action-effect">You do not have enough ' . 
+
+      $outcome_reason = '<div class="land-failed">' .
+        t('Not enough @value', array('@value' => $game_user->values)) .
+        '</div><div class="action-effect">You do not have enough ' .
         $game_user->values . ' to declare this Level ' . $target_user->level .
         ' player <em>persona non grata</em>.</div>';
-        
+
       $offer = ($game_user->income - $game_user->expenses) * 5;
       $offer = min($offer, $game_user->level * 1000);
       $offer = max($offer, $game_user->level * 100);
@@ -904,7 +904,7 @@ EOF;
         ' (1&nbsp;Luck)</a></div></div>';
 
       return FALSE;
-      
+
     }
 
     $sql = "select name from neighborhoods where id = '%d';";
@@ -915,7 +915,7 @@ EOF;
 // can't boot zombies
 
     if ($target_user->meta == 'zombie') {
-    
+
       $outcome_reason = '<div class="land-failed">' .
         t('Action Failed!') .
         '</div><div class="action-effect">Zombies do not respect political
@@ -928,8 +928,8 @@ EOF;
 // add message to user
     $sql = 'insert into user_messages (fkey_users_from_id,
       fkey_users_to_id, message) values (%d, %d, "%s");';
-    $message = $ep_name . ' ' . $game_user->username . ' has declared you 
-      persona non grata.  You have been kicked out of ' . $location . '.'; 
+    $message = $ep_name . ' ' . $game_user->username . ' has declared you
+      persona non grata.  You have been kicked out of ' . $location . '.';
 
     if ($game == 'celestial_glory') {
 
@@ -953,14 +953,14 @@ EOF;
     } // game is CG
 
     $result = db_query($sql, $game_user->id, $target_id, $message);
-    
+
 // move user, empty Action
     $sql = 'update users set fkey_neighborhoods_id =
       (select fkey_neighborhoods_id from `values` where id = %d),
       actions = 0
       where id = %d;';
     $result = db_query($sql, $target_user->fkey_values_id, $target_id);
-    
+
 // deduct your Action, money
     $sql = 'update users
       set actions = actions - %d, money = money - %d
@@ -975,38 +975,38 @@ EOF;
 
     $outcome_reason .= '<div class="action-effect">' . $target_user->username .
       ' has been returned to his or her home neighborhood.';
-    
+
     return TRUE;
-    
+
   }
-  
+
 
   function _celestial_glory_action_run_someone_out_of_the_region_function(&$outcome_reason,
     $target, &$can_do_again) {
-    
+
     return _stlouis_action_declare_someone_persona_non_grata_function($outcome_reason,
       $target, $can_do_again);
-    
+
   }
 
 
   function _stlouis_action_roll_call_function(&$outcome_reason, $target) {
-    
+
     global $game, $phone_id;
-    
+
     $fetch_user = '_' . arg(0) . '_fetch_user';
 
     $game_user = $fetch_user();
     include(drupal_get_path('module', $game) . '/game_defs.inc');
     $action_id = arg(3);
-     
+
     $sql = "select name from neighborhoods where id = '%d';";
     $result = db_query($sql, $game_user->fkey_neighborhoods_id);
     $data = db_fetch_object($result);
     $location = $data->name;
-     
+
     $data = array();
-    $sql = 'SELECT username, experience, initiative, endurance, 
+    $sql = 'SELECT username, experience, initiative, endurance,
       elocution, debates_won, debates_lost, skill_points, luck,
       debates_last_time, users.fkey_values_id, level, phone_id,
       `values`.clan_title, `values`.clan_icon,
@@ -1017,28 +1017,28 @@ EOF;
       clans.name as clan_name, clans.acronym as clan_acronym,
       clans.rules as clan_rules,
       neighborhoods.name as location
-      
+
       FROM `users`
-      
+
       LEFT JOIN `values` ON users.fkey_values_id = `values`.id
-      
+
       LEFT OUTER JOIN elected_officials
       ON elected_officials.fkey_users_id = users.id
-      
+
       LEFT OUTER JOIN elected_positions
       ON elected_positions.id = elected_officials.fkey_elected_positions_id
-      
+
       LEFT OUTER JOIN clan_members on clan_members.fkey_users_id = users.id
-      
+
       LEFT OUTER JOIN clans on clan_members.fkey_clans_id = clans.id
-      
+
       LEFT JOIN neighborhoods on users.fkey_neighborhoods_id = neighborhoods.id
-      
-      where ( users.actions_next_gain > "%s" OR users.energy_next_gain > "%s" ) 
+
+      where ( users.actions_next_gain > "%s" OR users.energy_next_gain > "%s" )
       and users.fkey_neighborhoods_id = %d
       and username <> ""
       ORDER by users.experience DESC;';
-    
+
     $result = db_query($sql, date('Y-m-d', time() - 1728000),
       date('Y-m-d', time() - 1728000), $game_user->fkey_neighborhoods_id);
     while ($item = db_fetch_object($result)) $data[] = $item;
@@ -1054,40 +1054,40 @@ EOF;
 </div>
 <div class="elections">
 EOF;
-  
+
     foreach ($data as $item) {
 firep($item);
 
       $username = $item->username;
       if (empty($username)) $username = '<em>Anonymous</em>';
-      
+
       if ($item->id == $game_user->id) {
         $clan_class = 'election-details me';
       } else {
         $clan_class = 'election-details';
       }
-      
+
       $action_class = '';
       $official_link = $item->ep_name;
       $clan_class = 'election-details';
-      
+
       if ($item->can_broadcast_to_party)
         $official_link .= '<div class="can-broadcast-to-party">*</div>';
-        
+
        $official_link .= '<br/><a href="/' . $game . '/user/' .
          $phone_id . '/' . $item->phone_id . '"><em>' . $username . '</em></a>';
-  
+
        $experience = $item->experience;
       $clan_acronym = '';
-  
+
       if (!empty($item->clan_acronym))
         $clan_acronym = "($item->clan_acronym)";
-        
+
       if ($item->is_clan_leader)
         $clan_acronym .= '*';
-        
+
       $icon = $game . '_clan_' . $item->clan_icon . '.png';
-  
+
       $outcome_reason .=<<< EOF
       <div class="$clan_class">
   <div class="clan-icon"><img
@@ -1098,38 +1098,38 @@ firep($item);
     Level $item->level</div>
 </div>
 EOF;
-  
+
     } // foreach position
-      
+
     return true;
-    
+
   }
 
-  
+
   function _celestial_glory_action_take_a_census_function(&$outcome_reason, $target) {
-    
+
     return _stlouis_action_roll_call_function($outcome_reason, $target);
-    
+
   }
-  
+
 
   function _stlouis_action_ping_function(&$outcome_reason, $target) {
-    
+
     global $game, $phone_id;
-    
+
     $fetch_user = '_' . arg(0) . '_fetch_user';
 
     $game_user = $fetch_user();
     include(drupal_get_path('module', $game) . '/game_defs.inc');
     $action_id = arg(3);
-     
+
     $sql = "select name from neighborhoods where id = '%d';";
     $result = db_query($sql, $game_user->fkey_neighborhoods_id);
     $data = db_fetch_object($result);
     $location = $data->name;
-     
+
     $data = array();
-    $sql = 'SELECT username, experience, initiative, endurance, 
+    $sql = 'SELECT username, experience, initiative, endurance,
       elocution, debates_won, debates_lost, skill_points, luck,
       debates_last_time, users.fkey_values_id, level, phone_id,
       `values`.clan_title, `values`.clan_icon,
@@ -1140,28 +1140,28 @@ EOF;
       clans.name as clan_name, clans.acronym as clan_acronym,
       clans.rules as clan_rules,
       neighborhoods.name as location
-      
+
       FROM `users`
-      
+
       LEFT JOIN `values` ON users.fkey_values_id = `values`.id
-      
+
       LEFT OUTER JOIN elected_officials
       ON elected_officials.fkey_users_id = users.id
-      
+
       LEFT OUTER JOIN elected_positions
       ON elected_positions.id = elected_officials.fkey_elected_positions_id
-      
+
       LEFT OUTER JOIN clan_members on clan_members.fkey_users_id = users.id
-      
+
       LEFT OUTER JOIN clans on clan_members.fkey_clans_id = clans.id
-      
+
       LEFT JOIN neighborhoods on users.fkey_neighborhoods_id = neighborhoods.id
-      
-      where ( users.actions_next_gain > "%s" OR users.energy_next_gain > "%s" ) 
+
+      where ( users.actions_next_gain > "%s" OR users.energy_next_gain > "%s" )
       and users.fkey_values_id = %d
       and username <> ""
       ORDER by users.experience DESC;';
-    
+
     $result = db_query($sql, date('Y-m-d', time() - 1200),
       date('Y-m-d', time() - 1200), $game_user->fkey_values_id);
     while ($item = db_fetch_object($result)) $data[] = $item;
@@ -1177,40 +1177,40 @@ EOF;
 </div>
 <div class="elections">
 EOF;
-  
+
     foreach ($data as $item) {
 firep($item);
 
       $username = $item->username;
       if (empty($username)) $username = '<em>Anonymous</em>';
-      
+
       if ($item->id == $game_user->id) {
         $clan_class = 'election-details me';
       } else {
         $clan_class = 'election-details';
       }
-      
+
       $action_class = '';
       $official_link = $item->ep_name;
       $clan_class = 'election-details';
-      
+
       if ($item->can_broadcast_to_party)
         $official_link .= '<div class="can-broadcast-to-party">*</div>';
-        
+
        $official_link .= '<br/><a href="/' . $game . '/user/' .
          $phone_id . '/' . $item->phone_id . '"><em>' . $username . '</em></a>';
-  
+
        $experience = $item->experience;
       $clan_acronym = '';
-  
+
       if (!empty($item->clan_acronym))
         $clan_acronym = "($item->clan_acronym)";
-        
+
       if ($item->is_clan_leader)
         $clan_acronym .= '*';
-        
+
       $icon = $game . '_clan_' . $item->clan_icon . '.png';
-  
+
       $outcome_reason .=<<< EOF
       <div class="$clan_class">
   <div class="clan-icon"><img
@@ -1221,17 +1221,17 @@ firep($item);
     Level $item->level</div>
 </div>
 EOF;
-  
+
     } // foreach position
-      
+
     return true;
-    
+
   }
 
-  
+
   function _celestial_glory_action_fill_out_your_family_tree_function(&$outcome_reason,
     $target) {
-    
+
     global $game, $phone_id;
 
     $fetch_user = '_' . arg(0) . '_fetch_user';
@@ -1244,20 +1244,20 @@ EOF;
     $sql = 'update users set family_members_found = family_members_found + 1,
       experience = experience + %d where id = %d;';
     $result = db_query($sql, floor(sqrt($game_user->initiative)), $game_user->id);
-    
-    $outcome_reason .= '<div class="action-effect">You have now found and recorded ' . 
+
+    $outcome_reason .= '<div class="action-effect">You have now found and recorded ' .
       ($game_user->family_members_found + 1) . ' family members!';
     $outcome_reason .= '<div class="action-effect">You gain a bonus of ' .
       floor(sqrt($game_user->initiative)) . ' ' . $experience;
-    
+
     return true;
-    
+
   }
-  
-  
+
+
 function _celestial_glory_action_bear_your_testimony_function(&$outcome_reason,
     $target) {
-    
+
     global $game, $phone_id;
 
     $fetch_user = '_' . arg(0) . '_fetch_user';
@@ -1269,17 +1269,17 @@ function _celestial_glory_action_bear_your_testimony_function(&$outcome_reason,
     $bonus = mt_rand(5,25);
     $sql = 'update users set money = money + %d where id = %d;';
     $result = db_query($sql, $bonus, $game_user->id);
-    
+
     $outcome_reason .= '<div class="action-effect">Your ' . $game_user->values .
       ' is increased by ' . $bonus . '</div>';
-    
+
     return true;
-    
+
   }
-  
+
   function _stlouis_action_steal_some_value_function(&$outcome_reason,
     $target) {
-    
+
     global $game, $phone_id;
 
     $fetch_user = '_' . arg(0) . '_fetch_user';
@@ -1289,18 +1289,18 @@ function _celestial_glory_action_bear_your_testimony_function(&$outcome_reason,
 //    $action_id = arg(3);
     $sql = 'update users set karma = karma - 5 where id = %d;';
     $result = db_query($sql, $game_user->id);
-    
+
     $sql = 'update users set debates_last_time = "%s" where id = %d;';
     $result = db_query($sql, date('Y-m-d H:i:s', time()), $game_user->id);
-    
+
     return true;
-    
+
   }
-  
-  
+
+
   function _stlouis_action_erase_your_wall_function(&$outcome_reason,
     $target) {
-    
+
     global $game, $phone_id;
 
     $fetch_user = '_' . arg(0) . '_fetch_user';
@@ -1312,7 +1312,7 @@ function _celestial_glory_action_bear_your_testimony_function(&$outcome_reason,
     $sure = check_plain($_GET['sure']);
 
     if ($sure != 'yes') {
-      
+
       $outcome_reason = '<div class="subtitle">Are you sure?</div>
         <div class="subsubtitle">
           This deletes <strong>all messages</strong> and cannot be undone!
@@ -1323,24 +1323,24 @@ function _celestial_glory_action_bear_your_testimony_function(&$outcome_reason,
             $arg2 . '/' . $action_id . '?sure=yes">Yes,  I\'m sure</a>
           </div>
           <div class="try-an-election">
-            <a href="/' . $game . '/actions/' . $phone_id . 
+            <a href="/' . $game . '/actions/' . $phone_id .
             '">No, I\'m not sure</a>
           </div>
         </div>';
-        
+
         return false;
-        
+
     }
 
     $sql = 'delete from user_messages where fkey_users_to_id = %d;';
     $result = db_query($sql, $game_user->id);
-    
+
     return true;
-    
+
   }
-  
+
   function _stlouis_action_give_luck_to_a_clan_member_function(&$outcome_reason, $target) {
-    
+
     global $game, $phone_id;
     $game_user = _stlouis_fetch_user();
     $action_id = arg(3);
@@ -1351,26 +1351,26 @@ function _celestial_glory_action_bear_your_testimony_function(&$outcome_reason,
     if ((substr($phone_id, 0, 3) == 'sdk') ||
       (strpos($_SERVER['HTTP_USER_AGENT'], 'vm Build/MASTER') !== FALSE) ||
       (strpos($_SERVER['HTTP_USER_AGENT'], 'sdk Build') !== FALSE)) {
-      
-      $outcome_reason = '<div class="land-failed">' . t('Sorry!') . 
+
+      $outcome_reason = '<div class="land-failed">' . t('Sorry!') .
         '</div><div class="action-effect">SDK users cannot give Luck.</div>';
-        
+
       return FALSE;
-      
+
     }
-    
+
     if ($game_user->luck < 20) { // not enough luck
-      
-      $outcome_reason = '<div class="land-failed">' . 
-        t('Not enough Luck!') . 
+
+      $outcome_reason = '<div class="land-failed">' .
+        t('Not enough Luck!') .
         '</div><div class="action-effect">You do not have 10 extra Luck to give</div>';
-        
+
       return false;
-      
+
     }
-      
+
     if ($sure != 'yes') {
-      
+
       $outcome_reason = '<div class="subtitle">Are you sure?</div>
         <div class="subsubtitle">
           This gives 10 of your Luck and cannnot be undone!
@@ -1378,20 +1378,20 @@ function _celestial_glory_action_bear_your_testimony_function(&$outcome_reason,
         <div class="try-an-election-wrapper">
           <div class="try-an-election">
             <a href="/' . $game . '/actions_do/' .
-            $phone_id . '/' . $action_id . '?target=' . $target_id . 
+            $phone_id . '/' . $action_id . '?target=' . $target_id .
             '&sure=yes">Yes,  I\'m sure</a>
           </div>
           <div class="try-an-election">
-            <a href="/' . $game . '/actions/' . $phone_id . 
+            <a href="/' . $game . '/actions/' . $phone_id .
             '">No, I\'m not sure</a>
           </div>
         </div>';
-        
+
         return FALSE;
-        
+
     }
 
-    $sql = 'insert into challenge_history 
+    $sql = 'insert into challenge_history
         (type, fkey_from_users_id, fkey_to_users_id, fkey_neighborhoods_id,
         fkey_elected_positions_id, won, desc_short, desc_long) values
         ("gift", %d, %d, %d, %d, %d, "%s", "%s");';
@@ -1404,19 +1404,19 @@ function _celestial_glory_action_bear_your_testimony_function(&$outcome_reason,
 
     $sql = 'update users set luck = luck + 10 where id = %d;';
     $result = db_query($sql, $target_id);
-    
-    $outcome_reason .= '<div class="action-effect">' . 
+
+    $outcome_reason .= '<div class="action-effect">' .
       t('You have transferred 10 of your Luck to @name',
       array('@name' => $target_name)) . '</div>';
-      
+
     return true;
-    
+
   }
-  
+
 
   function _celestial_glory_action_eat_some_food_function(&$outcome_reason,
     $target) {
-    
+
     global $game, $phone_id;
 
     $fetch_user = '_' . arg(0) . '_fetch_user';
@@ -1429,29 +1429,29 @@ function _celestial_glory_action_bear_your_testimony_function(&$outcome_reason,
 // calculate energy bonus
     $energy_bonus = 10 + $game_user->ep_energy_bonus +
       $game_user->eq_energy_increase + $game_user->st_energy_increase;
-    if (!empty($game_user->fkey_clans_id)) $energy_bonus++; // bonus for joining a clan 
+    if (!empty($game_user->fkey_clans_id)) $energy_bonus++; // bonus for joining a clan
 
     $sql = 'update users set energy = energy + %d where id = %d;';
     $result = db_query($sql, $energy_bonus, $game_user->id);
-    
-    $outcome_reason .= '<div class="action-effect">' . 
+
+    $outcome_reason .= '<div class="action-effect">' .
       t('You have eaten and feel more energetic') . '</div><div class="action-effect">' .
       t('(You gained @energy energy)', array('@energy' => $energy_bonus)) . '</div>';
-    
+
     return true;
-    
+
   }
 
-  
+
   function _celestial_glory_action_fast_and_pray_function(&$outcome_reason,
     $target) {
-    
+
     global $game, $phone_id;
 
     $fetch_user = '_' . arg(0) . '_fetch_user';
     $game_user = $fetch_user();
-    
-    $sql = 'insert into challenge_history 
+
+    $sql = 'insert into challenge_history
       (type, fkey_from_users_id, fkey_to_users_id, fkey_neighborhoods_id,
       fkey_elected_positions_id, won, desc_short, desc_long) values
       ("fasting", %d, %d, %d, %d, %d, "%s", "%s");';
@@ -1460,22 +1460,22 @@ function _celestial_glory_action_bear_your_testimony_function(&$outcome_reason,
       "$game_user->username fasted and prayed.",
       "$game_user->username fasted and prayed.");
 
-    $outcome_reason .= '<div class="action-effect">' . 
+    $outcome_reason .= '<div class="action-effect">' .
       t('You feel closer to God.') . '</div>';
-    
+
     return true;
-    
+
   }
 
-  
+
   function _stlouis_action_throw_eggs_function(&$outcome_reason,
     $target) {
-    
+
     global $game, $phone_id;
 
     $fetch_user = '_' . arg(0) . '_fetch_user';
     $game_user = $fetch_user();
-    
+
     $target_name = $target->ep_name . ' ' . $target->username;
     $target_id = $_GET['target'] + 0;
 
@@ -1488,7 +1488,7 @@ function _celestial_glory_action_bear_your_testimony_function(&$outcome_reason,
       return FALSE;
 
     }
-    
+
 // STL-236 -- no unaffiliated eggings
     if ($game_user->fkey_values_id == 0) {
 
@@ -1498,8 +1498,8 @@ function _celestial_glory_action_bear_your_testimony_function(&$outcome_reason,
       return FALSE;
 
     }
-    
-    $sql = 'insert into challenge_history 
+
+    $sql = 'insert into challenge_history
       (type, fkey_from_users_id, fkey_to_users_id, fkey_neighborhoods_id,
       fkey_elected_positions_id, won, desc_short, desc_long) values
       ("egging", %d, %d, %d, %d, %d, "%s", "%s");';
@@ -1508,17 +1508,17 @@ function _celestial_glory_action_bear_your_testimony_function(&$outcome_reason,
       "$game_user->username egged $target_name.",
       "$game_user->username egged $target_name.");
 
-    $outcome_reason .= '<div class="action-effect">' . 
+    $outcome_reason .= '<div class="action-effect">' .
       t('What a smell!') . '</div>';
-    
+
     return TRUE;
-    
+
   }
 
-  
+
   function _stlouis_action_meet_someone_new_function(&$outcome_reason,
     $target, &$can_do_again) {
-    
+
     global $game, $phone_id;
 
     $fetch_user = '_' . arg(0) . '_fetch_user';
@@ -1555,7 +1555,7 @@ function _celestial_glory_action_bear_your_testimony_function(&$outcome_reason,
 
   function _celestial_glory_action_stone_an_official_function(&$outcome_reason,
     $target) {
-    
+
     global $game, $phone_id;
 
     $fetch_user = '_' . arg(0) . '_fetch_user';
@@ -1575,8 +1575,8 @@ function _celestial_glory_action_bear_your_testimony_function(&$outcome_reason,
       return FALSE;
 
     }
-    
-    $sql = 'insert into challenge_history 
+
+    $sql = 'insert into challenge_history
       (type, fkey_from_users_id, fkey_to_users_id, fkey_neighborhoods_id,
       fkey_elected_positions_id, won, desc_short, desc_long) values
       ("stoning", %d, %d, %d, %d, %d, "%s", "%s");';
@@ -1585,36 +1585,36 @@ function _celestial_glory_action_bear_your_testimony_function(&$outcome_reason,
       "$game_user->username stoned $target_name.",
       "$game_user->username stoned $target_name.");
 
-    $outcome_reason .= '<div class="action-effect">' . 
+    $outcome_reason .= '<div class="action-effect">' .
       t('Ouch!') . '</div>';
-    
+
     return true;
-    
+
   }
 
-  
+
   function _stlouis_action_spread_gossip_function(&$outcome_reason,
     $target, &$can_do_again) {
-    
+
     global $game, $phone_id;
 
     $fetch_user = '_' . arg(0) . '_fetch_user';
     $game_user = $fetch_user();
-    
+
     $target_name = $target->ep_name . ' ' . $target->username;
     $target_id = check_plain($_GET['target']) + 0;
-    
+
 // been booted?  fail the gossip
     if ($game_user->fkey_neighborhoods_id != $target->fkey_neighborhoods_id) {
-      
-      $outcome_reason .= '<div class="action-effect">' . 
+
+      $outcome_reason .= '<div class="action-effect">' .
         t('Sorry!&nbsp; You are no longer in this neighborhood') . '</div>';
-        
+
       return false;
-      
+
     }
-    
-    $sql = 'insert into challenge_history 
+
+    $sql = 'insert into challenge_history
       (type, fkey_from_users_id, fkey_to_users_id, fkey_neighborhoods_id,
       fkey_elected_positions_id, won, desc_short, desc_long) values
       ("gossip", %d, %d, %d, %d, %d, "%s", "%s");';
@@ -1623,16 +1623,16 @@ function _celestial_glory_action_bear_your_testimony_function(&$outcome_reason,
       "$game_user->username gossiped about $target_name.",
       "$game_user->username gossiped about $target_name.");
 
-    $outcome_reason .= '<div class="action-effect">' . 
+    $outcome_reason .= '<div class="action-effect">' .
       t('You wouldn\'t believe what I\'ve heard about ') . $target_name . '</div>';
-    
+
 //    $can_do_again = FALSE;
-    
+
     return true;
-    
+
   }
-  
-  
+
+
   function _celestial_glory_action_spread_gossip_function(&$outcome_reason,
     $target, &$can_do_again) {
 
@@ -1644,12 +1644,12 @@ function _celestial_glory_action_bear_your_testimony_function(&$outcome_reason,
 
   function _stlouis_action_plant_flowers_function(&$outcome_reason,
     $target) {
-    
+
     global $game, $phone_id;
 
     $fetch_user = '_' . arg(0) . '_fetch_user';
     $game_user = $fetch_user();
-    
+
 // STL-236 -- no unaffiliated plantings
     if ($game_user->fkey_values_id == 0) {
 
@@ -1659,8 +1659,8 @@ function _celestial_glory_action_bear_your_testimony_function(&$outcome_reason,
       return FALSE;
 
     }
-    
-    $sql = 'insert into challenge_history 
+
+    $sql = 'insert into challenge_history
       (type, fkey_from_users_id, fkey_to_users_id, fkey_neighborhoods_id,
       fkey_elected_positions_id, won, desc_short, desc_long) values
       ("planting", %d, %d, %d, %d, %d, "%s", "%s");';
@@ -1669,36 +1669,36 @@ function _celestial_glory_action_bear_your_testimony_function(&$outcome_reason,
       "$game_user->username planted.",
       "$game_user->username planted.");
 
-    $outcome_reason .= '<div class="action-effect">' . 
+    $outcome_reason .= '<div class="action-effect">' .
       t('Isn\'t it pretty?') . '</div>';
-    
+
     return TRUE;
-    
+
   }
 
-  
+
   function _stlouis_action_give_to_a_clan_member_function(&$outcome_reason,
     $target, &$can_do_again) {
-    
+
     global $game, $phone_id, $action;
 
     $fetch_user = '_' . arg(0) . '_fetch_user';
     $get_value = '_' . arg(0) . '_get_value';
     $game_user = $fetch_user();
-    
+
     $target_name = $target->ep_name . ' ' . $target->username;
     $target_id = $_GET['target'] + 0;
-    
+
     if ((substr($phone_id, 0, 3) == 'sdk') ||
       $get_value($game_user->id, 'sdk') == 1) {
-      
-      $outcome_reason = '<div class="land-failed">' . t('Sorry!') . 
+
+      $outcome_reason = '<div class="land-failed">' . t('Sorry!') .
         '</div><div class="action-effect">SDK users cannot give Actions.</div>';
 
       return FALSE;
-      
+
     }
-    
+
 // we need to make the target user's actions current
 
     $sql = 'select actions, actions_max, actions_next_gain from users
@@ -1706,64 +1706,64 @@ function _celestial_glory_action_bear_your_testimony_function(&$outcome_reason,
 // limited to 1 in db
     $result = db_query($sql, $target_id);
     $item = db_fetch_object($result);
-    
+
     $actions_next_gain = strtotime($item->actions_next_gain);
     $secs_until = $actions_next_gain - time();
-    
+
 // make actions current -- if this didn't happen, you could give actions to a
 // user that would be swallowed up by time if he was low on actions and not
 // currently playing.
 
     $text = 'User ' . $game_user->username . ' is sending actions to ' .
-      $target_name . ' (currently ' . $item->actions . ' of ' . 
+      $target_name . ' (currently ' . $item->actions . ' of ' .
       $item->actions_max . ' with a next_gain time of ' .
       $item->actions_next_gain . ').';
 
     while (($item->actions < $item->actions_max) &&
       ($secs_until <= 0)) { // do we need actions?
-  
+
       $item->actions++; // add 1 action
       $actions_next_gain += 180; // next add in 3 mins
       $secs_until += 180; // ditto
-  
+
     }
-  
+
     while (($item->actions > $item->actions_max) &&
       ($secs_until <= 0)) { // do we need actions?
-  
+
       $item->actions--; // delete 1 action
       $actions_next_gain += 180; // next add in 3 mins
       $secs_until += 180; // ditto
-  
+
     }
-    
+
 // now current with actions?  bring the date current too.
     if ($item->actions == $item->actions_max) $actions_next_gain = time();
-       
+
     $item->actions_next_gain = date('Y-m-d H:i:s', $actions_next_gain);
     $sql = 'update users set actions = %d, actions_next_gain = "%s"
       where id = %d;';
     $result = db_query($sql, $item->actions, $item->actions_next_gain,
       $target_id);
-  
+
 // too many actions already?  fail.
     if ($item->actions >= $item->actions_max * 50) {
-      
+
       $outcome_reason = '<div class="land-failed">' . t('Thanks for Sharing!') .
         '</div><div class="action-effect">... but ' . $target_name .
         ' has plenty of actions already.</div>';
 
       return FALSE;
-      
+
     }
-    
+
 
 // now save the record of what happened
 
 // if ($game == 'celestial_glory')
 //    mail('joseph@cheek.com', 'CG actions sent!', $text);
-    
-    $sql = 'insert into challenge_history 
+
+    $sql = 'insert into challenge_history
       (type, fkey_from_users_id, fkey_to_users_id, fkey_neighborhoods_id,
       fkey_elected_positions_id, won, desc_short, desc_long) values
       ("gift", %d, %d, %d, %d, %d, "%s", "%s");';
@@ -1772,52 +1772,52 @@ function _celestial_glory_action_bear_your_testimony_function(&$outcome_reason,
       "$game_user->username gave a gift of Action points to $target_name.",
       "$game_user->username gave a gift of $action->actions_change Action " .
       "points to $target_name (currently $item->actions).");
-    
+
     return TRUE;
-    
+
   }
 
 
   function _celestial_glory_action_give_to_a_clan_member_function(
     &$outcome_reason, $target, &$can_do_again) {
-    
+
     return _stlouis_action_give_to_a_clan_member_function($outcome_reason,
     $target, $can_do_again);
-    
+
   }
 
 
   function _stlouis_action_check_for_vandalism_function(&$outcome_reason, $target) {
-    
+
     global $game, $phone_id;
     $game_user = _stlouis_fetch_user();
     $action_id = arg(3);
     $msg_shown = FALSE;
-     
+
     $data = array();
     $sql = 'SELECT challenge_history.*, users.phone_id, users.username,
       elected_positions.name as ep_name,
       clan_members.is_clan_leader,
       clans.acronym as clan_acronym
-    
+
       from challenge_history
-      
+
       left join users on challenge_history.fkey_from_users_id = users.id
-      
+
       LEFT OUTER JOIN elected_officials
       ON elected_officials.fkey_users_id = challenge_history.fkey_from_users_id
-    
+
       LEFT OUTER JOIN elected_positions
       ON elected_positions.id = elected_officials.fkey_elected_positions_id
-      
+
       LEFT OUTER JOIN clan_members on clan_members.fkey_users_id =
       challenge_history.fkey_from_users_id
-    
+
       LEFT OUTER JOIN clans on clan_members.fkey_clans_id = clans.id
-    
+
       where fkey_to_users_id = %d and challenge_history.type = "egging" and timestamp >= "%s"
       order by timestamp DESC;';
-    
+
     $result = db_query($sql, $game_user->id, date('Y-m-d H:i:s', time() - 86400));
     while ($item = db_fetch_object($result)) $data[] = $item;
 
@@ -1827,18 +1827,18 @@ function _celestial_glory_action_bear_your_testimony_function(&$outcome_reason,
     Eggs that have been thrown at your office
   </div>
 EOF;
-  
+
     foreach ($data as $item) {
-    
+
       $display_time = _stlouis_format_date(strtotime($item->timestamp));
       $clan_acronym = '';
-  
+
       if (!empty($item->clan_acronym))
         $clan_acronym = "($item->clan_acronym)";
-      
+
       if ($item->is_clan_leader)
         $clan_acronym .= '*';
-  
+
       $outcome_reason .=<<< EOF
 <div class="dateline">
   $display_time from $item->ep_name $item->username $clan_acronym
@@ -1852,21 +1852,21 @@ EOF;
 EOF;
 
       $msg_shown = TRUE;
-    
+
     }
 
     if (!$msg_shown) $outcome_reason .= 'No eggings found!';
-    
+
     $outcome_reason .= '</div>';
-       
+
     return true;
-    
+
   }
-  
-  
+
+
   function _celestial_glory_action_check_for_stoning_function(&$outcome_reason,
     $target) {
-    
+
     global $game, $phone_id, $action;
 
     $fetch_user = '_' . arg(0) . '_fetch_user';
@@ -1874,32 +1874,32 @@ EOF;
     include(drupal_get_path('module', $game) . '/game_defs.inc');
     $action_id = arg(3);
     $msg_shown = FALSE;
-     
+
     $data = array();
     $sql = 'SELECT challenge_history.*, users.phone_id, users.username,
       elected_positions.name as ep_name,
       clan_members.is_clan_leader,
       clans.acronym as clan_acronym
-    
+
       from challenge_history
-      
+
       left join users on challenge_history.fkey_from_users_id = users.id
-      
+
       LEFT OUTER JOIN elected_officials
       ON elected_officials.fkey_users_id = challenge_history.fkey_from_users_id
-    
+
       LEFT OUTER JOIN elected_positions
       ON elected_positions.id = elected_officials.fkey_elected_positions_id
-      
+
       LEFT OUTER JOIN clan_members on clan_members.fkey_users_id =
       challenge_history.fkey_from_users_id
-    
+
       LEFT OUTER JOIN clans on clan_members.fkey_clans_id = clans.id
-    
+
       where challenge_history.type = "stoning"
       and challenge_history.timestamp >= "%s"
       order by challenge_history.timestamp DESC;';
-    
+
     $result = db_query($sql, date('Y-m-d H:i:s', time() - 28800));
     while ($item = db_fetch_object($result)) $data[] = $item;
 
@@ -1909,18 +1909,18 @@ EOF;
     Stones thrown in your $hood_lower in the past 8 hours
   </div>
 EOF;
-  
+
     foreach ($data as $item) {
-    
+
       $display_time = _stlouis_format_date(strtotime($item->timestamp));
       $clan_acronym = '';
-  
+
       if (!empty($item->clan_acronym))
         $clan_acronym = "($item->clan_acronym)";
-      
+
       if ($item->is_clan_leader)
         $clan_acronym .= '*';
-  
+
       $outcome_reason .=<<< EOF
 <div class="dateline">
   $display_time from $item->ep_name $item->username $clan_acronym
@@ -1934,21 +1934,21 @@ EOF;
 EOF;
 
       $msg_shown = TRUE;
-    
+
     }
 
     if (!$msg_shown) $outcome_reason .= 'No stonings found!';
-    
+
     $outcome_reason .= '</div>';
-       
+
     return true;
-    
+
   }
-  
-  
+
+
   function _celestial_glory_action_check_for_fasting_and_prayer_function(
     &$outcome_reason, $target) {
-    
+
     global $game, $phone_id, $action;
 
     $fetch_user = '_' . arg(0) . '_fetch_user';
@@ -1956,31 +1956,31 @@ EOF;
     include(drupal_get_path('module', $game) . '/game_defs.inc');
     $action_id = arg(3);
     $msg_shown = FALSE;
-     
+
     $data = array();
     $sql = 'SELECT challenge_history.*, users.phone_id, users.username,
       elected_positions.name as ep_name,
       clan_members.is_clan_leader,
       clans.acronym as clan_acronym
-    
+
       from challenge_history
-      
+
       left join users on challenge_history.fkey_from_users_id = users.id
-      
+
       LEFT OUTER JOIN elected_officials
       ON elected_officials.fkey_users_id = challenge_history.fkey_from_users_id
-    
+
       LEFT OUTER JOIN elected_positions
       ON elected_positions.id = elected_officials.fkey_elected_positions_id
-      
+
       LEFT OUTER JOIN clan_members on clan_members.fkey_users_id =
       challenge_history.fkey_from_users_id
-    
+
       LEFT OUTER JOIN clans on clan_members.fkey_clans_id = clans.id
-    
+
       where challenge_history.type = "fasting" and timestamp >= "%s"
       order by timestamp DESC;';
-    
+
     $result = db_query($sql, date('Y-m-d H:i:s', time() - 28800));
     while ($item = db_fetch_object($result)) $data[] = $item;
 
@@ -1990,18 +1990,18 @@ EOF;
     Fasting and prayer in your $hood_lower in the past 8 hours
   </div>
 EOF;
-  
+
     foreach ($data as $item) {
-    
+
       $display_time = _stlouis_format_date(strtotime($item->timestamp));
       $clan_acronym = '';
-  
+
       if (!empty($item->clan_acronym))
         $clan_acronym = "($item->clan_acronym)";
-      
+
       if ($item->is_clan_leader)
         $clan_acronym .= '*';
-  
+
       $outcome_reason .=<<< EOF
 <div class="dateline">
   $display_time from $item->ep_name $item->username $clan_acronym
@@ -2015,52 +2015,52 @@ EOF;
 EOF;
 
       $msg_shown = TRUE;
-    
+
     }
 
     if (!$msg_shown) $outcome_reason .= 'No fasting found!';
-    
+
     $outcome_reason .= '</div>';
-       
+
     return true;
-    
+
   }
-  
-  
+
+
   function _stlouis_action_listen_for_rumors_function(&$outcome_reason,
     $target, &$can_do_again) {
-    
+
     global $game, $phone_id;
     $fetch_user = '_' . arg(0) . '_fetch_user';
     $game_user = $fetch_user();
     $action_id = arg(3);
     $msg_shown = FALSE;
-     
+
     $data = array();
     $sql = 'SELECT challenge_history.*, users.phone_id, users.username,
       elected_positions.name as ep_name,
       clan_members.is_clan_leader,
       clans.acronym as clan_acronym
-    
+
       from challenge_history
-      
+
       left join users on challenge_history.fkey_from_users_id = users.id
-      
+
       LEFT OUTER JOIN elected_officials
       ON elected_officials.fkey_users_id = challenge_history.fkey_from_users_id
-    
+
       LEFT OUTER JOIN elected_positions
       ON elected_positions.id = elected_officials.fkey_elected_positions_id
-      
+
       LEFT OUTER JOIN clan_members on clan_members.fkey_users_id =
       challenge_history.fkey_from_users_id
-    
+
       LEFT OUTER JOIN clans on clan_members.fkey_clans_id = clans.id
-    
+
       where fkey_to_users_id = %d and challenge_history.type = "gossip"
       and challenge_history.timestamp >= "%s"
       order by challenge_history.timestamp DESC;';
-    
+
     $result = db_query($sql, $game_user->id, date('Y-m-d H:i:s',
       time() - 86400));
     while ($item = db_fetch_object($result)) $data[] = $item;
@@ -2071,18 +2071,18 @@ EOF;
     Rumors around town
   </div>
 EOF;
-  
+
     foreach ($data as $item) {
-    
+
       $display_time = _stlouis_format_date(strtotime($item->timestamp));
       $clan_acronym = '';
-  
+
       if (!empty($item->clan_acronym))
         $clan_acronym = "($item->clan_acronym)";
-      
+
       if ($item->is_clan_leader)
         $clan_acronym .= '*';
-  
+
       $outcome_reason .=<<< EOF
 <div class="dateline">
   $display_time from $item->ep_name $item->username $clan_acronym
@@ -2096,18 +2096,18 @@ EOF;
 EOF;
 
       $msg_shown = TRUE;
-    
+
     }
 
     if (!$msg_shown) $outcome_reason .= 'No rumors found!';
-    
+
     $outcome_reason .= '</div>';
-       
+
     return true;
-    
+
   }
-  
-  
+
+
   function _celestial_glory_action_eavesdrop_function(&$outcome_reason,
     $target, &$can_do_again) {
 
@@ -2116,45 +2116,45 @@ EOF;
 
   }
 
-    
+
   function _stlouis_action_count_your_benefactors_function(&$outcome_reason,
     $target, &$can_do_again) {
-    
+
     global $game, $phone_id;
     $fetch_user = '_' . arg(0) . '_fetch_user';
     $game_user = $fetch_user();
-    
+
     $target_name = $target->ep_name . ' ' . $target->username;
     $target_id = $_GET['target'] + 0;
-    
+
     $action_id = arg(3);
     $msg_shown = FALSE;
-     
+
     $data = array();
     $sql = 'SELECT challenge_history.*, users.phone_id, users.username,
       elected_positions.name as ep_name,
       clan_members.is_clan_leader,
       clans.acronym as clan_acronym
-    
+
       from challenge_history
-      
+
       left join users on challenge_history.fkey_from_users_id = users.id
-      
+
       LEFT OUTER JOIN elected_officials
       ON elected_officials.fkey_users_id = challenge_history.fkey_from_users_id
-    
+
       LEFT OUTER JOIN elected_positions
       ON elected_positions.id = elected_officials.fkey_elected_positions_id
-      
+
       LEFT OUTER JOIN clan_members on clan_members.fkey_users_id =
       challenge_history.fkey_from_users_id
-    
+
       LEFT OUTER JOIN clans on clan_members.fkey_clans_id = clans.id
-    
+
       where fkey_to_users_id = %d and challenge_history.type = "gift" and
       challenge_history.timestamp >= "%s"
       order by timestamp DESC;';
-    
+
     $result = db_query($sql, $game_user->id,
       date('Y-m-d H:i:s', time() - 86400));
     while ($item = db_fetch_object($result)) $data[] = $item;
@@ -2165,18 +2165,18 @@ EOF;
     List of Benefactors
   </div>
 EOF;
-  
+
     foreach ($data as $item) {
-    
+
       $display_time = _stlouis_format_date(strtotime($item->timestamp));
       $clan_acronym = '';
-  
+
       if (!empty($item->clan_acronym))
         $clan_acronym = "($item->clan_acronym)";
-      
+
       if ($item->is_clan_leader)
         $clan_acronym .= '*';
-  
+
       $outcome_reason .=<<< EOF
 <div class="dateline">
   $display_time from $item->ep_name $item->username $clan_acronym
@@ -2190,15 +2190,15 @@ EOF;
 EOF;
 
       $msg_shown = TRUE;
-    
+
     }
 
     if (!$msg_shown) $outcome_reason .= 'No benefactors found!';
-    
+
     $outcome_reason .= '</div>';
-       
+
     return TRUE;
-    
+
   }
 
 
@@ -2209,29 +2209,29 @@ EOF;
     $target, $can_do_again);
 
   }
-  
+
 
   function _stlouis_action_check_security_cameras_function(&$outcome_reason, $target) {
-    
+
     global $game, $phone_id;
     $fetch_user = '_' . arg(0) . '_fetch_user';
     $game_user = $fetch_user();
     include(drupal_get_path('module', $game) . '/game_defs.inc');
     $action_id = arg(3);
     $msg_shown = FALSE;
-    
+
     if (!_stlouis_check_for_friendly_hood()) {
-    	
-    	$outcome_reason = '<div class="land-failed">' . 
+
+    	$outcome_reason = '<div class="land-failed">' .
         t('Not in a friendly @hood!',
-          array('@hood' => $hood_lower)) . 
+          array('@hood' => $hood_lower)) .
         '</div><div class="action-effect">You must be in friendly territory to
           perform this action.</div>';
-        
+
       return FALSE;
-      
+
     }
-    
+
     $hour_to_show = check_plain($_GET['hour']) + 0;
 
     $sql = 'select quantity from equipment_ownership
@@ -2244,35 +2244,35 @@ EOF;
       elected_positions.name as ep_name,
       clan_members.is_clan_leader,
       clans.acronym as clan_acronym
-    
+
       from challenge_history
-      
+
       left join users on challenge_history.fkey_from_users_id = users.id
-      
+
       LEFT OUTER JOIN elected_officials
       ON elected_officials.fkey_users_id = challenge_history.fkey_from_users_id
-    
+
       LEFT OUTER JOIN elected_positions
       ON elected_positions.id = elected_officials.fkey_elected_positions_id
-      
+
       LEFT OUTER JOIN clan_members on clan_members.fkey_users_id =
       challenge_history.fkey_from_users_id
-    
+
       LEFT OUTER JOIN clans on clan_members.fkey_clans_id = clans.id
-    
+
       where challenge_history.fkey_neighborhoods_id = %d
       and challenge_history.timestamp >= "%s"
       and challenge_history.timestamp <= "%s"
       order by challenge_history.timestamp DESC;';
-    
+
     $result = db_query($sql, $game_user->fkey_neighborhoods_id,
       date('Y-m-d H:i:s', time() - ($hour_to_show * 3600) - 3600),
       date('Y-m-d H:i:s', time() - ($hour_to_show * 3600)));
     while ($item = db_fetch_object($result)) $data[] = $item;
-    
+
     $item->desc_short = 'end';
     $data[] = $item; // hack to force last item to show
-    
+
     if ($hour_to_show == 1) {
     	$hours = 'hour';
     } else {
@@ -2283,7 +2283,7 @@ EOF;
     if ($hour_to_show > 0) {
 
     	$previous_hour = $hour_to_show - 1;
-    	
+
     	$outcome_reason .=<<< EOF
 <div class="try-an-election-wrapper">
   <div class="try-an-election">
@@ -2294,7 +2294,7 @@ EOF;
 EOF;
 
     } else {
-    	
+
     	$outcome_reason .=<<< EOF
 <div class="try-an-election-wrapper">
   <div class="try-an-election not-yet">
@@ -2302,14 +2302,14 @@ EOF;
   </div>
 </div>
 EOF;
-    	
+
     }
-    
+
 // next hour
     if ($hour_to_show < ($num_cameras->quantity - 1)) {
 
       $next_hour = $hour_to_show + 1;
-      
+
       $outcome_reason .=<<< EOF
 <div class="try-an-election-wrapper">
   <div class="try-an-election">
@@ -2320,7 +2320,7 @@ EOF;
 EOF;
 
     } else {
-      
+
       $outcome_reason .=<<< EOF
 <div class="try-an-election-wrapper">
   <div class="try-an-election not-yet">
@@ -2328,9 +2328,9 @@ EOF;
   </div>
 </div>
 EOF;
-      
+
     }
-    
+
     $outcome_reason .=<<< EOF
 <div class="news">
   <div class="messages-title">
@@ -2342,28 +2342,28 @@ EOF;
     $instance_count = 1;
 
     foreach ($data as $item) {
-    
+
       $display_time = _stlouis_format_date(strtotime($item->timestamp));
       $clan_acronym = '';
-  
+
       if (!empty($item->clan_acronym))
         $clan_acronym = "($item->clan_acronym)";
-      
+
       if ($item->is_clan_leader)
         $clan_acronym .= '*';
-  
+
       if ($item->desc_short !== $old_item->desc_short) {
 // new item to display... show it and reset counters
 
       	if ($old_item) { // anything to display?
-      		
+
       		if ($instance_count > 1) {
       			$instance_text = "($instance_count times) ";
       			$time_prefix = 'Starting ';
       		} else {
       			$instance_text = $time_prefix = '';
       		}
-      		
+
           $outcome_reason .=<<< EOF
 <div class="dateline">
   $time_prefix $old_display_time from $old_item->ep_name $old_item->username $old_clan_acronym
@@ -2377,8 +2377,8 @@ EOF;
 EOF;
 
       	} // old item exists?
-      	
-// now display current item      	
+
+// now display current item
 //        $outcome_reason .=<<< EOF
 //<div class="dateline">
 //  $display_time from $item->ep_name $item->username $clan_acronym
@@ -2395,29 +2395,29 @@ EOF;
         $old_item = $item;
         $old_clan_acronym = $clan_acronym;
         $old_display_time = $display_time;
-        
+
       } else { // dup of existing item... abbreviate
 
       	$instance_count++;
-      	
+
       } // new or existing item?
 
       $msg_shown = TRUE;
-    
+
     }
 
     if (!$msg_shown) $outcome_reason .= 'Nothing found!';
-    
+
     $outcome_reason .= '</div>';
-       
+
     return TRUE;
-    
+
   }
-  
- 
+
+
   function _stlouis_action_expel_a_party_member_function(&$outcome_reason,
     $target, &$can_do_again) {
-    
+
     global $game, $phone_id;
     $arg2 = check_plain(arg(2));
     $action_id = arg(3);
@@ -2430,7 +2430,7 @@ EOF;
 
       $outcome_reason = '<div class="subtitle">Are you sure?</div>
         <div class="subsubtitle">
-          This expels level <strong>' . $target->level . 
+          This expels level <strong>' . $target->level .
           '</strong> <strong>' . $target->username .
           '</strong> and cannot be undone!
         </div>
@@ -2456,32 +2456,32 @@ EOF;
     $result = db_query($sql, $target_id);
     $target_user = db_fetch_object($result);
     $actions_required = $target_user->level;
-  
+
     if ($target_user->fkey_values_id == 0) { // user is already expelled
-     
-      $outcome_reason = '<div class="land-failed">' . 
-        t('Already expelled!') . 
+
+      $outcome_reason = '<div class="land-failed">' .
+        t('Already expelled!') .
         '</div><div class="action-effect">You can\'t expel someone who has
           already been expelled.</div>';
-        
+
       return FALSE;
-      
+
     }
-    
+
     if ($game_user->actions < $actions_required) { // not enough actions
-      
-      $outcome_reason = '<div class="land-failed">' . 
-        t('Not enough Action!') . 
+
+      $outcome_reason = '<div class="land-failed">' .
+        t('Not enough Action!') .
         '</div><div class="action-effect">You do not have enough Action to
           expel this Level ' . $target_user->level . ' player.</div>';
-        
+
       $outcome_reason .= '<div class="try-an-election-wrapper"><div
         class="try-an-election"><a href="/' . $game . '/elders_do_fill/' .
         $phone_id . '/action?destination=/' .  $game . '/actions/' . $phone_id .
         '">Refill your Action (1&nbsp;Luck)</a></div></div>';
-        
+
       return FALSE;
-      
+
     }
 
 // expel succeeds!  save as major action
@@ -2505,8 +2505,8 @@ EOF;
 
     $set_value = '_' . arg(0) . '_set_value';
     $set_value($game_user->id, 'next_major_action', time() + 7200);
-    $set_value($game_user->id, 'cant_challenge', time() + 86400);
-    
+    $set_value($target_id, 'cant_challenge', time() + 86400);
+
     $sql = "select clan_title from `values` where id = '%d';";
     $result = db_query($sql, $game_user->fkey_values_id);
     $data = db_fetch_object($result);
@@ -2516,12 +2516,12 @@ EOF;
 // add message to user
     $sql = 'insert into user_messages (fkey_users_from_id,
       fkey_users_to_id, message) values (%d, %d, "%s");';
-    $message = $ep_name . ' ' . $game_user->username . 
+    $message = $ep_name . ' ' . $game_user->username .
     ' has expelled you from the ' .
-    $data->clan_title . ' ' . $party . '. &nbsp; You have been stripped 
-      of 10% of your influence and of your aides.'; 
+    $data->clan_title . ' ' . $party . '. &nbsp; You have been stripped
+      of 10% of your influence and of your aides.';
     $result = db_query($sql, $game_user->id, $target_id, $message);
-    
+
 // update aides
     $sql = 'update equipment_ownership
       set quantity = ceil(quantity * 0.9) where fkey_users_id = %d;';
@@ -2530,7 +2530,7 @@ EOF;
     $sql = 'update land_ownership
       set quantity = ceil(quantity * 0.9) where fkey_users_id = %d;';
     $result = db_query($sql, $target_id);
-    
+
     $sql = 'update staff_ownership
       set quantity = ceil(quantity * 0.9) where fkey_users_id = %d;';
     $result = db_query($sql, $target_id);
@@ -2540,12 +2540,12 @@ EOF;
     $result = db_query($sql, $target_id);
     $item = db_fetch_object($result);
     $new_experience = ceil($item->experience * 0.9);
-    
+
     $sql = 'SELECT max(level) as new_level from levels where experience <= %d;';
     $result = db_query($sql, $new_experience);
     $item = db_fetch_object($result);
     $new_level = $item->new_level;
-    
+
     $sql = 'SELECT count(quests.id) as bonus FROM `quest_group_completion`
       left outer join quests
       on quest_group_completion.fkey_quest_groups_id = quests.group
@@ -2555,7 +2555,7 @@ EOF;
     $new_skill_points = ($new_level * 4) + $item->bonus - 20;
 
     $values = ($game == 'stlouis') ? 'Greenbacks' : 'No Values';
-    
+
 // update his/her user entry
     $sql = 'update users set fkey_values_id = 0,
       `values` = "%s", level = %d, experience = %d, energy_max = 200,
@@ -2564,7 +2564,7 @@ EOF;
       where id = %d;';
     $result = db_query($sql, $values, $new_level, $new_experience,
       $new_skill_points, $target_id);
-    
+
 // also delete any offices s/he held
     $sql = 'delete from elected_officials where fkey_users_id = %d;';
     $result = db_query($sql, $target_id);
@@ -2573,83 +2573,83 @@ EOF;
     $sql = 'select * from clan_members where fkey_users_id = %d;';
     $result = db_query($sql, $target_id);
     $item = db_fetch_object($result);
-  
+
     if ($item->is_clan_leader) { // clan leader? delete entire clan
-      
+
       $sql = 'delete from clan_messages where fkey_neighborhoods_id = %d;';
       $result = db_query($sql, $item->fkey_clans_id);
       $sql = 'delete from clan_members where fkey_clans_id = %d;';
       $result = db_query($sql, $item->id);
       $sql = 'delete from clans where id = %d;';
       $result = db_query($sql, $item->id);
-      
+
     } else {
-      
+
       $sql = 'delete from clan_members where fkey_users_id = %d;';
       $result = db_query($sql, $target_id);
-      
+
     }
-    
+
 // update income
 
   $sql = 'update users set income =
     (SELECT sum(land.payout * land_ownership.quantity)
-    as income from land 
+    as income from land
     left join land_ownership
     on land_ownership.fkey_land_id = land.id and
     land_ownership.fkey_users_id = %d)
-    where id = %d;';  
+    where id = %d;';
   $result = db_query($sql, $target_id, $target_id);
-  
+
 // update expenses
 
   $sql = 'update users set expenses =
 
     ((SELECT sum(equipment.upkeep * equipment_ownership.quantity)
-    as expenses from equipment 
+    as expenses from equipment
     left join equipment_ownership
     on equipment_ownership.fkey_equipment_id = equipment.id and
     equipment_ownership.fkey_users_id = %d)
-    
+
     +
-    
+
     (SELECT sum(staff.upkeep * staff_ownership.quantity)
-    as expenses from staff 
+    as expenses from staff
     left join staff_ownership
     on staff_ownership.fkey_staff_id = staff.id and
     staff_ownership.fkey_users_id = %d))
-    
-    where id = %d;';  
+
+    where id = %d;';
   $result = db_query($sql, $target_id, $target_id, $target_id);
-   
+
 // deduct your Action
     $sql = 'update users set actions = actions - %d where id = %d;';
     $result = db_query($sql, $actions_required, $game_user->id);
-    
+
     $outcome_reason .= '<div class="action-effect">' . $target_user->username .
       ' has been expelled from your party.</div>';
 
     $can_do_again = FALSE;
-    
+
     return TRUE;
-    
+
   }
 
-  
+
   function _celestial_glory_action_disinherit_function(&$outcome_reason,
     $target, &$can_do_again) {
-    
+
     return _stlouis_action_expel_a_party_member_function($outcome_reason,
       $target, $can_do_again);
 
   }
 
-    
+
   function _stlouis_action_count_your_votes_function(&$outcome_reason, $target,
     &$can_do_again) {
-    
+
     global $game, $phone_id;
-    
+
     $fetch_user = '_' . arg(0) . '_fetch_user';
 
     $game_user = $fetch_user();
@@ -2657,31 +2657,31 @@ EOF;
     $action_id = arg(3);
     $msg_shown = FALSE;
     $can_do_again = FALSE;
-     
+
     $data = array();
     $sql = 'SELECT challenge_history.*, users.phone_id, users.username,
       elected_positions.name as ep_name,
       clan_members.is_clan_leader,
       clans.acronym as clan_acronym
-    
+
       from challenge_history
-      
+
       left join users on challenge_history.fkey_to_users_id = users.id
-      
+
       LEFT OUTER JOIN elected_officials
       ON elected_officials.fkey_users_id = challenge_history.fkey_to_users_id
-    
+
       LEFT OUTER JOIN elected_positions
       ON elected_positions.id = elected_officials.fkey_elected_positions_id
-      
+
       LEFT OUTER JOIN clan_members on clan_members.fkey_users_id =
       challenge_history.fkey_to_users_id
-    
+
       LEFT OUTER JOIN clans on clan_members.fkey_clans_id = clans.id
-    
+
       where fkey_from_users_id = %d and challenge_history.type = "election"
       order by timestamp DESC limit 1;';
-    
+
     $result = db_query($sql, $game_user->id, date('Y-m-d H:i:s', time() - 86400));
     while ($item = db_fetch_object($result)) $data[] = $item;
 
@@ -2691,21 +2691,21 @@ EOF;
     Detailed Election Results
   </div>
 EOF;
-  
+
     foreach ($data as $item) {
-    
+
       $display_time = _stlouis_format_date(strtotime($item->timestamp));
       $clan_acronym = '';
-  
+
       if (!empty($item->clan_acronym))
         $clan_acronym = "($item->clan_acronym)";
-      
+
       if ($item->is_clan_leader)
         $clan_acronym .= '*';
-        
+
       $desc_short = nl2br($item->desc_short);
       $desc_long = nl2br($item->desc_long);
-  
+
       $outcome_reason .=<<< EOF
 <div class="dateline">
   $display_time to $item->ep_name $item->username $clan_acronym
@@ -2721,23 +2721,23 @@ EOF;
 EOF;
 
       $msg_shown = TRUE;
-    
+
     }
 
     if (!$msg_shown) $outcome_reason .= 'No elections found!';
-    
+
     $outcome_reason .= '</div>';
-       
+
     return true;
-    
+
   }
-  
-  
+
+
   function _stlouis_action_get_challenge_results_function(&$outcome_reason, $target,
     &$can_do_again) {
-    
+
     global $game, $phone_id;
-    
+
     $fetch_user = '_' . arg(0) . '_fetch_user';
 
     $game_user = $fetch_user();
@@ -2745,31 +2745,31 @@ EOF;
     $action_id = arg(3);
     $msg_shown = FALSE;
     $can_do_again = FALSE;
-     
+
     $data = array();
     $sql = 'SELECT challenge_history.*, users.phone_id, users.username,
       elected_positions.name as ep_name,
       clan_members.is_clan_leader,
       clans.acronym as clan_acronym
-    
+
       from challenge_history
-      
+
       left join users on challenge_history.fkey_from_users_id = users.id
-      
+
       LEFT OUTER JOIN elected_officials
       ON elected_officials.fkey_users_id = challenge_history.fkey_from_users_id
-    
+
       LEFT OUTER JOIN elected_positions
       ON elected_positions.id = elected_officials.fkey_elected_positions_id
-      
+
       LEFT OUTER JOIN clan_members on clan_members.fkey_users_id =
       challenge_history.fkey_from_users_id
-    
+
       LEFT OUTER JOIN clans on clan_members.fkey_clans_id = clans.id
-    
+
       where fkey_to_users_id = %d and challenge_history.type = "election"
       order by timestamp DESC limit 5;';
-    
+
     $result = db_query($sql, $game_user->id, date('Y-m-d H:i:s', time() - 86400));
     while ($item = db_fetch_object($result)) $data[] = $item;
 
@@ -2779,21 +2779,21 @@ EOF;
     Detailed Election Results
   </div>
 EOF;
-  
+
     foreach ($data as $item) {
-    
+
       $display_time = _stlouis_format_date(strtotime($item->timestamp));
       $clan_acronym = '';
-  
+
       if (!empty($item->clan_acronym))
         $clan_acronym = "($item->clan_acronym)";
-      
+
       if ($item->is_clan_leader)
         $clan_acronym .= '*';
-        
+
       $desc_short = nl2br($item->desc_short);
       $desc_long = nl2br($item->desc_long);
-  
+
       $outcome_reason .=<<< EOF
 <div class="dateline">
   $display_time from $item->ep_name $item->username $clan_acronym
@@ -2809,41 +2809,41 @@ EOF;
 EOF;
 
       $msg_shown = TRUE;
-    
+
     }
 
     if (!$msg_shown) $outcome_reason .= 'No elections found!';
-    
+
     $outcome_reason .= '</div>';
-       
+
     return true;
-    
+
   }
-  
-  
+
+
   function _stlouis_check_for_friendly_hood() {
-    
+
     global $game, $phone_id;
-    
+
     if ($phone_id == 'abc123') return TRUE;
 
     $fetch_user = '_' . arg(0) . '_fetch_user';
     $game_user = $fetch_user();
-     
+
     $sql = 'SELECT fkey_values_id from elected_officials
       left join users on elected_officials.fkey_users_id = users.id
       where users.fkey_neighborhoods_id = %d
       and elected_officials.fkey_elected_positions_id = 1;';
     $result = db_query($sql, $game_user->fkey_neighborhoods_id);
     $item = db_fetch_object($result);
-    
+
     return ($item->fkey_values_id == $game_user->fkey_values_id);
-    
+
   }
-  
+
   function _stlouis_action_clear_clan_announcements_function(&$outcome_reason, $target,
     &$can_do_again) {
-    
+
     global $game, $phone_id;
 
     $fetch_user = '_' . arg(0) . '_fetch_user';
@@ -2851,23 +2851,23 @@ EOF;
     $game_user = $fetch_user();
     $action_id = arg(3);
     $arg2 = check_plain(arg(2));
-    $sure = check_plain($_GET['sure']); 
-    
+    $sure = check_plain($_GET['sure']);
+
     $sql = 'SELECT id FROM {clan_members} c WHERE c.fkey_users_id = %d AND c.fkey_clans_id = %d AND c.is_clan_leader = 1';
     $is_clan_leader = db_result(db_query($sql, (int)$game_user->id, (int)$game_user->fkey_clans_id));
-        
+
     if (empty($is_clan_leader)) {
-      
-      $outcome_reason = '<div class="land-failed">' . 
-        t('Not clan leader!') . 
+
+      $outcome_reason = '<div class="land-failed">' .
+        t('Not clan leader!') .
         '</div><div class="action-effect">You are not the clan leader.&nbsp;
         You cannot perform this action.</div>';
-        
+
       return FALSE;
     }
-    
+
     if ($sure != 'yes') {
-      
+
       $outcome_reason = '<div class="subtitle">Are you sure?</div>
         <div class="subsubtitle">
           This deletes <strong>all announcements</strong> and cannot be undone!
@@ -2878,27 +2878,27 @@ EOF;
             $arg2 . '/' . $action_id . '?sure=yes">Yes,  I\'m sure</a>
           </div>
           <div class="try-an-election">
-            <a href="/' . $game . '/actions/' . $phone_id . 
+            <a href="/' . $game . '/actions/' . $phone_id .
             '">No, I\'m not sure</a>
           </div>
         </div>';
-        
+
         return false;
-        
+
     }
-    
+
     $sql = 'DELETE FROM clan_messages WHERE fkey_neighborhoods_id = %d AND is_announcement = 1';
     $result = db_query($sql, (int)$game_user->fkey_clans_id);
-    
+
     return !empty($result) ? TRUE : FALSE;
   }
 
 
   function _stlouis_action_open_a_bank_account_function(&$outcome_reason,
     $target, &$can_do_again) {
-    
+
     global $game, $phone_id;
-    
+
     $fetch_user = '_' . arg(0) . '_fetch_user';
 
     $game_user = $fetch_user();
@@ -2906,11 +2906,11 @@ EOF;
     $action_id = arg(3);
     $arg2 = check_plain(arg(2));
     $can_do_again = FALSE;
-     
+
     $password = trim(check_plain($_GET['password']));
-    
+
     if (empty($password)) { // need a password
-    
+
       $outcome_reason =<<< EOF
 <div class="ask-clan-name">
   <form method=get action="/$game/actions_do/$arg2/$action_id">
@@ -2924,9 +2924,9 @@ EOF;
 EOF;
 
       return FALSE;
-  
+
     } // need password
-  
+
 // generate an account number
 
     $account_num = 0;
@@ -2943,18 +2943,18 @@ firep($item);
       if (!empty($item)) { // account number already exists
         $account_num = 0;
       }
-      
+
     } // generate an account number
-    
+
 // doesn't exist - create it!
 
     $sql = 'insert into bank_accounts (fkey_users_id, account_number, password)
       values (%d, %d, "%s");';
     $result = db_query($sql, $game_user->id, $account_num, $password);
-    
+
 //    mail('joseph@cheek.com', 'bank account ' . $account_num . ' created',
 //      $game_user->username . ' opened it.');
-    
+
     $outcome_reason .=<<< EOF
 <div class="action-effect">
   Your account number is <span class="account-num">$account_num</span>.
@@ -2966,17 +2966,17 @@ firep($item);
   Please write these down!
 </div>
 EOF;
-          
+
     return TRUE;
-    
+
   }
 
 
   function _stlouis_action_close_a_bank_account_function(&$outcome_reason,
     $target, &$can_do_again) {
-    
+
     global $game, $phone_id;
-    
+
     $fetch_user = '_' . arg(0) . '_fetch_user';
 
     $game_user = $fetch_user();
@@ -2984,13 +2984,13 @@ EOF;
     $action_id = arg(3);
     $arg2 = check_plain(arg(2));
     $can_do_again = FALSE;
-     
+
     $account_num = trim(check_plain($_GET['account_num']));
     $password = trim(check_plain($_GET['password']));
-    
-    if (empty($password) || empty($account_num)) { 
+
+    if (empty($password) || empty($account_num)) {
 // need an account number and password
-    
+
       $outcome_reason =<<< EOF
 <div class="ask-clan-name">
   <form method=get action="/$game/actions_do/$arg2/$action_id">
@@ -3005,9 +3005,9 @@ EOF;
 EOF;
 
       return FALSE;
-  
+
     } // need account number and password
-  
+
 // validate the info
 
     $sql = 'select * from bank_accounts
@@ -3021,15 +3021,15 @@ firep($item);
 
     if (empty($item)) { // account info not correct
 
-      $outcome_reason = '<div class="land-failed">' . 
-        t('Sorry!') . 
+      $outcome_reason = '<div class="land-failed">' .
+        t('Sorry!') .
         '</div><div class="action-effect">We cannot find an open account in
         your name with that account number and password.</div>';
-          
+
       return FALSE;
 
     } // account info not correct
-      
+
 // close the account
 
     $sql = 'update bank_accounts
@@ -3047,24 +3047,24 @@ firep($item);
     mail('joseph@cheek.com', 'bank account ' . $account_num . ' closed',
       'by ' . $game_user->username . ', who pocketed ' . $balance .
       ' ' . $game_user->values . '.');
-    
+
     $outcome_reason .=<<< EOF
 <div class="action-effect">
   Your account is now closed and the remaining balance of $balance
   $game_user->values has been given to you.
 </div>
 EOF;
-          
+
     return TRUE;
-    
+
   }
 
 
   function _stlouis_action_list_your_bank_accounts_function(&$outcome_reason,
     $target, &$can_do_again) {
-    
+
     global $game, $phone_id;
-    
+
     $fetch_user = '_' . arg(0) . '_fetch_user';
 
     $game_user = $fetch_user();
@@ -3072,7 +3072,7 @@ EOF;
     $action_id = arg(3);
     $arg2 = check_plain(arg(2));
 //    $can_do_again = FALSE;
-     
+
     $sql = 'select * from bank_accounts
       where fkey_users_id = %d
       and active = 1;';
@@ -3099,17 +3099,17 @@ EOF;
 
 //    mail('joseph@cheek.com', 'bank account check', 'by ' .
 //      $game_user->username . ', who has ' . sizeof($data) . ' account(s)');
-    
+
     return TRUE;
-    
+
   }
 
 
   function _stlouis_action_change_a_bank_account_password_function(&$outcome_reason,
     $target, &$can_do_again) {
-    
+
     global $game, $phone_id;
-    
+
     $fetch_user = '_' . arg(0) . '_fetch_user';
 
     $game_user = $fetch_user();
@@ -3117,13 +3117,13 @@ EOF;
     $action_id = arg(3);
     $arg2 = check_plain(arg(2));
 //    $can_do_again = FALSE;
-     
+
     $account_num = trim(check_plain($_GET['account_num']));
     $password = trim(check_plain($_GET['password']));
-    
-    if (empty($password) || empty($account_num)) { 
+
+    if (empty($password) || empty($account_num)) {
 // need an account number and password
-    
+
       $outcome_reason =<<< EOF
 <div class="ask-clan-name">
   <form method=get action="/$game/actions_do/$arg2/$action_id">
@@ -3138,9 +3138,9 @@ EOF;
 EOF;
 
       return FALSE;
-  
+
     } // need account number and password
-  
+
 // validate the info
 
     $sql = 'select * from bank_accounts
@@ -3153,15 +3153,15 @@ firep($item);
 
     if (empty($item)) { // account info not correct
 
-      $outcome_reason = '<div class="land-failed">' . 
-        t('Sorry!') . 
+      $outcome_reason = '<div class="land-failed">' .
+        t('Sorry!') .
         '</div><div class="action-effect">We cannot find an open account in
         your name with that account number.</div>';
-          
+
       return FALSE;
 
     } // account info not correct
-      
+
 // update the password
 
     $sql = 'update bank_accounts
@@ -3171,7 +3171,7 @@ firep($item);
 
 //    mail('joseph@cheek.com', 'bank account ' . $account_num .
 //      ' password changed', 'by ' . $game_user->username . '.');
-    
+
     $outcome_reason .=<<< EOF
 <div class="action-effect">
   The password for account <strong>$account_num</strong>
@@ -3181,17 +3181,17 @@ firep($item);
   The old password will no longer work for deposits or withdrawals.
 </div>
 EOF;
-          
+
     return TRUE;
-    
+
   }
 
 
   function _stlouis_action_deposit_funds_function(&$outcome_reason,
     $target, &$can_do_again) {
-    
+
     global $game, $phone_id;
-    
+
     $fetch_user = '_' . arg(0) . '_fetch_user';
 
     $game_user = $fetch_user();
@@ -3199,15 +3199,15 @@ EOF;
     $action_id = arg(3);
     $arg2 = check_plain(arg(2));
 //    $can_do_again = FALSE;
-     
+
     $account_num = trim(check_plain($_GET['account_num']));
 //    $password = trim(check_plain($_GET['password']));
     $amount = trim(check_plain($_GET['amount']));
-    
-//    if (empty($password) || empty($account_num) || empty($amount)) { 
-    if (empty($account_num) || empty($amount)) { 
+
+//    if (empty($password) || empty($account_num) || empty($amount)) {
+    if (empty($account_num) || empty($amount)) {
 // need an account number and password and amount
-    
+
       $outcome_reason =<<< EOF
 <div class="ask-clan-name">
   <form method=get action="/$game/actions_do/$arg2/$action_id">
@@ -3225,9 +3225,9 @@ EOF;
 EOF;
 
       return FALSE;
-  
+
     } // need account number and password
-  
+
 // validate the info -- first, check that the account exists
 
     $sql = 'select * from bank_accounts
@@ -3240,11 +3240,11 @@ firep($item);
 
     if (empty($item)) { // account info not correct
 
-      $outcome_reason = '<div class="land-failed">' . 
-        t('Sorry!') . 
+      $outcome_reason = '<div class="land-failed">' .
+        t('Sorry!') .
         '</div><div class="action-effect">We cannot find an open account
         with that account number and password.</div>';
-          
+
       return FALSE;
 
     } // account info not correct
@@ -3263,7 +3263,7 @@ firep($item);
         and active = 1;';
       $result = db_query($sql, $account_num /*, $password */);
       $item = db_fetch_object($result);
-    
+
       if ($item->transaction_lock == 0) {
         db_query('update bank_accounts set transaction_lock = 1
           where id = %d;', $item->id);
@@ -3278,11 +3278,11 @@ firep($item);
 
     if ($lock_try > 0) { // unable to get a lock
 
-      $outcome_reason = '<div class="land-failed">' . 
-        t('Sorry!') . 
+      $outcome_reason = '<div class="land-failed">' .
+        t('Sorry!') .
         '</div><div class="action-effect">We temporarily cannot access your
         account.&nbsp; Please try again later.</div>';
-          
+
       return FALSE;
 
     } // cannot get lock after 10 tries
@@ -3290,14 +3290,14 @@ firep($item);
     $game_user = $fetch_user();
 
 // check moolah
-      
+
     if (($amount > $game_user->money) || ($amount < 0)) { // not enough moolah
 
-      $outcome_reason = '<div class="land-failed">' . 
-        t('Sorry!') . 
+      $outcome_reason = '<div class="land-failed">' .
+        t('Sorry!') .
         '</div><div class="action-effect">You do not have that much to
         deposit.</div>';
-          
+
       db_query('update bank_accounts set transaction_lock = 0
         where id = %d;', $item->id);
       return FALSE;
@@ -3329,7 +3329,7 @@ firep($item);
 
       values ($game_user->id, %d, "deposit", %d,
         (SELECT users.fkey_values_id
-        FROM  `bank_accounts` 
+        FROM  `bank_accounts`
         LEFT JOIN users ON users.id = bank_accounts.fkey_users_id
         WHERE bank_accounts.account_number = %d),
       %d, %d, 1.00, 1.00, %d, 20, %d, %d, %d);';
@@ -3339,12 +3339,12 @@ firep($item);
 
 /*
     mail('joseph@cheek.com', 'bank account deposit to ' . $account_num . '.',
-      'by ' . $game_user->username . ', who deposited ' . 
+      'by ' . $game_user->username . ', who deposited ' .
       number_format($amount) . ' less ' . number_format($amount * 0.2) .
       ' in fees.  The ' .
       'current balance in the account is now ' . $new_balance . '.');
 */
-  
+
     $outcome_reason .=<<< EOF
 <div class="action-effect">
   Your deposit was successful!
@@ -3360,22 +3360,22 @@ EOF;
 EOF;
 
     }
-          
+
 // reprocess user object and then clear transaction_lock
       db_query('update bank_accounts set transaction_lock = 0
         where id = %d;', $item->id);
 
     $game_user = $fetch_user();
     return TRUE;
-    
+
   }
 
 
   function _stlouis_action_withdraw_funds_function(&$outcome_reason,
     $target, &$can_do_again) {
-    
+
     global $game, $phone_id;
-    
+
     $fetch_user = '_' . arg(0) . '_fetch_user';
 
     $game_user = $fetch_user();
@@ -3383,14 +3383,14 @@ EOF;
     $action_id = arg(3);
     $arg2 = check_plain(arg(2));
 //    $can_do_again = FALSE;
-     
+
     $account_num = trim(check_plain($_GET['account_num']));
     $password = trim(check_plain($_GET['password']));
     $amount = trim(check_plain($_GET['amount']));
-    
-    if (empty($password) || empty($account_num) || empty($amount)) { 
+
+    if (empty($password) || empty($account_num) || empty($amount)) {
 // need an account number and password and amount
-    
+
       $outcome_reason =<<< EOF
 <div class="ask-clan-name">
   <form method=get action="/$game/actions_do/$arg2/$action_id">
@@ -3408,9 +3408,9 @@ EOF;
 EOF;
 
       return FALSE;
-  
+
     } // need account number and password
-  
+
 // validate the info -- first, check that the account exists
 
     $sql = 'select * from bank_accounts
@@ -3423,11 +3423,11 @@ firep($item);
 
     if (empty($item)) { // account info not correct
 
-      $outcome_reason = '<div class="land-failed">' . 
-        t('Sorry!') . 
+      $outcome_reason = '<div class="land-failed">' .
+        t('Sorry!') .
         '</div><div class="action-effect">We cannot find an open account
         with that account number and password.</div>';
-          
+
       return FALSE;
 
     } // account info not correct
@@ -3446,7 +3446,7 @@ firep($item);
         and active = 1;';
       $result = db_query($sql, $account_num, $password);
       $item = db_fetch_object($result);
-    
+
       if ($item->transaction_lock == 0) {
         db_query('update bank_accounts set transaction_lock = 1
           where id = %d;', $item->id);
@@ -3461,11 +3461,11 @@ firep($item);
 
     if ($lock_try > 0) { // unable to get a lock
 
-      $outcome_reason = '<div class="land-failed">' . 
-        t('Sorry!') . 
+      $outcome_reason = '<div class="land-failed">' .
+        t('Sorry!') .
         '</div><div class="action-effect">We temporarily cannot access your
         account.&nbsp; Please try again later.</div>';
-          
+
       return FALSE;
 
     } // cannot get lock after 10 tries
@@ -3473,14 +3473,14 @@ firep($item);
     $game_user = $fetch_user();
 
 // check moolah
-      
+
     if (($amount > $item->balance) || ($amount < 0)) { // not enough moolah
 
-      $outcome_reason = '<div class="land-failed">' . 
-        t('Sorry!') . 
+      $outcome_reason = '<div class="land-failed">' .
+        t('Sorry!') .
         '</div><div class="action-effect">The account does not have that much to
         withdraw.</div>';
-          
+
       db_query('update bank_accounts set transaction_lock = 0
         where id = %d;', $item->id);
       return FALSE;
@@ -3510,7 +3510,7 @@ firep($item);
 
       values ($game_user->id, %d, "withdrawal", %d,
         (SELECT users.fkey_values_id
-        FROM  `bank_accounts` 
+        FROM  `bank_accounts`
         LEFT JOIN users ON users.id = bank_accounts.fkey_users_id
         WHERE bank_accounts.account_number = %d),
       %d, %d, 1.00, 1.00, %d, 0, 0, %d, %d);';
@@ -3524,11 +3524,11 @@ firep($item);
 
 /*
     mail('joseph@cheek.com', 'bank account withdrawal from ' . $account_num .
-      '.', 'by ' . $game_user->username . ', who withdrew ' . 
+      '.', 'by ' . $game_user->username . ', who withdrew ' .
       number_format($amount) . '.  The ' .
       'current balance in the account is now ' . $new_balance . '.  ' .
       $not_owner);
-*/  
+*/
     $outcome_reason .=<<< EOF
 <div class="action-effect">
   Your withdrawal was successful!
@@ -3544,61 +3544,61 @@ EOF;
 EOF;
 
     }
-          
+
 // reprocess user object and then clear transaction_lock
       db_query('update bank_accounts set transaction_lock = 0
         where id = %d;', $item->id);
 
     $game_user = $fetch_user();
     return TRUE;
-    
+
   }
 
 
   function _stlouis_action_support_your_party_official_function(
     &$outcome_reason, $target, &$can_do_again){
-    
+
     global $game, $phone_id;
     $game_user = _stlouis_fetch_user();
     $target_id = $_GET['target'];
-    
+
     $sql = "SELECT elected_officials.id
-      FROM elected_officials 
-      LEFT JOIN users ON elected_officials.fkey_users_id = users.id 
-      LEFT JOIN elected_positions 
-      ON elected_positions.id = elected_officials.fkey_elected_positions_id 
-      WHERE users.fkey_values_id = %d 
-      AND elected_positions.type = 2 
+      FROM elected_officials
+      LEFT JOIN users ON elected_officials.fkey_users_id = users.id
+      LEFT JOIN elected_positions
+      ON elected_positions.id = elected_officials.fkey_elected_positions_id
+      WHERE users.fkey_values_id = %d
+      AND elected_positions.type = 2
       AND users.id = %d";
-    
+
     $result = db_query($sql, $game_user->fkey_values_id, (int)$target_id);
     $item = db_fetch_object($result);
-   
+
     if ($item) {
-      
+
       return TRUE;
-      
+
     } else {
-      
-      $outcome_reason = '<div class="land-failed">' . 
-        t('Target is not a party official!') . 
+
+      $outcome_reason = '<div class="land-failed">' .
+        t('Target is not a party official!') .
         '</div>';
       return FALSE;
-      
+
     }
-    
+
   }
 
 
   function _celestial_glory_action_support_your_party_official_function(
     &$outcome_reason, $target, &$can_do_again) {
-    
+
     return _stlouis_action_support_your_party_official_function(
       $outcome_reason, $target, $can_do_again);
 
   }
 
-    
+
   function _stlouis_action_check_st_louis_time_function(&$outcome_reason,
     $target, &$can_do_again) {
 
@@ -4035,7 +4035,7 @@ EOF;
         get the Jack-O\'-Lanterns by talking to people at the party</div>
         <div class="subtitle"><img
           src="/sites/default/files/images/equipment/stlouis-27.png"/></div>
-        <div class="subtitle">But you already have ' . $data->quantity . 
+        <div class="subtitle">But you already have ' . $data->quantity .
         '!</div><div class="title">So go meet someone new!</div>';
 
       $can_do_again = FALSE;
@@ -4581,27 +4581,27 @@ EOF;
 
   function _stlouis_action_throw_a_snowball_function(&$outcome_reason,
     $target) {
-    
+
     global $game, $phone_id;
 
     $fetch_user = '_' . arg(0) . '_fetch_user';
     $game_user = $fetch_user();
-    
-    $outcome_reason .= '<div class="action-effect">' . 
-      t('Poof!') . '</div>'; 
+
+    $outcome_reason .= '<div class="action-effect">' .
+      t('Poof!') . '</div>';
 
     $sql = 'update neighborhoods set special_int = special_int - 3
       where id = %d;';
     $result = db_query($sql, $game_user->fkey_neighborhoods_id);
 
     return TRUE;
-    
+
   }
 
-  
+
   function _celestial_glory_action_give_a_gift_function(&$outcome_reason,
     $target, &$can_do_again) {
-    
+
     global $game, $phone_id;
     $arg2 = check_plain(arg(2));
     $action_id = arg(3);
@@ -4609,9 +4609,9 @@ EOF;
     $fetch_user = '_' . arg(0) . '_fetch_user';
     $game_user = $fetch_user();
 
-    $outcome_reason .= '<div class="action-effect">' . 
+    $outcome_reason .= '<div class="action-effect">' .
       t('Your gift is given back to you, and more') . '<br/>' .
-      t('(You get 5 extra Action)') . '</div>'; 
+      t('(You get 5 extra Action)') . '</div>';
 
     $sql = 'update users set actions = actions + 6
       where id = %d';
@@ -4621,14 +4621,14 @@ EOF;
 
     $set_value = '_' . arg(0) . '_set_value';
     $set_value($game_user->id, 'next_major_action', time() + 600);
-    
+
     $can_do_again = FALSE;
-    
+
     return TRUE;
-    
+
   }
 
-  
+
   function _stlouis_action_spend_some_funds_function(&$outcome_reason,
     $target, &$can_do_again) {
 
@@ -4675,7 +4675,7 @@ firep($target);
       $game_user->values . ' is increased by ' . $money . ' (' .
       $item->count . ' players here)</div>';
 
-    $sql = 'insert into challenge_history 
+    $sql = 'insert into challenge_history
       (type, fkey_from_users_id, fkey_to_users_id, fkey_neighborhoods_id,
       fkey_elected_positions_id, won, desc_short, desc_long) values
       ("gift", %d, %d, %d, %d, %d, "%s", "%s");';
@@ -4789,7 +4789,7 @@ EOF;
 
         return FALSE;
 
-      } // camouflage caused miss  
+      } // camouflage caused miss
 
     } // any camouflage?
 
@@ -4838,7 +4838,7 @@ EOF;
 
     $outcome_reason .= '<div class="subsubtitle">You have ' . $tags_con .
       ' consecutive tag(s) and ' . $points . ' point(s)</div>';
-   
+
 // use up ammo
     $sql = 'update equipment_ownership set quantity = quantity - 1
       where fkey_users_id = %d and fkey_equipment_id = 40;';
@@ -5024,7 +5024,7 @@ EOF;
 
     $outcome_reason .= '<div class="subsubtitle">You have ' . $heals_con .
       ' consecutive heal(s) and ' . $points . ' point(s)</div>';
-   
+
 // add unfreeze message
     $sql = 'insert into challenge_messages
       (fkey_users_from_id, fkey_users_to_id, message)
@@ -6782,12 +6782,12 @@ EOF;
       $outcome_reason = '<div class="title error">--&gt; h4x0r &lt;--</div>';
 
       return FALSE;
-    
+
     }
 
     if (mt_rand(0, 9) == 0) { // time waster
 
-      $outcome_reason .= '<div class="title">But... your time 
+      $outcome_reason .= '<div class="title">But... your time
         was completely wasted</div>
         <div class="title"><img
           src="/sites/default/files/images/stlouis-frustrated-official.png"/>
