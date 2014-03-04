@@ -65,7 +65,7 @@ EOF;
   $cant_challenge_time_remaining = !empty($cant_challenge_time) ?
     (int)$cant_challenge_time - time() : NULL;
 
-  if ($game_user->id == 'abc123')
+  if ($phone_id == 'abc123')
     $cant_challenge_time_remaining = mt_rand(0,86400);
 
   if ($cant_challenge_time_remaining > 0) {
