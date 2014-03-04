@@ -2506,6 +2506,7 @@ EOF;
     $set_value = '_' . arg(0) . '_set_value';
     $set_value($game_user->id, 'next_major_action', time() + 7200);
     $set_value($target_id, 'cant_challenge', time() + 86400);
+    $set_value($target_id, 'cant_join_party', time() + 259200);
 
     $sql = "select clan_title from `values` where id = '%d';";
     $result = db_query($sql, $game_user->fkey_values_id);
