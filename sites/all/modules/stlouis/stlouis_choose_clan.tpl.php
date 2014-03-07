@@ -15,8 +15,8 @@
   $cant_join_party_time_remaining = !empty($cant_join_party_time) ?
     (int)$cant_join_party_time - time() : NULL;
 
-   if ($phone_id == 'abc123')
-     $cant_join_party_time_remaining = mt_rand(0, 259200);
+//    if ($phone_id == 'abc123')
+//      $cant_join_party_time_remaining = mt_rand(0, 259200);
 
   if ($cant_join_party_time_remaining > 0) {
 
