@@ -16,10 +16,13 @@
     (int)$cant_join_party_time - time() : NULL;
 
    if ($phone_id == 'abc123')
-     $cant_join_party_time_remaining = mt_rand(0,86400);
+     $cant_join_party_time_remaining = mt_rand(0, 259200);
 
   if ($cant_join_party_time_remaining > 0) {
 
+    $days_remaining = sprintf('%d',
+      floor($cant_join_party_time_remaining / 86400));
+    $cant_join_party_time_remaining %= 86400;
     $hours_remaining = sprintf('%02d',
       floor($cant_join_party_time_remaining / 3600));
     $minutes_remaining_in_sec = $cant_join_party_time_remaining % 3600;
@@ -30,8 +33,10 @@
 
     echo <<< EOF
 <div class="title">You Can't Join a $party Yet!</div>
-<div class="subtitle">Come back in
-  $hours_remaining:$minutes_remaining:$seconds_remaining</div>
+<div class="subtitle">
+  Come back in $days_remaining day(s)
+  $hours_remaining:$minutes_remaining:$seconds_remaining
+</div>
 <div class="subtitle">
   <a href="/$game/home/$arg2">
     <img src="/sites/default/files/images/{$game}_continue.png"/>
