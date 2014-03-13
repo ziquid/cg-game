@@ -11,7 +11,7 @@
   $get_value = '_' . arg(0) . '_get_value';
 
 // can't join party?
-  $cant_challenge_time = $get_value($game_user->id, 'cant_join_party');
+  $cant_join_party_time = $get_value($game_user->id, 'cant_join_party');
   $cant_join_party_time_remaining = !empty($cant_join_party_time) ?
     (int)$cant_join_party_time - time() : NULL;
 
