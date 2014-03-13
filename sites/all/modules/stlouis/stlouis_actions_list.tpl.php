@@ -557,7 +557,7 @@ EOF;
 
 // too many to list?  separate by first letter
 
-      if ($phone_id == 'abc123' &&
+      if (FALSE && $phone_id == 'abc123' &&
         count($data2) > 500) {
 
         $letters = array('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
