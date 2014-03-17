@@ -679,7 +679,7 @@ EOF;
 
 // check for loot - equipment
 
-    $sql = 'SELECT equipment.quantity_limit,equipment_ownership.quantity
+    $sql = 'SELECT equipment.quantity_limit, equipment_ownership.quantity
       FROM equipment
 
       LEFT OUTER JOIN equipment_ownership
