@@ -276,8 +276,8 @@ EOF;
       OR fkey_values_id = %d
     ))
 
-    AND required_level <= %d
-    AND active = 1
+      AND required_level <= %d
+      AND active = 1
     )
 
     OR land_ownership.quantity > 0
@@ -334,6 +334,17 @@ firep($item);
       $can_sell = FALSE;
 
     if ($can_buy) {
+      $icon_button = <<< EOF
+<a href="/$game/land_buy/$arg2/$item->id/1">
+  <img src="/sites/default/files/images/land/$game-$item->id.png" width="96"
+    border="0">
+</a>
+EOF;
+      $name_link = <<< EOF
+<a href="/$game/land_buy/$arg2/$item->id/1">
+  $item->name
+</a>
+EOF;
       $buy_button = <<< EOF
 <div class="land-buy-button">
   <a href="/$game/land_buy/$arg2/$item->id/1">
@@ -342,6 +353,13 @@ firep($item);
 </div>
 EOF;
     } else {
+      $icon_button = <<< EOF
+  <img src="/sites/default/files/images/land/$game-$item->id.png" width="96"
+    border="0">
+EOF;
+      $name_link = <<< EOF
+$item->name
+EOF;
       $buy_button = <<< EOF
 <div class="land-buy-button not-yet">
   Can't Buy
@@ -367,12 +385,13 @@ EOF;
 
     echo <<< EOF
 <div class="land">
-  <div class="land-icon"><a href="/$game/land_buy/$arg2/$item->id/1"><img
-    src="/sites/default/files/images/land/$game-$item->id.png" border="0"
-    width="96"></a></div>
+  <div class="land-icon">
+    $icon_button
+  </div>
   <div class="land-details">
-    <div class="land-name"><a
-      href="/$game/land_buy/$arg2/$item->id/1">$item->name</a></div>
+    <div class="land-name">
+      $name_link
+    </div>
     <div class="land-description">$description</div>
     <div class="land-owned">Owned: $quantity</div>
     <div class="land-cost">Cost: $land_price $game_user->values</div>
@@ -387,6 +406,9 @@ EOF;
 EOF;
 
   }
+
+  if (substr($phone_id, 0, 3) == 'ai-')
+    echo "<!--\n<ai \"$ai_output\"/>\n-->";
 
 // show next one
   $sql = 'SELECT land.*, land_ownership.quantity
@@ -408,7 +430,7 @@ EOF;
     ))
 
     AND required_level > %d
-    AND active =1
+    AND active = 1
     ORDER BY required_level ASC LIMIT 1';
   $result = db_query($sql, $game_user->id, $game_user->fkey_neighborhoods_id,
     $game_user->fkey_values_id, $game_user->level);
