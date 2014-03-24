@@ -195,6 +195,7 @@ EOF;
   <div class="land-button-wrapper">
     $buy_button
     $sell_button
+  </div>
 </div>
 EOF;
 
