@@ -83,8 +83,8 @@ EOF;
 
     OR land_ownership.quantity > 0 ';
 
-//   if ($game_user->phone_id == 'abc123')
-//     $sql_to_add = '';
+  if ($game_user->phone_id == 'abc123')
+    $sql_to_add = '';
 
   $data = array();
   $sql = 'SELECT land.*, land_ownership.quantity
