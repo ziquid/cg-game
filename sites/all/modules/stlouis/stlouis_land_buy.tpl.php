@@ -14,7 +14,6 @@
 
 //    mail('joseph@cheek.com', "land_buy with use-quantity of $quantity",
 //     "user $game_user->username");
-
   }
 
   $sql = 'select clan_title from `values` where id = %d;';
