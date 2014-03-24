@@ -121,6 +121,63 @@ firep($item);
     if (($payout % 1000) == 0)
       $payout = ($payout / 1000) . 'K';
 
+    $can_buy = $can_sell = TRUE;
+
+    if ($item->fkey_neighborhoods_id != 0 &&
+      $item->fkey_neighborhoods_id != $game_user->fkey_neighborhoods_id)
+      $can_buy = FALSE;
+
+    if ($item->fkey_values_id != 0 &&
+      $item->fkey_values_id != $game_user->fkey_values_id)
+      $can_buy = FALSE;
+
+    if ($item->required_level > $game_user->level)
+      $can_buy = FALSE;
+
+    if ($item->active != 1)
+      $can_buy = FALSE;
+
+    if ($item->is_loot != 0)
+      $can_buy = FALSE;
+
+    if ($item->can_sell != 1)
+      $can_sell = FALSE;
+
+    if ($item->quantity < 1)
+      $can_sell = FALSE;
+
+    if ($can_buy) {
+      $buy_button = <<< EOF
+<div class="land-buy-button">
+  <a href="/$game/land_buy/$arg2/$item->id/1">
+    Buy
+  </a>
+</div>
+EOF;
+    } else {
+      $buy_button = <<< EOF
+<div class="land-buy-button not-yet">
+  Can't Buy
+</div>
+EOF;
+    }
+
+    if ($can_sell) {
+      $sell_button = <<< EOF
+<div class="land-sell-button">
+  <a href="/$game/land_sell/$arg2/$item->id/1">
+    Sell
+  </a>
+</div>
+EOF;
+    } else {
+      $sell_button = <<< EOF
+<div class="land-sell-button not-yet">
+  Can't Sell
+</div>
+EOF;
+    }
+
     echo <<< EOF
 <div class="land">
   <div class="land-icon"><a href="/$game/land_buy/$arg2/$item->id/1"><img
@@ -135,10 +192,9 @@ firep($item);
     <div class="land-payout">Income: +$payout $game_user->values
       every 60 minutes</div>
   </div>
-  <div class="land-button-wrapper"><div class="land-buy-button"><a
-    href="/$game/land_buy/$arg2/$item->id/1">Buy</a></div>
-  <div class="land-sell-button"><a
-    href="/$game/land_sell/$arg2/$item->id/1">Sell</a></div></div>
+  <div class="land-button-wrapper">
+    $buy_button
+    $sell_button
 </div>
 EOF;
 
