@@ -201,7 +201,8 @@ EOF;
     ))
 
     AND required_level <= %d
-    AND active = 1)
+    AND active = 1
+    )
 
     OR land_ownership.quantity > 0
 
@@ -234,7 +235,8 @@ firep($item);
     echo <<< EOF
 <div class="land">
   <div class="land-icon"><a href="/$game/land_buy/$arg2/$item->id/1"><img
-    src="/sites/default/files/images/land/$game-$item->id.png" border="0"></a></div>
+    src="/sites/default/files/images/land/$game-$item->id.png" border="0"
+    width="96"></a></div>
   <div class="land-details">
     <div class="land-name"><a
       href="/$game/land_buy/$arg2/$item->id/1">$item->name</a></div>
