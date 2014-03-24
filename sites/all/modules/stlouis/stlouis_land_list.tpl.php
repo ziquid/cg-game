@@ -81,7 +81,7 @@ EOF;
       AND active = 1
     )
 
---    OR land_ownership.quantity > 0 ';
+    OR land_ownership.quantity > 0 ';
 
 //   if ($game_user->phone_id == 'abc123')
 //     $sql_to_add = '';
