@@ -18,7 +18,7 @@
   $check_authkey($game_user);
 
 // check for authorized client
-  if ((strpos($_SERVER['HTTP_USER_AGENT'], 'com.cheek.stlouis') === FALSE) &&
+  if ((strpos($_SERVER['HTTP_USER_AGENT'], 'com.ziquid.celestialglory') === FALSE) &&
     (strpos($_SERVER['HTTP_USER_AGENT'], 'com.cheek.celestialglory') === FALSE) &&
     ($_SERVER['REMOTE_ADDR'] != '66.211.170.66') && // paypal IPN
     ($_SERVER['REMOTE_ADDR'] != '173.0.81.1') && // paypal IPN

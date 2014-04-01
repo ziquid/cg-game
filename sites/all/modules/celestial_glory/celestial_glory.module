@@ -1607,7 +1607,7 @@ function _celestial_glory_fetch_user() {
   global $game, $phone_id, $extra_messages, $next_level, $user;
   
 // only allow access through authorized clients
-  if ((strpos($_SERVER['HTTP_USER_AGENT'], 'com.cheek.stlouis') === FALSE) &&
+  if ((strpos($_SERVER['HTTP_USER_AGENT'], 'com.ziquid.celestialglory') === FALSE) &&
     (strpos($_SERVER['HTTP_USER_AGENT'], 'com.cheek.celestialglory') === FALSE) &&
     ($_SERVER['REMOTE_ADDR'] != '66.211.170.66') && // paypal IPN
     ($_SERVER['REMOTE_ADDR'] != '173.0.81.1') && // paypal IPN
@@ -1637,7 +1637,8 @@ function _celestial_glory_fetch_user() {
   }
 
   if (($user->uid != 0) &&
-    (strpos($_SERVER['HTTP_USER_AGENT'], 'com.cheek') === FALSE)) {
+    (strpos($_SERVER['HTTP_USER_AGENT'], 'com.cheek') === FALSE) &&
+    (strpos($_SERVER['HTTP_USER_AGENT'], 'com.ziquid') === FALSE)) {
 /*
     mail('joseph@cheek.com', 'logged-in user access but no com.cheek!',
       $_SERVER['HTTP_USER_AGENT'] . "\n\n" .

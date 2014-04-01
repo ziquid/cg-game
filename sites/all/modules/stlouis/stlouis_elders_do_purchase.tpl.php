@@ -14,7 +14,7 @@
     ($_SERVER['REMOTE_ADDR'] == '173.0.81.1') ||
     ($_SERVER['REMOTE_ADDR'] == '173.0.81.33') ||
     ($_SERVER['REMOTE_ADDR'] == '173.0.82.126') || // <-- paypal sandbox
-    (strpos($_SERVER['HTTP_USER_AGENT'], 'com.cheek.stlouis') !== FALSE) ||
+    (strpos($_SERVER['HTTP_USER_AGENT'], 'com.ziquid.celestialglory') !== FALSE) ||
     (strpos($_SERVER['HTTP_USER_AGENT'], 'com.cheek.celestialglory')
       !== FALSE)) {
 
