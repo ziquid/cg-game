@@ -94,6 +94,8 @@ response status is: ' . $response->status);
     
     if (arg(3) == '320') $luck = 320; // paypal
     if (arg(3) == 'luck.320') $luck = 320; // google
+    if (arg(3) == 'com.cheek.celestialglory.luck.320') $luck = 320; // apple
+    if (arg(3) == 'com.cheek.celestial_glory.luck.320') $luck = 320; // apple
 
 // stop iOS luck hacking
     if (arg(4) == 'abc123') $luck = 0;
