@@ -43,6 +43,8 @@ EOF;
       35 Luck (US $5.99)</a></div>
     <div class="menu-option"><a href="https://www.paypal.com/buy/luck/150">Buy
       150 Luck (US $24.99)</a></div>
+    <div class="menu-option"><a href="https://www.paypal.com/buy/luck/320">Buy
+      320 Luck (US $49.99)</a></div>
   </div>
   
 EOF;
