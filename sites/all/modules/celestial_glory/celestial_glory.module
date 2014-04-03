@@ -174,9 +174,10 @@ function celestial_glory_cron() {
   imagedestroy($map_bottom_colored);
 
 // prune old log files
-  $sql = 'delete from challenge_messages where timestamp < %d
+  $sql = 'delete from challenge_messages where timestamp < "%s"
     limit 10000;';
-  $result = db_query($sql, time() - 400000); // a little over a month
+  $result = db_query($sql, date('Y-m-d H:i:s', time() - 400000));
+// a little over a month
 
   db_set_active('default');
 
