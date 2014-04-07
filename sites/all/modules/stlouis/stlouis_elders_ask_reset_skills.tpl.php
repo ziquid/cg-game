@@ -7,7 +7,8 @@
 
   $game_user = $fetch_user();
   $fetch_header($game_user);
-  include_once(drupal_get_path('module', $game) . '/game_defs.inc');
+  include(drupal_get_path('module', $game) . '/game_defs.inc');
+  $arg2 = check_plain(arg(2));
 
   echo <<< EOF
 <div class="title">
@@ -18,7 +19,7 @@ All the $initiative, Endurance, $elocution, and Action your character has
   collected will be converted back into skill points
 </div>
 <div class="elders-menu big">
-<div class="menu-option"><a href="/$game/elders_do_reset_skills/$phone_id">Yes,
+<div class="menu-option"><a href="/$game/elders_do_reset_skills/$arg2">Yes,
   I want to reset my skill points</a></div>
 </div>
 EOF;
