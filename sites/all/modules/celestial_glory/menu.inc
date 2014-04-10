@@ -1,5 +1,5 @@
 <?php
-// $Id$ 
+// $Id$
 
 
 function celestial_glory_menu() {
@@ -27,7 +27,7 @@ function celestial_glory_menu() {
     'access arguments' => array('access celestial_glory content'),
     'type' => MENU_CALLBACK,
   );
-  
+
   $items['celestial_glory/clan_list_available/%'] = array(
     'title' => 'Celestial Glory Available Clan List Page',
     'page callback' => 'celestial_glory_clan_list_available_callback',
@@ -35,7 +35,7 @@ function celestial_glory_menu() {
     'access arguments' => array('access celestial_glory content'),
     'type' => MENU_CALLBACK,
   );
-  
+
   $items['celestial_glory/clan_msg/%/%'] = array(
     'title' => 'Celestial Glory Clan Messages Page',
     'page callback' => 'celestial_glory_clan_msg_callback',
@@ -43,7 +43,7 @@ function celestial_glory_menu() {
     'access arguments' => array('access celestial_glory content'),
     'type' => MENU_CALLBACK,
   );
-  
+
   $items['celestial_glory/clan_announcements/%/%'] = array(
     'title' => 'Celestial Glory Clan Announcements Page',
     'page callback' => 'celestial_glory_clan_announcements_callback',
@@ -51,7 +51,15 @@ function celestial_glory_menu() {
     'access arguments' => array('access celestial_glory content'),
     'type' => MENU_CALLBACK,
   );
-  
+
+  $items['celestial_glory/clan_msg_delete/%/%'] = array(
+    'title' => 'Celestial Glory Clan Message Delete Page',
+    'page callback' => 'celestial_glory_clan_msg_delete_callback',
+    'page arguments' => array(2, 3),
+    'access arguments' => array('access celestial_glory content'),
+    'type' => MENU_CALLBACK,
+  );
+
   $items['celestial_glory/class_list/%/%'] = array(
     'title' => 'Celestial Glory Class List Page',
     'page callback' => 'celestial_glory_class_list_callback',
@@ -59,7 +67,7 @@ function celestial_glory_menu() {
     'access arguments' => array('access celestial_glory content'),
     'type' => MENU_CALLBACK,
   );
-  
+
   $items['celestial_glory/block_user_toggle/%/%'] = array(
     'title' => 'Celestial Glory Block User Toggle',
     'page callback' => 'celestial_glory_block_user_toggle_callback',
@@ -163,7 +171,7 @@ function celestial_glory_menu() {
     'access arguments' => array('access celestial_glory content'),
     'type' => MENU_CALLBACK,
   );
-  
+
   $items['celestial_glory/elders_check_receipt/%'] = array(
     'title' => 'Celestial Glory Elders Check Receipt',
     'page callback' => 'celestial_glory_elders_check_receipt_callback',
@@ -171,7 +179,7 @@ function celestial_glory_menu() {
     'access arguments' => array('access celestial_glory content'),
     'type' => MENU_CALLBACK,
   );
-  
+
   $items['celestial_glory/google_checkout/%'] = array(
     'title' => 'Celestial Glory Google Checkout',
     'page callback' => 'celestial_glory_google_checkout_callback',
@@ -179,7 +187,7 @@ function celestial_glory_menu() {
     'access arguments' => array('access celestial_glory content'),
     'type' => MENU_CALLBACK,
   );
-  
+
   $items['celestial_glory/elders_do_fill/%/%'] = array(
     'title' => 'Celestial Glory Elders Do Fill',
     'page callback' => 'celestial_glory_elders_do_fill_callback',
@@ -187,7 +195,7 @@ function celestial_glory_menu() {
     'access arguments' => array('access celestial_glory content'),
     'type' => MENU_CALLBACK,
   );
-  
+
   $items['celestial_glory/elders_set_password/%'] = array(
     'title' => 'Celestial Glory Elders Set Password',
     'page callback' => 'celestial_glory_elders_set_password_callback',
@@ -195,7 +203,7 @@ function celestial_glory_menu() {
     'access arguments' => array('access celestial_glory content'),
     'type' => MENU_CALLBACK,
   );
-  
+
   $items['celestial_glory/elders_rename/%'] = array(
     'title' => 'Celestial Glory Elders Rename',
     'page callback' => 'celestial_glory_elders_rename_callback',
@@ -203,7 +211,7 @@ function celestial_glory_menu() {
     'access arguments' => array('access celestial_glory content'),
     'type' => MENU_CALLBACK,
   );
-  
+
   $items['celestial_glory/welcome/%'] = array(
     'title' => 'Celestial Glory Welcome',
     'page callback' => 'celestial_glory_welcome_callback',
@@ -227,7 +235,7 @@ function celestial_glory_menu() {
     'access arguments' => array('access celestial_glory content'),
     'type' => MENU_CALLBACK,
   );
-  
+
   $items['celestial_glory/debates/%'] = array(
     'title' => 'Celestial Glory Debates List',
     'page callback' => 'celestial_glory_debates_list_callback',
@@ -259,7 +267,7 @@ function celestial_glory_menu() {
     'access arguments' => array('access celestial_glory content'),
     'type' => MENU_CALLBACK,
   );
-  
+
   $items['celestial_glory/top20/%'] = array(
     'title' => 'Celestial Glory Top 20 List',
     'page callback' => 'celestial_glory_top20_list_callback',
@@ -299,7 +307,7 @@ function celestial_glory_menu() {
     'access arguments' => array('access celestial_glory content'),
     'type' => MENU_CALLBACK,
   );
-  
+
   $items['celestial_glory/enter_referral_code/%'] = array(
     'title' => 'Celestial Glory Enter Referral Code',
     'page callback' => 'celestial_glory_enter_referral_code_callback',
@@ -443,7 +451,7 @@ function celestial_glory_menu() {
     'access arguments' => array('access celestial_glory content'),
     'type' => MENU_CALLBACK,
   );
-  
+
   $items['celestial_glory/authenticate/%'] = array(
     'title' => 'Celestial Glory Authenticate',
     'page callback' => 'celestial_glory_authenticate_callback',
@@ -466,7 +474,7 @@ function celestial_glory_menu() {
     'access arguments' => array('access celestial_glory content'),
     'type' => MENU_CALLBACK,
   );
-  
+
   $items['celestial_glory/elders_preferences/%'] = array(
     'title' => 'Celestial Glory Preferences Page',
     'page callback' => 'celestial_glory_elders_preference_callback',
@@ -474,7 +482,7 @@ function celestial_glory_menu() {
     'access arguments' => array('access celestial_glory content'),
     'type' => MENU_CALLBACK,
   );
-  
+
   $items['celestial_glory/zombie_move/%/%/%'] = array(
     'title' => 'Celestial Glory Zombie Move Page',
     'page callback' => 'celestial_glory_zombie_move_callback',
@@ -482,7 +490,7 @@ function celestial_glory_menu() {
     'access arguments' => array('access celestial_glory content'),
     'type' => MENU_CALLBACK,
   );
-  
+
   $items['celestial_glory/event_info/%'] = array(
     'title' => 'Celestial Glory Event Info Page',
     'page callback' => 'celestial_glory_event_info_callback',
@@ -490,7 +498,7 @@ function celestial_glory_menu() {
     'access arguments' => array('access celestial_glory content'),
     'type' => MENU_CALLBACK,
   );
-  
+
   $items['celestial_glory/event_prizes/%'] = array(
     'title' => 'Celestial Glory Event Prizes Page',
     'page callback' => 'celestial_glory_event_prizes_callback',
@@ -498,7 +506,7 @@ function celestial_glory_menu() {
     'access arguments' => array('access celestial_glory content'),
     'type' => MENU_CALLBACK,
   );
-  
+
   return $items;
 
 }
@@ -600,6 +608,17 @@ function celestial_glory_msg_delete_callback($phone_id, $msg_id) {
   }
 
   return theme('celestial_glory_msg_delete', $phone_id, $msg_id);
+
+}
+
+
+function celestial_glory_clan_msg_delete_callback($phone_id, $msg_id) {
+
+  if (empty($phone_id) || !is_numeric($msg_id)) {
+    return drupal_access_denied();
+  }
+
+  return theme('celestial_glory_clan_msg_delete', $phone_id, $msg_id);
 
 }
 
@@ -1232,7 +1251,7 @@ function celestial_glory_theme() {
         'clan_id' => null,
       )
     ),
-    
+
     'celestial_glory_clan_announcements' => array(
       'template' => 'celestial_glory_clan_announcements',
       'arguments' => array(
@@ -1240,7 +1259,7 @@ function celestial_glory_theme() {
         'clan_id' => null,
       )
     ),
-    
+
     'celestial_glory_class_list' => array(
       'template' => 'celestial_glory_class_list',
       'arguments' => array(
@@ -1256,9 +1275,17 @@ function celestial_glory_theme() {
         'phone_id_to_block' => null,
       )
     ),
-    
+
     'celestial_glory_msg_delete' => array(
       'template' => 'celestial_glory_msg_delete',
+      'arguments' => array(
+        'phone_id' => null,
+        'msg_id' => null,
+      )
+    ),
+
+    'celestial_glory_clan_msg_delete' => array(
+      'template' => 'celestial_glory_clan_msg_delete',
       'arguments' => array(
         'phone_id' => null,
         'msg_id' => null,
@@ -1329,7 +1356,7 @@ function celestial_glory_theme() {
         'phone_id' => null
       )
     ),
-    
+
     'celestial_glory_elders_do_fill' => array(
       'template' => 'celestial_glory_elders_do_fill',
       'arguments' => array(
@@ -1358,28 +1385,28 @@ function celestial_glory_theme() {
         'phone_id' => null,
       )
     ),
-    
+
     'celestial_glory_elders_do_purchase' => array(
       'template' => 'celestial_glory_elders_do_purchase',
       'arguments' => array(
         'phone_id' => null,
       )
     ),
-    
+
     'celestial_glory_check_receipt' => array(
       'template' => 'celestial_glory_elders_check_receipt',
       'arguments' => array(
         'phone_id' => null,
       )
     ),
-    
+
     'celestial_glory_google_checkout' => array(
       'template' => 'celestial_glory_google_checkout',
       'arguments' => array(
         'phone_id' => null,
       )
     ),
-    
+
     'celestial_glory_welcome' => array(
       'template' => 'celestial_glory_welcome',
       'arguments' => array(
@@ -1431,42 +1458,42 @@ function celestial_glory_theme() {
         'position_id' => null,
       )
     ),
-    
+
     'celestial_glory_top20_list' => array(
       'template' => 'celestial_glory_top20_list',
       'arguments' => array(
         'phone_id' => null,
       )
     ),
-    
+
     'celestial_glory_top_wards_list' => array(
       'template' => 'celestial_glory_top_wards_list',
       'arguments' => array(
         'phone_id' => null,
       )
     ),
-    
+
     'celestial_glory_top_aldermen_list' => array(
       'template' => 'celestial_glory_top_aldermen_list',
       'arguments' => array(
         'phone_id' => null,
       )
     ),
-    
+
     'celestial_glory_top_event_points' => array(
       'template' => 'celestial_glory_top_event_points',
       'arguments' => array(
         'phone_id' => null,
       )
     ),
-    
+
     'celestial_glory_choose_name' => array(
       'template' => 'celestial_glory_choose_name',
       'arguments' => array(
         'phone_id' => null,
       )
     ),
-    
+
     'celestial_glory_enter_referral_code' => array(
       'template' => 'celestial_glory_enter_referral_code',
       'arguments' => array(
@@ -1493,7 +1520,7 @@ function celestial_glory_theme() {
       'arguments' => array(
         'phone_id' => null,
         'land_id' => null,
-        'quantity' => null,    
+        'quantity' => null,
       )
     ),
 
@@ -1502,7 +1529,7 @@ function celestial_glory_theme() {
       'arguments' => array(
         'phone_id' => null,
         'land_id' => null,
-        'quantity' => null,    
+        'quantity' => null,
       )
     ),
 
@@ -1518,7 +1545,7 @@ function celestial_glory_theme() {
       'arguments' => array(
         'phone_id' => null,
         'staff_id' => null,
-        'quantity' => null,    
+        'quantity' => null,
       )
     ),
 
@@ -1527,7 +1554,7 @@ function celestial_glory_theme() {
       'arguments' => array(
         'phone_id' => null,
         'staff_id' => null,
-        'quantity' => null,    
+        'quantity' => null,
       )
     ),
 
@@ -1543,7 +1570,7 @@ function celestial_glory_theme() {
       'arguments' => array(
         'phone_id' => null,
         'staff_id' => null,
-        'quantity' => null,    
+        'quantity' => null,
       )
     ),
 
@@ -1552,7 +1579,7 @@ function celestial_glory_theme() {
       'arguments' => array(
         'phone_id' => null,
         'staff_id' => null,
-        'quantity' => null,    
+        'quantity' => null,
       )
     ),
 
@@ -1586,7 +1613,7 @@ function celestial_glory_theme() {
         'quantity' => null,
       )
     ),
-    
+
     'celestial_glory_equipment_sell' => array(
       'template' => 'celestial_glory_equipment_sell',
       'arguments' => array(
@@ -1595,7 +1622,7 @@ function celestial_glory_theme() {
         'quantity' => null,
       )
     ),
-    
+
     'celestial_glory_move' => array(
       'template' => 'celestial_glory_move',
       'arguments' => array(
@@ -1603,7 +1630,7 @@ function celestial_glory_theme() {
         'neighborhood_id' => null,
       )
     ),
-    
+
     'celestial_glory_move_do' => array(
       'template' => 'celestial_glory_move_do',
       'arguments' => array(
@@ -1629,14 +1656,14 @@ function celestial_glory_theme() {
         'phone_id' => null,
       )
     ),
-    
+
     'celestial_glory_elders_preferences' => array(
       'template' => 'celestial_glory_elders_preferences',
       'arguments' => array(
         'phone_id' => null,
       )
     ),
-       
+
     'celestial_glory_zombie_move' => array(
       'template' => 'celestial_glory_zombie_move',
       'arguments' => array(
@@ -1645,21 +1672,21 @@ function celestial_glory_theme() {
         'hood_id' => null,
       )
     ),
-       
+
     'celestial_glory_event_info' => array(
       'template' => 'celestial_glory_event_info',
       'arguments' => array(
         'phone_id' => null,
       )
     ),
-       
+
     'celestial_glory_event_prizes' => array(
       'template' => 'celestial_glory_event_prizes',
       'arguments' => array(
         'phone_id' => null,
       )
     ),
-       
+
   );
 
 } // celestial_glory_theme()

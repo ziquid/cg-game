@@ -124,7 +124,7 @@ EOF;
 
       echo <<< EOF
 <div class="message-delete">
-  <a href="/$game/msg_delete/$arg2/$item->id">
+  <a href="/$game/clan_msg_delete/$arg2/$item->id">
     <img src="/sites/default/files/images/delete.png" width="16" height="16"/>
   </a>
 </div>
