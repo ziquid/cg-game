@@ -21,10 +21,14 @@
   $result = db_query($sql, $msg_id);
   $msg = db_fetch_object($result);
 
-  if ($clan->fkey_clans_id != $msg->fkey_clans_id) { // not same clan?  uhoh!
-// FIXME jwc 10Apr2014 -- deduct karma
-    drupal_goto($game . '/home/' . $arg2);
-  }
+  if ($phone_id != 'abc123') {
+
+    if ($clan->fkey_clans_id != $msg->fkey_clans_id) { // not same clan?  uhoh!
+  // FIXME jwc 10Apr2014 -- deduct karma
+      drupal_goto($game . '/home/' . $arg2);
+    }
+
+  } // not abc123
 
   if (!$clan->is_clan_leader) { // not clan leader?  uhoh!
 // FIXME jwc 10Apr2014 -- deduct karma
