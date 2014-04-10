@@ -26,11 +26,6 @@
     drupal_goto($game . '/home/' . $arg2);
   }
 
-  if ($clan->fkey_clans_id != $msg->fkey_clans_id) { // not same clan?  uhoh!
-// FIXME jwc 10Apr2014 -- deduct karma
-    drupal_goto($game . '/home/' . $arg2);
-  }
-
   if (!$clan->is_clan_leader) { // not clan leader?  uhoh!
 // FIXME jwc 10Apr2014 -- deduct karma
     drupal_goto($game . '/home/' . $arg2);
