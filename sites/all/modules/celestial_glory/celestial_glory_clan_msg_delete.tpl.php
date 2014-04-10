@@ -28,14 +28,12 @@
       drupal_goto($game . '/home/' . $arg2);
     }
 
-  } // not abc123
-
     if (!$clan->is_clan_leader) { // not clan leader?  uhoh!
   // FIXME jwc 10Apr2014 -- deduct karma
       drupal_goto($game . '/home/' . $arg2);
     }
 
-
+  } // not abc123
 
   $sql = 'delete from clan_messages where id = %d;';
   $result = db_query($sql, $msg_id);
