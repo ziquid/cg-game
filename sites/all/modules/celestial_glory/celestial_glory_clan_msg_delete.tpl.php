@@ -21,7 +21,7 @@
   $result = db_query($sql, $msg_id);
   $msg = db_fetch_object($result);
 
-//  if ($phone_id != 'abc123') {
+ if ($phone_id != 'abc123') {
 
     if ($clan->fkey_clans_id != $msg->fkey_clans_id) { // not same clan?  uhoh!
   // FIXME jwc 10Apr2014 -- deduct karma
@@ -33,7 +33,7 @@
       drupal_goto($game . '/home/' . $arg2);
     }
 
-//  } // not abc123
+ } // not abc123
 
   $sql = 'delete from clan_messages where id = %d;';
   $result = db_query($sql, $msg_id);
