@@ -10,7 +10,7 @@
    $arg2 = check_plain(arg(2));
 
 // check permissions
-  $sql = 'select fkey_users_from_id
+  $sql = 'select fkey_users_to_id
     from user_messages
     where id = %d;';
   $result = db_query($sql, $msg_id);
