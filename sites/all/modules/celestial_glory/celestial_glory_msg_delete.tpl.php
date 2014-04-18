@@ -16,7 +16,7 @@
   $result = db_query($sql, $msg_id);
   $msg = db_fetch_object($result);
 
-  if ($msg->fkey_users_from_id != $game_user->id) { // not author of msg?
+  if ($msg->fkey_users_to_id != $game_user->id) { // not recipient of msg?
 // FIXME jwc 10Apr2014 -- deduct karma
     drupal_goto($game . '/home/' . $arg2);
   }
