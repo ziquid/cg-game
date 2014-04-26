@@ -43,11 +43,12 @@ EOF;
   if (empty($game_user->username))
     drupal_goto($game . '/choose_name/' . $arg2);
 
-  $sql = 'select name, district from neighborhoods where id = %d;';
+  $sql = 'select name, district, roses from neighborhoods where id = %d;';
   $result = db_query($sql, $game_user->fkey_neighborhoods_id);
   $data = db_fetch_object($result);
   $location = $data->name;
   $district = $data->district;
+  $roses = $data->roses;
 
   $sql = 'select clan_title from `values` where id = %d;';
   $result = db_query($sql, $game_user->fkey_values_id);
@@ -113,7 +114,7 @@ EOF;
 
     echo <<< EOF
 <div class="subtitle">
-  You have no agents and cannot perform any actions.
+  You cannot perform any actions.
 </div>
 <div class="try-an-election-wrapper"><div
   class="try-an-election"><a href="/$game/agents/$arg2">Hire
@@ -167,9 +168,16 @@ firep($item);
     else
       $target = t('Target\'s');
 
-    $name = str_replace(array('%clan', '%subclan', '%value'),
-      array("<em>$clan_title</em>", "<em>$subclan_name</em>", $game_user->values),
+    $name = str_replace(array('%clan', '%subclan', '%value', '%roses'),
+      array("<em>$clan_title</em>", "<em>$subclan_name</em>",
+        $game_user->values, $roses),
       $item->name);
+
+    if (substr($name, 0, 17) == 'There are 0 roses') continue;
+
+    $name = str_replace(array('There are 1 roses'),
+      array('There is 1 rose'),
+      $name);
 
     if ($item->active == 0) $name .= ' (inactive)';
 
