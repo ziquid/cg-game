@@ -1291,6 +1291,7 @@ function _celestial_glory_action_pick_roses_function(&$outcome_reason,
     $sql = 'select roses from neighborhoods where id = %d;';
     $result = db_query($sql, $game_user->fkey_neighborhoods_id);
     $item = db_fetch_object($result);
+firep($item, 'roses');
 
     if ($item->roses < 1) {
 
