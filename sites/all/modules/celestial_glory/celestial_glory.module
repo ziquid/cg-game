@@ -180,6 +180,16 @@ function celestial_glory_cron() {
   $result = db_query($sql, date('Y-m-d H:i:s', time() - 400000));
 // a little over a month
 
+  $sql = 'delete from challenge_history where timestamp < "%s"
+    limit 5000;';
+  $result = db_query($sql, date('Y-m-d H:i:s', time() - 400000));
+
+// add roses
+  $sql = 'update neighborhoods
+    set roses = max(99, roses + (FLOOR(1 + RAND() * 3)))
+    where roses < 99;';
+  $result = db_query($sql);
+
   db_set_active('default');
 
 }
