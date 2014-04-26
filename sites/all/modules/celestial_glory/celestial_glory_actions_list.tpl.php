@@ -169,6 +169,9 @@ firep($item);
     if (is_file($_SERVER['DOCUMENT_ROOT'] .
       "/sites/default/files/images/actions/$game-{$item->id}.png"))
       $image = "/sites/default/files/images/actions/$game-$item->id.png";
+firep($_SERVER['DOCUMENT_ROOT'] .
+  "/sites/default/files/images/actions/$game-{$item->id}.png",
+  'checking for image');
 
     if ($item->target == 'none')
       $target = t('Your');
