@@ -129,9 +129,16 @@ EOF;
   foreach ($data as $item) {
 firep($item);
 
-    $description = str_replace(array('%clan', '%subclan', '%value'),
-      array("<em>$clan_title</em>", "<em>$subclan_name</em>", $game_user->values),
+    $description = str_replace(array('%clan', '%subclan', '%value', '%roses'),
+      array("<em>$clan_title</em>", "<em>$subclan_name</em>",
+        $game_user->values, $roses),
       $item->description);
+
+    if (substr($description, 0, 17) == 'There are 0 roses') continue;
+
+    $description = str_replace(array('There are 1 roses'),
+      array('There is 1 rose'),
+      $description);
 
     if ((arg(3) != 'banking') && (stripos($description, 'account') !== FALSE))
       continue; // move banking to its own screen
@@ -168,16 +175,10 @@ firep($item);
     else
       $target = t('Target\'s');
 
-    $name = str_replace(array('%clan', '%subclan', '%value', '%roses'),
+    $name = str_replace(array('%clan', '%subclan', '%value'),
       array("<em>$clan_title</em>", "<em>$subclan_name</em>",
-        $game_user->values, $roses),
+        $game_user->values),
       $item->name);
-
-    if (substr($name, 0, 17) == 'There are 0 roses') continue;
-
-    $name = str_replace(array('There are 1 roses'),
-      array('There is 1 rose'),
-      $name);
 
     if ($item->active == 0) $name .= ' (inactive)';
 
