@@ -116,9 +116,13 @@ EOF;
 <div class="subtitle">
   You cannot perform any actions.
 </div>
-<div class="try-an-election-wrapper"><div
-  class="try-an-election"><a href="/$game/agents/$arg2">Hire
-  agents</a></div></div>
+<div class="try-an-election-wrapper">
+  <div class="try-an-election">
+    <a href="/$game/agents/$arg2">
+      Hire agents
+    </a>
+  </div>
+</div>
 EOF;
 
     db_set_active('default');
