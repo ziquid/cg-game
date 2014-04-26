@@ -1292,7 +1292,7 @@ function _celestial_glory_action_pick_roses_function(&$outcome_reason,
     $result = db_query($sql, $game_user->fkey_neighborhoods_id);
     $item = db_fetch_object($result);
 
-    if ($item->roses < 100) {
+    if ($item->roses < 1) {
 
       $outcome_reason = '<div class="title">
           No roses!
@@ -1304,6 +1304,35 @@ function _celestial_glory_action_pick_roses_function(&$outcome_reason,
       return FALSE;
 
     }
+
+    $sql = 'update neighborhoods set roses = roses - 1 where id = %d;';
+    $result = db_query($sql, $game_user->fkey_neighborhoods_id);
+
+    $sql = 'select quantity from equipment_ownership
+      where fkey_equipment_id = 31 and fkey_users_id = %d;';
+    $result = db_query($sql, $game_user->id);
+    $data = db_fetch_object($result);
+
+    if (empty($data)) { // none yet -- give one
+
+      $sql = 'insert into equipment_ownership
+        (fkey_users_id, fkey_equipment_id, quantity) values
+        (%d, 31, 1);';
+      $result = db_query($sql, $game_user->id);
+
+    } else { // need one more
+
+      $sql = 'update equipment_ownership set quantity = quantity + 1
+        where fkey_equipment_id = 31 and fkey_users_id = %d;';
+      $result = db_query($sql, $game_user->id);
+
+    }
+
+      $outcome_reason = '<div class="subtitle">
+          You picked a rose!
+        </div>';
+
+      return TRUE;
 
   }
 
