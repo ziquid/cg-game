@@ -186,8 +186,13 @@ function celestial_glory_cron() {
 
 // add roses
   $sql = 'update neighborhoods
-    set roses = least(99, roses + (FLOOR(1 + RAND() * 3)))
+    set roses = least(99, roses + (FLOOR(RAND() * 3)))
     where roses < 99;';
+  $result = db_query($sql);
+
+  $sql = 'update neighborhoods
+    set roses = greatest(0, roses - (1 + FLOOR(RAND() * 5)))
+    where roses > 9;';
   $result = db_query($sql);
 
   db_set_active('default');
