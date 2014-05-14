@@ -2667,19 +2667,11 @@ EOF;
 
   $sql = 'update users set expenses =
 
-    ((SELECT sum(equipment.upkeep * equipment_ownership.quantity)
+    (SELECT sum(equipment.upkeep * equipment_ownership.quantity)
     as expenses from equipment
     left join equipment_ownership
     on equipment_ownership.fkey_equipment_id = equipment.id and
     equipment_ownership.fkey_users_id = %d)
-
-    +
-
-    (SELECT sum(staff.upkeep * staff_ownership.quantity)
-    as expenses from staff
-    left join staff_ownership
-    on staff_ownership.fkey_staff_id = staff.id and
-    staff_ownership.fkey_users_id = %d))
 
     where id = %d;';
   $result = db_query($sql, $target_id, $target_id, $target_id);
