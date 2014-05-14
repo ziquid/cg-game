@@ -1401,7 +1401,6 @@ function _celestial_glory_fetch_user() {
   db_set_active('game_' . $game);
 
 
-
 // check for banned users -- phone_id
 
   $sql = 'select * from user_blocks where phone_id = "%s";';
@@ -1447,6 +1446,29 @@ function _celestial_glory_fetch_user() {
 
   }
 
+
+// get uid
+
+  $sql = 'select id from users
+    where phone_id = "%s";';
+  $result = db_query($sql, $phone_id);
+  $game_user = db_fetch_object($result);
+
+// update expenses
+
+  $sql = 'update users set expenses =
+
+    (SELECT sum(equipment.upkeep * equipment_ownership.quantity)
+    as expenses from equipment
+    left join equipment_ownership
+    on equipment_ownership.fkey_equipment_id = equipment.id and
+    equipment_ownership.fkey_users_id = %d)
+
+    where id = %d;';
+  $result = db_query($sql, $game_user->id, $game_user->id);
+
+// get full user object
+
   $sql = 'select users.*, elected_positions.energy_bonus as ep_energy_bonus,
     elected_positions.can_broadcast_to_party, clan_members.fkey_clans_id,
     elected_positions.max_level as max_level_for_office,
@@ -1465,6 +1487,7 @@ function _celestial_glory_fetch_user() {
     where phone_id = "%s";';
   $result = db_query($sql, $phone_id);
   $game_user = db_fetch_object($result);
+
 
   $sql = 'select sum(equipment.energy_increase * equipment_ownership.quantity)
     as energy_increase from equipment
