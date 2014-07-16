@@ -10,9 +10,9 @@
   $arg2 = check_plain(arg(2));
 
 /*  if ($game == 'stlouis') {
-    
+
     $link = $destination ? $destination : "/$game/user/$arg2";
-    
+
     $fetch_header($game_user);
 
     echo <<< EOF
@@ -30,21 +30,23 @@
 EOF;
 
     db_set_active('default');
-    
+
     return;
-    
+
   }*/
 
   $quest_lower = strtolower($quest);
   $experience_lower = strtolower($experience);
-  
+
   switch ($fill_type) {
-    
+
     case 'action':
-      
-/*      if (($game == 'stlouis') && 
+
+/* //
+
+      if (($game == 'stlouis') &&
         ($game_user->actions < $game_user->actions_max)) {
-          
+
         $sql = 'update users set actions = actions_max where id = %d;';
         $result = db_query($sql, $game_user->id);
 
@@ -57,14 +59,15 @@ EOF;
             <img src="/sites/default/files/images/' . $game . '_continue.png"/>
           </a>
         </div>';
-    
+
         db_set_active('default');
         return;
-        
+
       }
-*/    
+// */
+
       if ($game_user->luck < 1) {
-        
+
         $fetch_header($game_user);
 
         echo '<div class="land-failed">' . t('Out of @s!', array('@s' => $luck))
@@ -73,24 +76,24 @@ EOF;
           class="try-an-election"><a href="/' . $game .
           '/elders_ask_purchase/' . $arg2 .
           '">Purchase more ' . $luck . '</div></div>';
-    
+
         db_set_active('default');
         return;
-        
+
       }
-      
+
       if ($game_user->actions < $game_user->actions_max) {
         $sql = 'update users set actions = actions_max, luck = luck - 1
           where id = %d;';
         $result = db_query($sql, $game_user->id);
       }
-      
+
       break;
-      
+
     case 'energy':
-      
+
       if ($game_user->luck < 1) {
-        
+
         $fetch_header($game_user);
 
         echo '<div class="land-failed">' . t('Out of @s!', array('@s' => $luck))
@@ -99,26 +102,26 @@ EOF;
           class="try-an-election"><a href="/' . $game .
           '/elders_ask_purchase/' . $arg2 .
           '">Purchase more ' . $luck . '</div></div>';
-    
+
         db_set_active('default');
         return;
-        
+
       }
 
       if ($game_user->energy < $game_user->energy_max) {
-      
+
         $sql = 'update users set energy = energy_max, luck = luck - 1
           where id = %d;';
         $result = db_query($sql, $game_user->id);
-        
+
       }
-      
+
       break;
 
     case 'money':
-      
+
       if ($game_user->luck < 1) {
-        
+
         $fetch_header($game_user);
 
         echo '<div class="land-failed">' . t('Out of @s!', array('@s' => $luck))
@@ -127,22 +130,22 @@ EOF;
           class="try-an-election"><a href="/' . $game .
           '/elders_ask_purchase/' . $arg2 .
           '">Purchase more ' . $luck . '</div></div>';
-    
+
         db_set_active('default');
         return;
-        
+
       }
 
       $offer = ($game_user->income - $game_user->expenses) * 5;
       $offer = min($offer, $game_user->level * 1000);
       $offer = max($offer, $game_user->level * 100);
-      
+
       $sql = 'update users set money = money + %d, luck = luck - 1
         where id = %d;';
       $result = db_query($sql, $offer, $game_user->id);
-        
+
       break;
-      
+
   }
-    
+
   drupal_goto($game . '/user/' . $arg2);
