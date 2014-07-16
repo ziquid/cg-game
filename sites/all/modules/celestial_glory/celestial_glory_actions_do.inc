@@ -1313,6 +1313,7 @@ firep($item, 'roses');
       where fkey_equipment_id = 31 and fkey_users_id = %d;';
     $result = db_query($sql, $game_user->id);
     $data = db_fetch_object($result);
+firep($data, 'rose quantity');
 
     if (empty($data)) { // none yet -- give one
 
@@ -1329,11 +1330,11 @@ firep($item, 'roses');
 
     }
 
-      $outcome_reason = '<div class="subtitle">
-          You picked a rose!
-        </div>';
+    $outcome_reason = '<div class="subtitle">
+        You picked a rose!
+      </div>';
 
-      return TRUE;
+    return TRUE;
 
   }
 
