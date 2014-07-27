@@ -1339,6 +1339,48 @@ firep($data, 'rose quantity');
   }
 
 
+function _celestial_glory_action_dance_in_the_streets_function(&$outcome_reason,
+    $target, &$can_do_again) {
+
+    global $game, $phone_id;
+
+    $fetch_user = '_' . arg(0) . '_fetch_user';
+
+    $game_user = $fetch_user();
+    include(drupal_get_path('module', $game) . '/game_defs.inc');
+
+    $sql = 'select quantity from equipment_ownership
+        where fkey_equipment_id = 31 and fkey_users_id = %d;';
+    $result = db_query($sql, $game_user->id);
+    $item = db_fetch_object($result);
+firep($item, 'roses');
+
+    if ($item->quantity < 8) {
+
+      $outcome_reason = '<div class="title">
+          Not enough roses!
+        </div>
+        <div class="subtitle">
+          You only have ' . $item->quantity . ' roses &mdash; you need 8!
+        </div>';
+
+      return FALSE;
+
+    }
+
+    $sql = 'update equipment_ownership set quantity = quantity - 8
+      where fkey_equipment_id = 31 and fkey_users_id = %d;';
+    $result = db_query($sql, $game_user->id);
+
+    $outcome_reason = '<div class="subtitle">
+        What a party!
+      </div>';
+
+    return TRUE;
+
+  }
+
+
   function _stlouis_action_steal_some_value_function(&$outcome_reason,
     $target) {
 
