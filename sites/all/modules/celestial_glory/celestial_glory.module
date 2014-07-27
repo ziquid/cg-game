@@ -102,7 +102,7 @@ function celestial_glory_cron() {
     where fkey_elected_positions_id = 1);';
   $result = db_query($sql);
 
-// give hoods residents to match - each gets $addition plus rating / 5
+// give hoods residents to match - each gets $addition plus rating / 6
 
   $addition = 0; // winter
 //  $addition = 5; // spring / fall
@@ -110,11 +110,11 @@ function celestial_glory_cron() {
   $addition = 1; // testing jwc 26Jul2014
 
   $sql = 'UPDATE `neighborhoods` SET residents = residents + 1
-    WHERE floor(rating / 5) > (residents - %d) AND rand() > 0.95';
+    WHERE floor(rating / 6) > (residents - %d) AND rand() > 0.95';
   $result = db_query($sql, $addition);
 
   $sql = 'UPDATE `neighborhoods` SET residents = residents - 1
-    WHERE floor(rating / 5) < (residents - %d) AND rand() > 0.95';
+    WHERE floor(rating / 6) < (residents - %d) AND rand() > 0.95';
   $result = db_query($sql, $addition);
 
 
@@ -214,7 +214,7 @@ function celestial_glory_cron() {
 
   $sql = 'update neighborhoods
     set roses = greatest(0, roses - (1 + FLOOR(RAND() * 5)))
-    where roses > 9;';
+    where roses > 5 and id <> 6;';
   $result = db_query($sql);
 
   db_set_active('default');
