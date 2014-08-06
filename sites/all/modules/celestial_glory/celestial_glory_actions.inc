@@ -161,7 +161,9 @@ function actionlist() {
   foreach ($data as &$action) {
 
 // Roses are cheap in Babylon
-    if ($action->name == 'Pick roses') $action->cost = 1;
+    if (($action->name == 'Pick roses') &&
+      ($game_user->fkey_neighborhoods_id == 6))
+      $action->cost = 1;
 
   }
 
