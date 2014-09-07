@@ -1387,11 +1387,15 @@ function _celestial_glory_action_dance_in_the_streets_function(&$outcome_reason,
     global $game, $phone_id;
 
     $fetch_user = '_' . $game . '_fetch_user';
+    $set_value = '_' . $game . '_set_value';
+    $get_value = '_' . $game . '_get_value';
 
     $game_user = $fetch_user();
     $target_id = $_GET['target'];
+
     include(drupal_get_path('module', $game) . '/game_defs.inc');
 
+// get family of CP
     $sql = 'select users.id, users.fkey_values_id from elected_officials
       left join users on elected_officials.fkey_users_id = users.id
       where elected_officials.fkey_elected_positions_id = 1
@@ -1400,11 +1404,14 @@ function _celestial_glory_action_dance_in_the_streets_function(&$outcome_reason,
     $cp = db_fetch_object($result);
 firep($cp, 'family of chief priest in region');
 
-    $sql = 'select fkey_values_id from users where id = %d;';
+// get family of target
+    $sql = 'select fkey_values_id, level from users where id = %d;';
     $result = db_query($sql, $target_id);
     $target_values_id = db_fetch_object($result);
 firep($target_values_id, 'family of target');
 
+// not a merchant, target not a merchant, and not in a hood controlled by
+// merchants?
     if ($cp->fkey_values_id != 5 && $game_user->fkey_values_id != 5
       && $target_values_id->fkey_values_id != 5) {
 
@@ -1418,6 +1425,29 @@ firep($target_values_id, 'family of target');
       return FALSE;
 
     }
+
+// target has a major action timer?
+    if ($get_value($target_id, 'next_major_action', 0) > time()) {
+
+      $outcome_reason = '<div class="title">
+          Not Available
+        </div>
+        <div class="subtitle">
+          Your recipient is busy right now<br/>
+          Please try again in a few minutes
+        </div>';
+
+      return FALSE;
+
+    }
+
+// player gets ten minutes of major action timer per level
+    $set_value($game_user->id, 'next_major_action',
+      time() + ($game_user->level * 600));
+
+// target gets one minute of major action timer per level
+    $set_value($target_id, 'next_major_action',
+      time() + ($target_values_id->level * 60));
 
     $outcome_reason = '<div class="subtitle">
         No one noticed, right?
@@ -1494,14 +1524,14 @@ firep($target_values_id, 'family of target');
           </div>
         </div>';
 
-        return false;
+        return FALSE;
 
     }
 
     $sql = 'delete from user_messages where fkey_users_to_id = %d;';
     $result = db_query($sql, $game_user->id);
 
-    return true;
+    return TRUE;
 
   }
 
