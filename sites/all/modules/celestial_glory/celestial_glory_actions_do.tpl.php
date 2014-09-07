@@ -174,10 +174,7 @@ if ($action_succeeded) {
     $show_all = '?want_jol=yes';
   }
 
-// Roses are cheap in Babylon
-  if (($action->name == 'Pick roses') &&
-    ($game_user->fkey_neighborhoods_id == 6))
-    $action->cost = 1;
+  _filter_actions($action);
 
 // decrement available actions
   $sql = 'update users set actions = actions - %d where id = %d;';
