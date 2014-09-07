@@ -174,7 +174,7 @@ if ($action_succeeded) {
     $show_all = '?want_jol=yes';
   }
 
-  _filter_actions($action);
+  _filter_actions($action, $game_user);
 
 // decrement available actions
   $sql = 'update users set actions = actions - %d where id = %d;';
