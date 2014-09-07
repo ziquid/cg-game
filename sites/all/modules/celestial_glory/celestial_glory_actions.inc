@@ -403,15 +403,17 @@ function _filter_actions(&$action, $game_user) {
     $action->cost = 1;
 
 // Launder money
-  if ($action->name == 'Launder some funds (levels 25-49)') {
-    if (($game_user->level < 25) || ($game_user->level > 49)) {
+  if (substring($action->name, 0, 13) == 'Launder some ') {
+
+    if ($game_user->level < 25) {
       $action->active = 0;
       $action->hidden = TRUE;
-     } else {
+     } else if ($game_user->level < 50) {
       $action->cost = 10;
       $action->values_cost = $game_user->level * 10000;
       $action->values_change = $game_user->level * 7000;
     }
-  } // launder 25-49
+
+  } // launder money
 
 }

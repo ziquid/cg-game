@@ -1353,7 +1353,7 @@ function _celestial_glory_action_dance_in_the_streets_function(&$outcome_reason,
         where fkey_equipment_id = 31 and fkey_users_id = %d;';
     $result = db_query($sql, $game_user->id);
     $item = db_fetch_object($result);
-firep($item, 'roses');
+// firep($item, 'roses');
 
     if ($item->quantity < 8) {
 
@@ -1379,6 +1379,51 @@ firep($item, 'roses');
     return TRUE;
 
   }
+
+
+  function _celestial_glory_action_launder_some_value_function(&$outcome_reason,
+    $target, &$can_do_again) {
+
+    global $game, $phone_id;
+
+    $fetch_user = '_' . $game . '_fetch_user';
+
+    $game_user = $fetch_user();
+    include(drupal_get_path('module', $game) . '/game_defs.inc');
+
+    $sql = 'select fkey_values_id from elected_officials
+      left join users on elected_officials.fkey_users_id = users.id
+      where elected_officials.fkey_elected_positions_id = 1
+      and users.fkey_neighborhoods_id = %d;';
+    $result = db_query($sql, $game_user->fkey_neighborhoods_id);
+    $item = db_fetch_object($result);
+firep($item, 'family of chief priest in region');
+
+    if ($item->quantity < 8) {
+
+      $outcome_reason = '<div class="title">
+          Not enough roses!
+        </div>
+        <div class="subtitle">
+          You only have ' . $item->quantity . ' roses &mdash; you need 8!
+        </div>';
+
+      return FALSE;
+
+    }
+
+    $sql = 'update equipment_ownership set quantity = quantity - 8
+      where fkey_equipment_id = 31 and fkey_users_id = %d;';
+    $result = db_query($sql, $game_user->id);
+
+    $outcome_reason = '<div class="subtitle">
+        What a party!
+      </div>';
+
+    return TRUE;
+
+  }
+
 
 
   function _stlouis_action_steal_some_value_function(&$outcome_reason,
