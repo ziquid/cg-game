@@ -405,13 +405,25 @@ function _filter_actions(&$action, $game_user) {
 // Launder money
   if (substr($action->name, 0, 13) == 'Launder some ') {
 
-    if ($game_user->level < 25) {
+    if ($game_user->level < 30) {
       $action->active = 0;
       $action->hidden = TRUE;
-     } else if ($game_user->level < 50) {
+    } else if ($game_user->level < 60) {
       $action->cost = 10;
       $action->values_cost = $game_user->level * 10000;
       $action->values_change = $game_user->level * 7000;
+    } else if ($game_user->level < 90) {
+      $action->cost = 20;
+      $action->values_cost = $game_user->level * 50000;
+      $action->values_change = $game_user->level * 30000;
+    } else if ($game_user->level < 120) {
+      $action->cost = 30;
+      $action->values_cost = $game_user->level * 250000;
+      $action->values_change = $game_user->level * 125000;
+    } else {
+      $action->cost = 40;
+      $action->values_cost = $game_user->level * 1250000;
+      $action->values_change = $game_user->level * 500000;
     }
 
   } // launder money

@@ -1391,7 +1391,7 @@ function _celestial_glory_action_dance_in_the_streets_function(&$outcome_reason,
     $game_user = $fetch_user();
     include(drupal_get_path('module', $game) . '/game_defs.inc');
 
-    $sql = 'select fkey_values_id from elected_officials
+    $sql = 'select users.id, users.fkey_values_id from elected_officials
       left join users on elected_officials.fkey_users_id = users.id
       where elected_officials.fkey_elected_positions_id = 1
       and users.fkey_neighborhoods_id = %d;';
@@ -1405,7 +1405,7 @@ firep($item, 'family of chief priest in region');
           No Merchants!
         </div>
         <div class="subtitle">
-          You must be in a ' . $hood . ' controlled by Merchants
+          You must be in a ' . $hood_lower . ' controlled by Merchants
         </div>';
 
       return FALSE;
@@ -1415,6 +1415,18 @@ firep($item, 'family of chief priest in region');
     $outcome_reason = '<div class="subtitle">
         No one noticed, right?
       </div>';
+
+    if ($game_user->fkey_values_id != 5) { // not a Merchant?  1% goes to CP
+
+      $tax = $game_user->level * 12500;
+      if ($game_user->level < 120) $tax = $game_user->level * 2500;
+      if ($game_user->level < 90) $tax = $game_user->level * 500;
+      if ($game_user->level < 60) $tax = $game_user->level * 100;
+
+      $sql = 'update users set money = money + %d where id = %d;';
+      $result = db_query($sql, $tax, $item->id);
+
+    } // CP tax
 
     return TRUE;
 
@@ -1438,7 +1450,7 @@ firep($item, 'family of chief priest in region');
     $sql = 'update users set debates_last_time = "%s" where id = %d;';
     $result = db_query($sql, date('Y-m-d H:i:s', time()), $game_user->id);
 
-    return true;
+    return TRUE;
 
   }
 
