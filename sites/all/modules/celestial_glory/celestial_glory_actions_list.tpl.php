@@ -133,6 +133,8 @@ EOF;
   foreach ($data as $item) {
 firep($item);
 
+    if ($item->hidden && $phone_id != 'abc123') continue;
+
     $description = str_replace(array('%clan', '%subclan', '%value', '%roses'),
       array("<em>$clan_title</em>", "<em>$subclan_name</em>",
         $game_user->values, $roses),
