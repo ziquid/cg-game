@@ -1389,6 +1389,7 @@ function _celestial_glory_action_dance_in_the_streets_function(&$outcome_reason,
     $fetch_user = '_' . $game . '_fetch_user';
 
     $game_user = $fetch_user();
+    $target_id = $_GET['target'];
     include(drupal_get_path('module', $game) . '/game_defs.inc');
 
     $sql = 'select users.id, users.fkey_values_id from elected_officials
@@ -1396,10 +1397,16 @@ function _celestial_glory_action_dance_in_the_streets_function(&$outcome_reason,
       where elected_officials.fkey_elected_positions_id = 1
       and users.fkey_neighborhoods_id = %d;';
     $result = db_query($sql, $game_user->fkey_neighborhoods_id);
-    $item = db_fetch_object($result);
-firep($item, 'family of chief priest in region');
+    $cp = db_fetch_object($result);
+firep($cp, 'family of chief priest in region');
 
-    if ($item->fkey_values_id != 5 && $game_user->fkey_values_id != 5) {
+    $sql = 'select fkey_values_id from users where id = %d;';
+    $result = db_query($sql, $target_id);
+    $target_values_id = db_fetch_object($result);
+firep($target_values_id, 'family of target');
+
+    if ($cp->fkey_values_id != 5 && $game_user->fkey_values_id != 5
+      && $target_values_id->fkey_values_id != 5) {
 
       $outcome_reason = '<div class="title">
           No Merchants!
@@ -1416,7 +1423,9 @@ firep($item, 'family of chief priest in region');
         No one noticed, right?
       </div>';
 
-    if ($game_user->fkey_values_id != 5) { // not a Merchant?  1% goes to CP
+    if ($game_user->fkey_values_id != 5
+      && $target_values_id->fkey_values_id != 5) {
+// not a Merchant?  1% goes to CP
 
       $tax = $game_user->level * 12500;
       if ($game_user->level < 120) $tax = $game_user->level * 2500;
@@ -1424,7 +1433,7 @@ firep($item, 'family of chief priest in region');
       if ($game_user->level < 60) $tax = $game_user->level * 100;
 
       $sql = 'update users set money = money + %d where id = %d;';
-      $result = db_query($sql, $tax, $item->id);
+      $result = db_query($sql, $tax, $cp->id);
 
     } // CP tax
 
@@ -1522,7 +1531,7 @@ firep($item, 'family of chief priest in region');
         t('Not enough Luck!') .
         '</div><div class="action-effect">You do not have 10 extra Luck to give</div>';
 
-      return false;
+      return FALSE;
 
     }
 
