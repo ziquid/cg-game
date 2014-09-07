@@ -32,6 +32,8 @@ EOF;
 
   $result = db_query($sql, $action_id);
   $action = db_fetch_object($result);
+  _filter_actions($action, $game_user);
+
   firep($action);
 
   $data = actionlist();
