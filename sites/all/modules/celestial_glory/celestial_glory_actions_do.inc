@@ -1399,7 +1399,7 @@ function _celestial_glory_action_dance_in_the_streets_function(&$outcome_reason,
     $item = db_fetch_object($result);
 firep($item, 'family of chief priest in region');
 
-    if ($item->fkey_values_id != 5 && $game_user->fkey_values_id != 5)
+    if ($item->fkey_values_id != 5 && $game_user->fkey_values_id != 5) {
 
       $outcome_reason = '<div class="title">
           No Merchants!
