@@ -278,7 +278,7 @@ if ($action_succeeded) {
 
     // affect rating
     $sql = 'update neighborhoods
-        set rating = greatest(0, rating + %f) where id = %d;';
+      set rating = greatest(0, rating + %f) where id = %d;';
     $result = db_query($sql, $rat_change,  $game_user->fkey_neighborhoods_id);
 
     // get new rating
@@ -299,9 +299,11 @@ if ($action_succeeded) {
 
     $sql = 'update users set money = money - %d where id = %d;';
     $result = db_query($sql, $action->values_cost, $game_user->id);
-    $outcome_reason .= '<div class="action-effect">Your ' .
-    $game_user->values . ' is decreased by ' . $action->values_cost .
-        '</div>';
+    $outcome_reason .= '<div class="action-effect">
+        Your '
+        . $game_user->values . ' is decreased by '
+        . number_format($action->values_cost)
+      . '</div>';
 
   }
 
@@ -327,8 +329,10 @@ if ($action_succeeded) {
 //    $sql = 'update users set money = greatest(money + %d, 0) where id = %d;';
     $sql = 'update users set money = money + %d where id = %d;';
     $result = db_query($sql, $money, $target_id);
-    $outcome_reason .= '<div class="action-effect">' . $target_name . ' ' .
-    $game_user->values . ' is ' . $verb . ' by ' . abs($money) . '</div>';
+    $outcome_reason .= '<div class="action-effect">'
+        . $target_name . ' ' . $game_user->values . ' is ' . $verb . ' by '
+        . number_format(abs($money))
+      . '</div>';
 
     if ($action->values_change < 0) {
       $can_do_again = FALSE;
