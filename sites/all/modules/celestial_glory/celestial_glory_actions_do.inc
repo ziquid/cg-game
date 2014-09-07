@@ -1405,7 +1405,7 @@ firep($item, 'family of chief priest in region');
           No Merchants!
         </div>
         <div class="subtitle">
-          You must be in a $hood controlled by Merchants
+          You must be in a ' . $hood . ' controlled by Merchants
         </div>';
 
       return FALSE;
