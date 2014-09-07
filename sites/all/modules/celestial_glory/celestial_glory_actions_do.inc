@@ -1399,25 +1399,21 @@ function _celestial_glory_action_dance_in_the_streets_function(&$outcome_reason,
     $item = db_fetch_object($result);
 firep($item, 'family of chief priest in region');
 
-    if ($item->quantity < 8) {
+    if ($item->fkey_values_id != 5 && $game_user->fkey_values_id != 5)
 
       $outcome_reason = '<div class="title">
-          Not enough roses!
+          No Merchants!
         </div>
         <div class="subtitle">
-          You only have ' . $item->quantity . ' roses &mdash; you need 8!
+          You must be in a $hood controlled by Merchants
         </div>';
 
       return FALSE;
 
     }
 
-    $sql = 'update equipment_ownership set quantity = quantity - 8
-      where fkey_equipment_id = 31 and fkey_users_id = %d;';
-    $result = db_query($sql, $game_user->id);
-
     $outcome_reason = '<div class="subtitle">
-        What a party!
+        No one noticed, right?
       </div>';
 
     return TRUE;
