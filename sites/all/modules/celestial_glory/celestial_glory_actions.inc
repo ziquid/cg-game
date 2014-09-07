@@ -403,7 +403,7 @@ function _filter_actions(&$action, $game_user) {
     $action->cost = 1;
 
 // Launder money
-  if (substring($action->name, 0, 13) == 'Launder some ') {
+  if (substr($action->name, 0, 13) == 'Launder some ') {
 
     if ($game_user->level < 25) {
       $action->active = 0;
