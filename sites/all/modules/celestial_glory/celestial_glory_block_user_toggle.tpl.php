@@ -2,8 +2,13 @@
 
   global $game, $phone_id;
 
-  $game_user = _stlouis_fetch_user();
-  _stlouis_header($game_user);
+  $fetch_user = '_' . arg(0) . '_fetch_user';
+  $fetch_header = '_' . arg(0) . '_header';
+
+  $game_user = $fetch_user();
+  include_once(drupal_get_path('module', $game) . '/game_defs.inc');
+  $fetch_header($game_user);
+  $arg2 = check_plain(arg(2));
 
   $sql = 'select id, username from users where phone_id = "%s";';
   $result = db_query($sql, $phone_id_to_block);
