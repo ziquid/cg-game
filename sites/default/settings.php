@@ -93,14 +93,14 @@
 /*
 $db_url['default'] = 'mysqli://dp_admin:Dp9293@web1/web1_drupal';
 */
-/*$db_url['default'] = 'mysqli://dp_admin:Dp9293@db1/web1_drupal';
+$db_url['default'] = 'mysqli://dp_admin:Dp9293@db1/web1_drupal';
 
 $db_url['game_stlouis'] = 'mysqli://stlouis_admin:StL9293@db1/cdc_game_stlouis';
 $db_url['game_stlouis_slave1'] = 'mysqli://stlouis_admin:StL9293@db2/cdc_game_stlouis';
 
 $db_url['game_celestial_glory'] = 'mysqli://cg_admin:CG9293@db1/cdc_game_celestial_glory';
-$db_url['game_celestial_glory_slave1'] = 'mysqli://cg_admin:CG9293@db1/cdc_game_celestial_glory';*/
-$db_url['default']='mysqli://root:test@localhost/cg-game';
+$db_url['game_celestial_glory_slave1'] = 'mysqli://cg_admin:CG9293@db1/cdc_game_celestial_glory';
+
 $db_prefix = '';
 
 /**
