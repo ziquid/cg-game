@@ -32,11 +32,11 @@
     
     echo <<< EOF
 <div class="title">Block player $item->username</div>
-<div class="subtitle"><a href="/$game/user/$game_user->phone_id/$phone_id_to_block">$item->username</a>
+<div class="subtitle"><a href="/$game/user/$arg2/$phone_id_to_block">$item->username</a>
   can no longer send you messages</div>
 <div class="try-an-election-wrapper">
   <div class="try-an-election">
-    <a href="/$game/user/$phone_id">Continue</a>
+    <a href="/$game/user/$arg2">Continue</a>
   </div>
 </div>
 EOF;
@@ -50,11 +50,11 @@ EOF;
     
     echo <<< EOF
 <div class="title">Unblock player $item->username</div>
-<div class="subtitle"><a href="/$game/user/$game_user->phone_id/$phone_id_to_block">$item->username</a>
+<div class="subtitle"><a href="/$game/user/$arg2/$phone_id_to_block">$item->username</a>
   can again send you messages</div>
 <div class="try-an-election-wrapper">
   <div class="try-an-election">
-    <a href="/$game/user/$phone_id">Continue</a>
+    <a href="/$game/user/$arg2">Continue</a>
   </div>
 </div>
 EOF;
