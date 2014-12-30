@@ -507,6 +507,14 @@ function celestial_glory_menu() {
     'type' => MENU_CALLBACK,
   );
 
+  $items['celestial_glory/%/error/%/%'] = array(
+    'title' => 'Error',
+    'page callback' => 'celestial_glory_error_callback',
+    'page arguments' => array(1, 3, 4),
+    'access arguments' => array('access celestial_glory content'),
+    'type' => MENU_CALLBACK,
+  );
+
   return $items;
 
 }
@@ -1210,6 +1218,12 @@ function celestial_glory_event_prizes_callback($phone_id) {
 }
 
 
+function celestial_glory_error_callback($game, $phone_id, $error_code) {
+	
+  return theme('celestial_glory_error', $game, $phone_id, $error_code);
+  
+}
+
 function celestial_glory_theme() {
   // theme "A" uses template "B" with args "C"
 
@@ -1687,6 +1701,15 @@ function celestial_glory_theme() {
       )
     ),
 
+    'celestial_glory_error' => array(
+      'template' => 'celestial_glory_error',
+      'arguments' => array(
+        'game' => null,
+		'phone_id' => null,
+		'error_code' => null,
+      )
+    ),
+	
   );
 
 } // celestial_glory_theme()
