@@ -1705,7 +1705,6 @@ function celestial_glory_theme() {
     'celestial_glory_error' => array(
       'template' => 'celestial_glory_error',
       'arguments' => array(
-        'game' => null,
 		'phone_id' => null,
 		'error_code' => null,
       )
