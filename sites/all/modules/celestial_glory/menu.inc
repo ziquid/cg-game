@@ -507,10 +507,10 @@ function celestial_glory_menu() {
     'type' => MENU_CALLBACK,
   );
 
-  $items['celestial_glory/%/error/%/%'] = array(
-    'title' => 'Error',
+  $items['celestial_glory/error/%/%'] = array(
+    'title' => 'Celestial Glory Error Page',
     'page callback' => 'celestial_glory_error_callback',
-    'page arguments' => array(1, 3, 4),
+    'page arguments' => array(2, 3),
     'access arguments' => array('access celestial_glory content'),
     'type' => MENU_CALLBACK,
   );
