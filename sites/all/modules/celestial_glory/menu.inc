@@ -1218,11 +1218,12 @@ function celestial_glory_event_prizes_callback($phone_id) {
 }
 
 
-function celestial_glory_error_callback($game, $phone_id, $error_code) {
+function celestial_glory_error_callback($phone_id, $error_code) {
 	
-  return theme('celestial_glory_error', $game, $phone_id, $error_code);
+  return theme('celestial_glory_error', $phone_id, $error_code);
   
 }
+
 
 function celestial_glory_theme() {
   // theme "A" uses template "B" with args "C"
