@@ -24,7 +24,7 @@ EOF;
   echo <<< EOF
 echo <<< EOF
 <div class="title">
-<img src="/sites/default/files/images/{$game}_title.png"/>
+<img src="/sites/default/files/images/{$game}_lehi_large.png"/>
 </div>
 <p>&nbsp;</p>
 <div class="welcome">
