@@ -19,11 +19,11 @@ echo <<< EOF
   <div class="wise_old_man_large">
 	
   </div>
-  <p>And it came to pass that</p><p>&nbsp;</p>
-  <p>Error E-{$error_code}</p><p>&nbsp;</p>
-  <p>happened for user</p><p>&nbsp;</p>
-  <p> {$phone_id}.</p><p>&nbsp;</p>
-  <p> Please report this to <strong>support@cheek.com</strong>.</p><p>&nbsp;</p>
+  <p>And it came to pass that</p>
+  <p>Error E-{$error_code}</p>
+  <p>happened for user</p>
+  <p> {$phone_id}.</p>
+  <p> Please report this to <strong>support@cheek.com</strong>.</p>
 </div>
 <div class="subtitle">
   <a href="/$game/quests/$arg2">
