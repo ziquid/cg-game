@@ -223,8 +223,16 @@ firep($sql);
 // firep($rgb);
 
     $active = ($item->active) ? '' : ' (inactive)';
+firep($item);
+    if (($group_to_show > 0)) { // show quests in other hoods?
 
-    if (TRUE) { // show quests in other hoods?
+      echo <<< EOF
+  <div class="quests">
+    This $quest can only be completed in $item->fkey_neighborhoods_id
+  </div>
+EOF;
+
+    } else { // quest in my hood
 
       echo <<< EOF
   <div class="quests">
