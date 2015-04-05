@@ -358,10 +358,14 @@ li {
   float: right;
 }
 
-.land .land-perform-button-wrapper, .send-message-send-wrapper,
-.quests .quests-perform-button-wrapper {
+.land .land-perform-button-wrapper, .send-message-send-wrapper {
   margin: 3px;
   float: right;
+}
+
+.quests .quests-perform-button-wrapper {
+  margin: 3px;
+  text-align: right;
 }
 
 .land .land-buy-button, .land .land-sell-button {
