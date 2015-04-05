@@ -255,9 +255,14 @@ firep($item);
         $item->name $active
       </div>
       <div class="quest-description">
-        This $quest can only be completed in $hood
+        This $quest can only be completed in $item->hood
       </div>
     </div>
+    <form action="/$game/move/$arg2/$item->fkey_neighborhoods_id">
+      <div class="land-perform-button-wrapper">
+        <input class="land-perform-button" type="submit" value="Go there"/>
+      </div>
+    </form>
   </div>
 EOF;
 
