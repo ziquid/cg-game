@@ -229,7 +229,8 @@ li {
 
 .elections .election-details .action, .land .land-buy-button,
 .land .land-sell-button, .land .land-perform-button,
-.send-message-send-wrapper .send-message-send {
+.send-message-send-wrapper .send-message-send,
+.quests .quests-perform-button {
   padding: 3px 12px;
   background-color: #693318;
   border: 1px solid #693318;

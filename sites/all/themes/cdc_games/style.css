@@ -167,6 +167,7 @@ li {
   padding: 3px;
   border-radius: 4px;
   -moz-border-radius: 4px;
+  min-height: 80px;
 }
 
 .quests .quest-icon {
@@ -352,7 +353,8 @@ li {
   float: right;
 }
 
-.land .land-perform-button-wrapper, .send-message-send-wrapper {
+.land .land-perform-button-wrapper, .send-message-send-wrapper,
+.quests .quests-perform-button-wrapper {
   margin: 3px;
   float: right;
 }
@@ -366,7 +368,7 @@ li {
   margin: 8px 2px 4px 8px;
 }
 
-.land .land-perform-button {
+.land .land-perform-button, .quests .quests-perform-button {
   display: inline-block;
   margin: 0px 2px 4px 20px;
 }
@@ -381,7 +383,7 @@ li {
   color: #fff;
 }
 
-.land input.land-perform-button {
+.land input.land-perform-button, .quests input.quests-perform-button {
   color: #fff;
 }
 
@@ -588,23 +590,23 @@ li {
 }
 
 .news .all {
-  
+
 }
 
 .news .personal {
-  
+
 }
 
 .news .elections {
-  
+
 }
 
 .news .clan {
-  
+
 }
 
 .news .system {
-  
+
 }
 
 .news .button {
