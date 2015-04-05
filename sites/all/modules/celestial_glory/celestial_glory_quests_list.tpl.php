@@ -255,7 +255,7 @@ firep($item);
         $item->name $active
       </div>
       <div class="quest-description">
-        This $quest can only be completed in $item->hood.
+        This $quest_lower can only be completed in $item->hood.
       </div>
     </div>
     <form action="/$game/move/$arg2/$item->fkey_neighborhoods_id">

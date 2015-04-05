@@ -208,6 +208,10 @@ li {
   font-weight: bold;
 }
 
+.quests.wrong-hood .quest-name {
+  color: #aaa;
+}
+
 .quests .quest-description {
   font-size: 11px;
 }
