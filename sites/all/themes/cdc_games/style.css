@@ -212,6 +212,11 @@ li {
   font-size: 11px;
 }
 
+.quests.wrong-hood .quest-description {
+   margin-top: 6px;
+   margin-bottom: 11px;
+}
+
 .quests .quest-experience {
   margin-top: 6px;
 }
