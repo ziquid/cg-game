@@ -230,7 +230,7 @@ firep($item);
 
     if (($group_to_show > 0) &&
       (($item->fkey_neighborhoods_id != 0) ||
-      ($item->fkey_neighborhoods_id != $user->fkey_neighborhoods_id))) {
+      ($item->fkey_neighborhoods_id != $game_user->fkey_neighborhoods_id))) {
 // show quests in other hoods?
 
       echo <<< EOF
