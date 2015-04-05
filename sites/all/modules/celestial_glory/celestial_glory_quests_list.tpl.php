@@ -234,7 +234,7 @@ firep($item);
 // show quests in other hoods?
 
       echo <<< EOF
-  <div class="quests">
+  <div class="quests wrong-hood">
     <div class="quest-icon">
       <a href="/$game/quests_do/$arg2/$item->id">
         <img src="/sites/default/files/images/quests/$game-$item->id.png"
