@@ -965,5 +965,6 @@ a .event-text {
 .location {
   color: #888;
   font: 10px Helvetica, Arial, sans-serif;
-  margin-top: -20px;
+  margin-top: -24px;
+  text-align: center;
 }
