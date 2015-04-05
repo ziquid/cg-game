@@ -188,7 +188,10 @@ EOF;
 
 // show each quest
   $data = array();
-  $sql = 'select quests.*, quest_completion.percent_complete from quests
+  $sql = 'select quests.*, quest_completion.percent_complete,
+    neighborhoods.name as hood from quests
+    LEFT OUTER JOIN neighborhoods
+    ON quests.fkey_neighborhoods_id = neighborhoods.id
     LEFT OUTER JOIN quest_completion
     ON quest_completion.fkey_quests_id = quests.id
     AND quest_completion.fkey_users_id = %d
@@ -226,18 +229,35 @@ firep($sql);
 firep($item);
 
     if (($group_to_show > 0) &&
-      ($item->fkey_neighborhoods_id != $user->fkey_neighborhoods_id)) {
+      (($item->fkey_neighborhoods_id != 0) ||
+      ($item->fkey_neighborhoods_id != $user->fkey_neighborhoods_id))) {
 // show quests in other hoods?
 
       echo <<< EOF
   <div class="quests">
+    <div class="quest-icon">
+      <a href="/$game/quests_do/$arg2/$item->id">
+        <img src="/sites/default/files/images/quests/$game-$item->id.png"
+          border="0" width="96"/>
+      </a>
+      <div class="quest-complete">
+        <div class="quest-complete-percentage"
+          style="background-color: #$rgb; width: {$width}px">
+          &nbsp;
+        </div>
+        <div class="quest-complete-text">
+          $item->percent_complete% complete
+        </div>
+      </div>
+    </div>
     <div class="quest-details">
       <div class="quest-name">
         $item->name $active
       </div>
       <div class="quest-description">
-        This $quest can only be completed in $item->fkey_neighborhoods_id
+        This $quest can only be completed in $hood
       </div>
+    </div>
   </div>
 EOF;
 
