@@ -1494,7 +1494,7 @@ function _celestial_glory_fetch_user() {
   $sql = 'select users.*, elected_positions.energy_bonus as ep_energy_bonus,
     elected_positions.can_broadcast_to_party, clan_members.fkey_clans_id,
     elected_positions.max_level as max_level_for_office,
-    CURRENT_TIMESTAMP as time_now
+    CURRENT_TIMESTAMP as time_now, neighborhoods.name as location
 
     from users
 
@@ -1505,6 +1505,9 @@ function _celestial_glory_fetch_user() {
 
     LEFT OUTER JOIN clan_members
     ON clan_members.fkey_users_id = users.id
+
+    LEFT OUTER JOIN neighborhoods
+    ON users.fkey_neighborhoods_id = neighborhoods.id
 
     where phone_id = "%s";';
   $result = db_query($sql, $phone_id);
@@ -1531,7 +1534,7 @@ function _celestial_glory_fetch_user() {
   $game_user->eq_energy_increase = $eq->energy_increase;
   $st = db_fetch_object($result); // staff
   $game_user->st_energy_increase = $st->energy_increase;
-  firep($game_user);
+firep($game_user);
 
 // start welcome wizard if user not in db
   if (empty($game_user->id)) {
