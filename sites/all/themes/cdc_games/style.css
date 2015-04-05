@@ -961,3 +961,9 @@ a .event-text {
 .event-info .subsubtitle strong {
   color: #ddd;
 }
+
+.location {
+  color: #888;
+  font: 10px Helvetica, Arial, sans-serif;
+  margin-top: -20px;
+}
