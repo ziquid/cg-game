@@ -340,7 +340,7 @@ EOF;
   </map>
 </div>
 <div class="location">
-  $game-user->location
+  {$game-user}->location
 </div>
 $event_text
 <div class="news">
