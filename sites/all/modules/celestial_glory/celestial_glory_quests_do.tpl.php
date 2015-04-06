@@ -20,7 +20,10 @@
   $clan_title = preg_replace('/^The /', '', $data->clan_title);
 
   $data = array();
-  $sql = 'select * from quests where id = %d;';
+  $sql = 'select quests.*, neighborhoods.name as hood from quests
+    LEFT OUTER JOIN neighborhoods
+    ON quests.fkey_neighborhoods_id = neighborhoods.id
+    where id = %d;';
   $result = db_query($sql, $quest_id);
   $game_quest = db_fetch_object($result); // limited to 1 in DB
 //firep($game_quest);
@@ -188,7 +191,7 @@
     . t('Wrong @hood!', array('@hood' => $hood_lower))
     . '</div>
         <p>This ' . $quest_lower . ' can only be completed in '
-        . $item->hood . '.
+        . $game_quest->hood . '.
         </p>
       <div class="try-an-election-wrapper">
         <div class="try-an-election">
