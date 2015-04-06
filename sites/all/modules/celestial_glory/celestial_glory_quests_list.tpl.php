@@ -256,7 +256,7 @@ firep($item);
         This $quest_lower can only be completed in $item->hood.
       </div>
     </div>
-    <form action="¢>
+    <form action="/$game/move/$arg2/$item->fkey_neighborhoods_id">
       <div class="quests-perform-button-wrapper">
         <input class="quests-perform-button" type="submit" value="Go there"/>
       </div>
