@@ -193,7 +193,7 @@
       <div class="try-an-election-wrapper">
         <div class="try-an-election">
           <a href="/' . $game . '/move/' . $arg2 . '/'
-          . $item->fkey_neighborhoods_id'">
+          . $item->fkey_neighborhoods_id . '">
             Go there
           </a>
         </div>
