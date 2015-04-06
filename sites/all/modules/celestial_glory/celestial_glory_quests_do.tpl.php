@@ -23,7 +23,7 @@
   $sql = 'select quests.*, neighborhoods.name as hood from quests
     LEFT OUTER JOIN neighborhoods
     ON quests.fkey_neighborhoods_id = neighborhoods.id
-    where id = %d;';
+    where quests.id = %d;';
   $result = db_query($sql, $quest_id);
   $game_quest = db_fetch_object($result); // limited to 1 in DB
 //firep($game_quest);
