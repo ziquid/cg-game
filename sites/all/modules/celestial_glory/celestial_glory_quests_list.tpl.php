@@ -236,10 +236,8 @@ firep($item);
       echo <<< EOF
   <div class="quests wrong-hood">
     <div class="quest-icon">
-      <a href="/$game/quests_do/$arg2/$item->id">
-        <img src="/sites/default/files/images/quests/$game-$item->id.png"
-          border="0" width="96"/>
-      </a>
+      <img src="/sites/default/files/images/quests/$game-$item->id.png"
+        border="0" width="96"/>
       <div class="quest-complete">
         <div class="quest-complete-percentage"
           style="background-color: #$rgb; width: {$width}px">
