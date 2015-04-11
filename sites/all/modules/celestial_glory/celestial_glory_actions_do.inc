@@ -1806,7 +1806,7 @@ firep($target_values_id, 'family of target');
       $outcome_reason .= '<div class="action-effect">' .
         t('Sorry!&nbsp; You are no longer in this neighborhood') . '</div>';
 
-      return false;
+      return FALSE;
 
     }
 
@@ -1824,7 +1824,7 @@ firep($target_values_id, 'family of target');
 
 //    $can_do_again = FALSE;
 
-    return true;
+    return TRUE;
 
   }
 
