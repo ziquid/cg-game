@@ -179,6 +179,11 @@ li {
   display: table-cell;
 }
 
+.quests.wrong-hood .quest-icon {
+  -webkit-filter: grayscale(80%);
+  filter: grayscale(80%);
+}
+
 .quests .quest-complete {
   color: #26c;
   font-size: 10px;
