@@ -945,10 +945,10 @@ EOF;
     $sql = 'insert into challenge_messages
       (fkey_users_from_id, fkey_users_to_id, message)
       values (%d, %d, "%s");';
-    $message = t('You have successfully defended yourself against a challenge ' .
-      'from %user.  You remain %office and gain @exp influence.',
+    $message = t('You have successfully defended yourself against a challenge '
+    . 'from %user.  You remain %office and gain @exp @experience.',
       array('%user' => $game_user->username, '%office' => $item->ep_name,
-        '@exp' => $experience_change));
+        '@exp' => $experience_change, '@experience' => $experience));
     $result = db_query($sql, $game_user->id, $item->id, $message,
       $experience_change);
 
