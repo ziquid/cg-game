@@ -1089,7 +1089,10 @@ EOF;
 
 // show each quest
   $data = array();
-  $sql = 'select quests.*, quest_completion.percent_complete from quests
+  $sql = 'select quests.*, quest_completion.percent_complete,
+    neighborhoods.name as hood from quests
+    LEFT OUTER JOIN neighborhoods
+    ON quests.fkey_neighborhoods_id = neighborhoods.id
     LEFT OUTER JOIN quest_completion
     ON quest_completion.fkey_quests_id = quests.id
     AND quest_completion.fkey_users_id = %d where `group` = %d
