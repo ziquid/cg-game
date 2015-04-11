@@ -180,8 +180,8 @@ li {
 }
 
 .quests.wrong-hood .quest-icon {
-  -webkit-filter: grayscale(80%);
-  filter: grayscale(80%);
+  -webkit-filter: grayscale(70%);
+  filter: grayscale(70%);
 }
 
 .quests .quest-complete {
