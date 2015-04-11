@@ -1096,7 +1096,7 @@ EOF;
     and required_level <= %d
     and active = 1 order by required_level ASC;';
   $result = db_query($sql, $game_user->id, $game_quest->group,
-    $game_user->fkey_neighborhoods_id, $game_user->level);
+    $game_user->level);
 
   while ($item = db_fetch_object($result)) $data[] = $item;
 
@@ -1123,7 +1123,10 @@ EOF;
 
 // firep($rgb);
 
-    if (TRUE) {
+    if (($game_quest->group > 0) &&
+      (($item->fkey_neighborhoods_id != 0) &&
+      ($item->fkey_neighborhoods_id != $game_user->fkey_neighborhoods_id))) {
+// show quests in other hoods?
 
       echo <<< EOF
   <div class="quests wrong-hood">
