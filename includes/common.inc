@@ -330,7 +330,7 @@ function drupal_goto($path = '', $query = NULL, $fragment = NULL, $http_response
   if ($destination) {
     // Do not redirect to an absolute URL originating from user input.
     $colonpos = strpos($destination, ':');
-    $absolute = strpos($destination, '//') === 0 || ($colonpos !== FALSE && !preg_match('![/?#]!', substr($destination, 0, $colonpos)));
+    $absolute = ($colonpos !== FALSE && !preg_match('![/?#]!', substr($destination, 0, $colonpos)));
     if (!$absolute) {
       extract(parse_url(urldecode($destination)));
     }
@@ -379,10 +379,7 @@ function drupal_not_found() {
 
   // Keep old path for reference, and to allow forms to redirect to it.
   if (!isset($_REQUEST['destination'])) {
-    // Make sure that the current path is not interpreted as external URL.
-    if (!menu_path_is_external($_GET['q'])) {
-      $_REQUEST['destination'] = $_GET['q'];
-    }
+    $_REQUEST['destination'] = $_GET['q'];
   }
 
   $path = drupal_get_normal_path(variable_get('site_404', ''));
@@ -412,10 +409,7 @@ function drupal_access_denied() {
 
   // Keep old path for reference, and to allow forms to redirect to it.
   if (!isset($_REQUEST['destination'])) {
-    // Make sure that the current path is not interpreted as external URL.
-    if (!menu_path_is_external($_GET['q'])) {
-      $_REQUEST['destination'] = $_GET['q'];
-    }
+    $_REQUEST['destination'] = $_GET['q'];
   }
 
   $path = drupal_get_normal_path(variable_get('site_403', ''));
@@ -1479,20 +1473,12 @@ function url($path = NULL, $options = array()) {
     'alias' => FALSE,
     'prefix' => ''
   );
-  // A duplicate of the code from menu_path_is_external() to avoid needing
-  // another function call, since performance inside url() is critical.
   if (!isset($options['external'])) {
-    // Return an external link if $path contains an allowed absolute URL. Avoid
-    // calling filter_xss_bad_protocol() if there is any slash (/), hash (#) or
-    // question_mark (?) before the colon (:) occurrence - if any - as this
-    // would clearly mean it is not a URL. If the path starts with 2 slashes
-    // then it is always considered an external URL without an explicit protocol
-    // part.
+    // Return an external link if $path contains an allowed absolute URL.
+    // Only call the slow filter_xss_bad_protocol if $path contains a ':' before
+    // any / ? or #.
     $colonpos = strpos($path, ':');
-    $options['external'] = (strpos($path, '//') === 0)
-      || ($colonpos !== FALSE
-        && !preg_match('![/?#]!', substr($path, 0, $colonpos))
-        && filter_xss_bad_protocol($path, FALSE) == check_plain($path));
+    $options['external'] = ($colonpos !== FALSE && !preg_match('![/?#]!', substr($path, 0, $colonpos)) && filter_xss_bad_protocol($path, FALSE) == check_plain($path));
   }
 
   // May need language dependent rewriting if language.inc is present.
@@ -1521,11 +1507,6 @@ function url($path = NULL, $options = array()) {
     // Reassemble.
     return $path . $options['fragment'];
   }
-
-  // Strip leading slashes from internal paths to prevent them becoming external
-  // URLs without protocol. /example.com should not be turned into
-  // //example.com.
-  $path = ltrim($path, '/');
 
   global $base_url;
   static $script;
