@@ -47,7 +47,7 @@ EOF;
       320 Luck (US $49.99)</a></div>
   </div>
   
-EOF;
+EOF; 
 
     db_set_active('default');
     
