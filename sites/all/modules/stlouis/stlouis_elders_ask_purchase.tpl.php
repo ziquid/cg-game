@@ -388,4 +388,5 @@ EOF;
 
   } // google IAP?
 */
+
   db_set_active('default');
