@@ -8,9 +8,9 @@
   $game_user = $fetch_user();
   $fetch_header($game_user);
   include_once(drupal_get_path('module', $game) . '/game_defs.inc');
-  
+
 /*  if ($game == 'stlouis') {
-  	
+
   	echo <<< EOF
 <div class="title">
   Luck-free 4th
@@ -26,16 +26,16 @@
 EOF;
 
   	db_set_active('default');
-    
+
     return;
-  	
+
   }
-*/  
+*/
   if ((strpos($_SERVER['HTTP_USER_AGENT'], 'iPhone') !== FALSE ) ||
      (strpos($_SERVER['HTTP_USER_AGENT'], 'iPad') !== FALSE )) {
-    
+
     echo <<< EOF
-    
+
   <div class="elders-menu big">
     <div class="menu-option"><a href="https://www.paypal.com/buy/luck/10">Buy
       10 Luck (US $1.99)</a></div>
@@ -46,19 +46,19 @@ EOF;
     <div class="menu-option"><a href="https://www.paypal.com/buy/luck/320">Buy
       320 Luck (US $49.99)</a></div>
   </div>
-  
-EOF; 
+
+EOF;
 
     db_set_active('default');
-    
+
     return;
-    
+
   }
-    
+
   if ((strpos($_SERVER['HTTP_USER_AGENT'], 'Playbook') !== FALSE )) {
-    
+
     echo <<< EOF
-    
+
   <div class="elders-menu big">
     <div class="menu-option"><a
       href="javascript:qnx.callExtensionMethod('buy_luck_10');">Buy
@@ -70,19 +70,19 @@ EOF;
        href="javascript:qnx.callExtensionMethod('buy_luck_120');">Buy
       120 Luck (US $19.99)</a></div>
   </div>
-  
+
 EOF;
 
     db_set_active('default');
-    
+
     return;
-    
+
   }
-  
+
   if (substr(arg(2), 0, 4) == 'nkc ') { // nook color - no in app purchases!
-    
+
     echo <<< EOF
-    
+
 <div class="title">
 Sorry!
 </div>
@@ -116,11 +116,11 @@ Purchase 320 $luck for US $49.99
 EOF;
 
     db_set_active('default');
-    
+
     return;
-    
+
   } // nook
-  
+
   if (stripos($_SERVER['HTTP_USER_AGENT'], 'GoogleIAP') !== FALSE) {
 // support for Google IAPs
 
@@ -173,7 +173,7 @@ or purchase through PayPal
 EOF;
 
     }
-  
+
   }
 
 // Win8/RT IAPs
@@ -232,7 +232,7 @@ EOF;
 
 
   $nonce = date('Y-m-d-H-i-s-') . mt_rand();
-  
+
   echo <<< EOF
 <div class="title">
 Purchase 10 $luck for US $1.99
