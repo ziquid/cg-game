@@ -55,8 +55,8 @@
     /*echo 'Error E-2242: ' . $arg2 .
       '.  Please email <strong>support@cheek.com</strong>.';
     exit();*/
-    drupal_goto($game . '/error/' . $arg2 . '/E-2242');
     db_set_active('default');
+    drupal_goto($game . '/error/' . $arg2 . '/E-2242');
   }
 
   $sql = 'insert into users set phone_id = "%s", username = "", experience = 0,
