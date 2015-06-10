@@ -126,6 +126,10 @@ firep($referral_code);
 
     $coefficient = 1.875;
 
+  } else if (stripos($_SERVER['HTTP_USER_AGENT'], 'Android 5') !== FALSE) {
+
+    $coefficient = 1;
+
   } else if (stripos($_SERVER['HTTP_USER_AGENT'], 'Android 4.4') !== FALSE) {
 
     $coefficient = 1;
@@ -143,7 +147,8 @@ firep($referral_code);
     $coefficient = 1;
 
   } else if ((stripos($_SERVER['HTTP_USER_AGENT'], 'BNTV') !== FALSE) &&
-    (stripos($_SERVER['HTTP_USER_AGENT'], 'Android 4') !== FALSE)) {
+    (stripos($_SERVER['HTTP_USER_AGENT'], 'Android 4') !== FALSE) &&
+    (stripos($_SERVER['HTTP_USER_AGENT'], 'Android 5') !== FALSE)) {
 
     $coefficient = 1;
 
