@@ -1119,7 +1119,7 @@ function _celestial_glory_check_authKey($game_user) {
 
     if ($game_user->authKey != $authKey) { // uhoh!  wrong authKey!
 
-      echo 'Error E-1017: ' . $game_user->referral_code; // wrong authkey
+      drupal_goto(check_plain(arg(0)) . '/error/' . check_plain(arg(2)); . '/E-1017'); // wrong authkey
       exit;
 
     }
@@ -1169,7 +1169,7 @@ function _celestial_glory_check_authKey($game_user) {
     }
 
 // otherwise, client doesn't have an authkey... someone is hacking!
-    echo 'Error E-0922: ' . $game_user->referral_code; // no authkey
+    drupal_goto(check_plain(arg(0)) . '/error/' . check_plain(arg(2)); . '/E-0922'); // no authkey
     exit;
 
   } // browser sent us an authKey
@@ -1408,7 +1408,7 @@ function _celestial_glory_fetch_user() {
 // AI player -- only allow from certain IPs
     if ((ip_address() != $_SERVER['SERVER_ADDR']) &&
     ($user->roles[4] != 'web game access')) {
-      echo 'Error E-4713'; // ai access from a different host
+      drupal_goto(check_plain(arg(0)) . '/error/' . check_plain(arg(2)); . '/E-4713'); // ai access from a different host
       exit;
     }
   }
@@ -1431,7 +1431,7 @@ function _celestial_glory_fetch_user() {
 
   if (!empty($blocked_user) &&
     $blocked_user->phone_id == $phone_id) { // user is banned!
-    echo 'Error E-0467'; // banned by phone ID
+    drupal_goto(check_plain(arg(0)) . '/error/' . check_plain(arg(2)); . '/E-0467'); // banned by phone ID
     exit;
   }
 
@@ -1443,7 +1443,7 @@ function _celestial_glory_fetch_user() {
   $blocked_ip = db_fetch_object($result);
 
   if (!empty($blocked_ip)) { // user is banned!
-    echo 'Error E-0468'; // banned by IP
+    drupal_goto(check_plain(arg(0)) . '/error/' . check_plain(arg(2)); . '/E-0468'); // banned by IP
     exit;
   }
 
