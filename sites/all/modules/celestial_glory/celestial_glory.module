@@ -1972,7 +1972,7 @@ $game_user->actions_max <div class="actions-text">Actions</div>
 $game_user->energy_max <div class="energy-text">Energy</div>
   <div id="energy-time">$energy_text</div></div>
 <div class="home"><a href="/$game/home/$arg2"><img
-  src="/sites/default/files/images/{$game}_home_icon.png"/></a></div>
+  src="/sites/default/files/images/{$game}_home_icon_large.png"/></a></div>
 $level_text
 </div>
 $points_text
