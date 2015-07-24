@@ -70,6 +70,11 @@ li {
   background: url(/sites/default/files/images/celestial_glory_header_bg_14.jpg) !important;
 }
 
+.header .home img {
+  width: 30px;
+  height: 24px;
+}
+
 .header .experience {
   border-bottom: 1px solid #333833 !important;
 }
