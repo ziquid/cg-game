@@ -236,6 +236,14 @@ function celestial_glory_menu() {
     'type' => MENU_CALLBACK,
   );
 
+  $items['celestial_glory/changelog/%'] = array(
+    'title' => 'Celestial Glory Changelog',
+    'page callback' => 'celestial_glory_changelog_callback',
+    'page arguments' => array(2),
+    'access arguments' => array('access celestial_glory content'),
+    'type' => MENU_CALLBACK,
+  );
+
   $items['celestial_glory/debates/%'] = array(
     'title' => 'Celestial Glory Debates List',
     'page callback' => 'celestial_glory_debates_list_callback',
@@ -840,6 +848,17 @@ function celestial_glory_help_callback($phone_id) {
 }
 
 
+function celestial_glory_changelog_callback($phone_id) {
+
+  if (empty($phone_id)) {
+    return drupal_access_denied();
+  }
+
+  return theme('celestial_glory_changelog', $phone_id);
+
+}
+
+
 function celestial_glory_debates_list_callback($phone_id) {
 
   if (empty($phone_id)) {
@@ -1219,9 +1238,9 @@ function celestial_glory_event_prizes_callback($phone_id) {
 
 
 function celestial_glory_error_callback($phone_id, $error_code) {
-	
+
   return theme('celestial_glory_error', $phone_id, $error_code);
-  
+
 }
 
 
@@ -1439,6 +1458,13 @@ function celestial_glory_theme() {
 
     'celestial_glory_help' => array(
       'template' => 'celestial_glory_help',
+      'arguments' => array(
+        'phone_id' => null,
+      )
+    ),
+
+    'celestial_glory_changelog' => array(
+      'template' => 'celestial_glory_changelog',
       'arguments' => array(
         'phone_id' => null,
       )
@@ -1709,7 +1735,7 @@ function celestial_glory_theme() {
 		'error_code' => null,
       )
     ),
-	
+
   );
 
 } // celestial_glory_theme()
