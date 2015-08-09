@@ -18,10 +18,10 @@ echo <<< EOF
 
     </div>
     <p>And it came to pass that</p>
-    <p>Error {$error_code}</p>
-    <p>happened for user</p>
-    <p><strong>{$phone_id}</strong>.</p>
-    <p>Please report this to <strong>support@cheek.com</strong>.</p>
+    <p class="second">Error {$error_code}</p>
+    <p class="second">happened for user</p>
+    <p class="second"><strong>{$phone_id}</strong>.</p>
+    <p class="second">Please report this to <strong>support@cheek.com</strong>.</p>
    </div>
 EOF;
 
