@@ -18,15 +18,11 @@ echo <<< EOF
 
     </div>
     <p>And it came to pass that</p>
-    <p>Error E-{$error_code}</p>
+    <p>Error {$error_code}</p>
     <p>happened for user</p>
-    <p> {$phone_id}.</p>
-    <p> Please report this to <strong>support@cheek.com</strong>.</p>
-   </div>
-   <div class="subtitle">
-    <a href="/$game/quests/$arg2">
-        <img src="/sites/default/files/images/{$game}_continue.png"/>
-    </a>
+    <p><strong>{$phone_id}</strong>.</p>
+    <p>Please report this to <strong>support@cheek.com</strong>.</p>
    </div>
 EOF;
+
     db_set_active('default');
