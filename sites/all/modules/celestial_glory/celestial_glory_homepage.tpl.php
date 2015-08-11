@@ -619,8 +619,16 @@ EOF;
 
   echo <<< EOF
   </div>
-  <div id="personal-text">
+</div>
+$('#all-text').isotope({
+  itemSelector: '.news-item',
+  layoutMode: 'fitRows'
+});
+<!--  <div id="personal-text">-->
 EOF;
+
+  db_set_active('default');
+  return;
 
 // PERSONAL messages
 
