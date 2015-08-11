@@ -22,6 +22,15 @@
   </div>
 
   <div class="subtitle">
+    v1.90.2, 10 Aug 2015
+  </div>
+  <ul>
+    <li>
+      Made the home page news roll filter fancier
+    </li>
+  </ul>
+
+  <div class="subtitle">
     v1.90.1, 10 Aug 2015
   </div>
   <ul>
