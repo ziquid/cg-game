@@ -20,6 +20,22 @@
   <div class="title">
   Celestial Glory Changelog
   </div>
+
+  <div class="subtitle">
+    v1.90.1, 10 Aug 2015
+  </div>
+  <ul>
+    <li>
+      Added a few more items to the banned words list
+    </li>
+    <li>
+      Removed the 'Forum' link
+    </li>
+    <li>
+      Added a version string on the home page
+    </li>
+  </ul>
+
   <div class="subtitle">
     v1.90.0, 08 Aug 2015
   </div>

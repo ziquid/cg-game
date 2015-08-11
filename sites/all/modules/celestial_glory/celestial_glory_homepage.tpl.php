@@ -1,5 +1,7 @@
 <?php
 
+  $version = '1.90.1, 10 Aug 2015';
+
 //  set_time_limit(10); // this page must not bog down server
 
   global $game, $phone_id;
@@ -324,27 +326,30 @@ EOF;
 
     $coords = _stlouis_scale_coords($coefficient, 214, 192, 265, 210);
 
-    if ($game == 'stlouis') {
-
-    echo <<< EOF
-    <area shape="rect" coords="$coords" alt="Forum"
-      href="http://forum.cheek.com/forum/2" />
-EOF;
-
-    } else {
-
-    echo <<< EOF
-    <area shape="rect" coords="$coords" alt="Forum"
-      href="http://forum.cheek.com/forum/12" />
-EOF;
-
-    }
+//     if ($game == 'stlouis') {
+//
+//     echo <<< EOF
+//     <area shape="rect" coords="$coords" alt="Forum"
+//       href="http://forum.cheek.com/forum/2" />
+// EOF;
+//
+//     } else {
+//
+//     echo <<< EOF
+//     <area shape="rect" coords="$coords" alt="Forum"
+//       href="http://forum.cheek.com/forum/12" />
+// EOF;
+//
+//     }
 
     echo <<< EOF
   </map>
 </div>
 <div class="location">
   $game_user->location
+</div>
+<div class="version">
+  $version
 </div>
 $event_text
 <div class="news">
