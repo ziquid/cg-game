@@ -227,6 +227,12 @@ function celestial_glory_init() {
   global $custom_theme, $conf;
   $conf['cache'] = FALSE; // don't cache anything
 
+echo <<< EOF
+<script
+src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/2.2.1/isotope.pkgd.min.js">
+</script>
+EOF;
+
   if ((arg(0) == 'stlouis') || (arg(0) == 'celestial_glory') ||
     (arg(0) == 'robber_barons')) {
 
