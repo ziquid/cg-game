@@ -359,9 +359,9 @@ $event_text
   <div class="news-buttons">
     <button id="news-all" active">All</button>
     <button id="news-user">Personal</button>
-    <button data-filter="challenge">{$election_tab}s</button>
-    <button data-filter=".party, .clan, .values">$party_small</button>
-    <button data-filter="system">$system</button>
+    <button id="news-challenge">{$election_tab}s</button>
+    <button id="news-clan">$party_small</button>
+    <button id="news-system">$system</button>
   </div>
   <div id="all-text">
 EOF;
@@ -625,21 +625,26 @@ var isoNews = $('#all-text').isotope({
   itemSelector: '.news-item',
   layoutMode: 'fitRows'
 });
-// filter items on button click
-$('.news-buttons').bind('click', function() {
-  var filterValue = $(this).attr('data-filter');
-  isoNews.isotope({ filter: filterValue });
-});
 
 $('#news-all').bind('click', function() {
   isoNews.isotope({ filter: "*" });
 });
 
 $('#news-user').bind('click', function() {
-  isoNews.isotope({ filter: "user" });
-
+  isoNews.isotope({ filter: ".user" });
 });
 
+$('#news-challenge').bind('click', function() {
+  isoNews.isotope({ filter: ".challenge" });
+});
+
+$('#news-clan').bind('click', function() {
+  isoNews.isotope({ filter: ".party, .clan, .values" });
+});
+
+$('#news-system').bind('click', function() {
+  isoNews.isotope({ filter: ".system" });
+});
 </script>
 <!--  <div id="personal-text">-->
 EOF;

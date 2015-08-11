@@ -631,7 +631,7 @@ li {
 
 }
 
-.news .button {
+.news .button, .news button {
   display: inline-block;
 /*   float: left; */
   margin-right: 10px;
