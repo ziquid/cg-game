@@ -356,11 +356,13 @@ $event_text
   <div class="title">
     News
   </div>
-  <a class="button active" href="#" id="all-button">All</a>
-  <a class="button" href="#" id="personal-button">Personal</a>
-  <a class="button" href="#" id="election-button">{$election_tab}s</a>
-  <a class="button" href="#" id="clan-button">$party_small</a>
-  <a class="button" href="#" id="system-button">$system</a>
+  <div class="news-buttons">
+    <a class="button active" href="#" id="all-button">All</a>
+    <a class="button" href="#" id="personal-button">Personal</a>
+    <a class="button" href="#" id="election-button">{$election_tab}s</a>
+    <a class="button" href="#" id="clan-button">$party_small</a>
+    <a class="button" href="#" id="system-button">$system</a>
+  </div>
   <div id="all-text">
 EOF;
 
