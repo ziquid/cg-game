@@ -34,6 +34,9 @@
     <li>
       Added a version string on the home page
     </li>
+    <li>
+      Centered the &quot;News&quot; buttons on the home page
+    </li>
   </ul>
 
   <div class="subtitle">
