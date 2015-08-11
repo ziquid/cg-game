@@ -604,11 +604,13 @@ EOF;
     }
 
     echo <<< EOF
-<div class="dateline">
-  $display_time $username
-</div>
-<div class="message-body $private_css">
-  <p>$item->message</p>$reply
+<div class="news-item $item->type">
+  <div class="dateline">
+    $display_time $username
+  </div>
+  <div class="message-body $private_css">
+    <p>$item->message</p>$reply
+  </div>
 </div>
 EOF;
     $msg_shown = TRUE;
