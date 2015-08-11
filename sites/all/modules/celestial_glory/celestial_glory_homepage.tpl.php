@@ -545,7 +545,7 @@ EOF;
     order by timestamp DESC limit %d
     )
 
-    order by timestamp DESC;'; //  limit %d
+    order by timestamp DESC limit %d;';
 //firep($sql);
 
 // don't show if load avg too high
@@ -561,8 +561,7 @@ EOF;
       $game_user->fkey_neighborhoods_id, $limit,
       $clan_id_to_use, $limit,
       $game_user->fkey_values_id, $game_user->fkey_neighborhoods_id, $limit,
-//       $limit,
-      $limit);
+      $limit, 75);
     while ($item = db_fetch_object($result)) $data[] = $item;
     db_set_active('game_' . $game); // reset to master
   }
