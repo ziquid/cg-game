@@ -620,10 +620,12 @@ EOF;
   echo <<< EOF
   </div>
 </div>
+<script type="text/javascript">
 var isoNews = $('#all-text').isotope({
   itemSelector: '.news-item',
   layoutMode: 'fitRows'
 });
+</script>
 <!--  <div id="personal-text">-->
 EOF;
 
