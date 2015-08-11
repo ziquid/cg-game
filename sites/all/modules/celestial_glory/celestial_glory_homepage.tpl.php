@@ -357,7 +357,7 @@ $event_text
     News
   </div>
   <div class="news-buttons">
-    <button id="news-all" active">All</button>
+    <button id="news-all" class="active">All</button>
     <button id="news-user">Personal</button>
     <button id="news-challenge">{$election_tab}s</button>
     <button id="news-clan">$party_small</button>
@@ -659,26 +659,32 @@ var isoNews = $('#all-text').isotope({
 
 $("#news-all").bind("click", function() {
   isoNews.isotope({ filter: "*:not(.clan-msg)" });
-  $("#all-text button").removeClass("active");
+  $(".news-buttons button").removeClass("active");
   $("#news-all").addClass("active");
 });
 
 $('#news-user').bind('click', function() {
   isoNews.isotope({ filter: ".user" });
-  $("#all-text button").removeClass("active");
+  $(".news-buttons button").removeClass("active");
   $("#news-user").addClass("active");
 });
 
 $('#news-challenge').bind('click', function() {
   isoNews.isotope({ filter: ".challenge" });
+  $(".news-buttons button").removeClass("active");
+  $("#news-challenge").addClass("active");
 });
 
 $('#news-clan').bind('click', function() {
   isoNews.isotope({ filter: ".party, .clan, .values" });
+  $(".news-buttons button").removeClass("active");
+  $("#news-clan").addClass("active");
 });
 
 $('#news-system').bind('click', function() {
   isoNews.isotope({ filter: ".system" });
+  $(".news-buttons button").removeClass("active");
+  $("#news-system").addClass("active");
 });
 </script>
 <!--  <div id="personal-text">-->
