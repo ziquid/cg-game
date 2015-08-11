@@ -357,8 +357,8 @@ $event_text
     News
   </div>
   <div class="news-buttons">
-    <button data-filter="*" active">All</button>
-    <button data-filter="user">Personal</button>
+    <button id="news-all" active">All</button>
+    <button id="news-user">Personal</button>
     <button data-filter="challenge">{$election_tab}s</button>
     <button data-filter=".party, .clan, .values">$party_small</button>
     <button data-filter="system">$system</button>
@@ -630,6 +630,16 @@ $('.news-buttons').bind('click', function() {
   var filterValue = $(this).attr('data-filter');
   isoNews.isotope({ filter: filterValue });
 });
+
+$('#news-all').bind('click', function() {
+  isoNews.isotope({ filter: "*" });
+});
+
+$('#news-user').bind('click', function() {
+  isoNews.isotope({ filter: "user" });
+
+});
+
 </script>
 <!--  <div id="personal-text">-->
 EOF;
