@@ -545,7 +545,7 @@ EOF;
     order by timestamp DESC limit %d
     )
 
-    order by timestamp DESC limit %d;';
+    order by timestamp DESC;'; //  limit %d
 //firep($sql);
 
 // don't show if load avg too high
