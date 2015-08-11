@@ -570,7 +570,7 @@ EOF;
   $msg_shown = FALSE;
 
   echo <<< EOF
-<div class="news-item clan clan-msg">
+<div class="news-item clan clan-msg" style="display: none;">
   <div class="message-title">Send a message to your clan</div>
   <div class="send-message">
     <form method=get action="/$game/party_msg/$arg2">
@@ -657,12 +657,16 @@ var isoNews = $('#all-text').isotope({
   layoutMode: 'fitRows'
 });
 
-$('#news-all').bind('click', function() {
+$("#news-all").bind("click", function() {
   isoNews.isotope({ filter: "*:not(.clan-msg)" });
+  $("#all-text button").removeClass("active");
+  $("#news-all").addClass("active");
 });
 
 $('#news-user').bind('click', function() {
   isoNews.isotope({ filter: ".user" });
+  $("#all-text button").removeClass("active");
+  $("#news-user").addClass("active");
 });
 
 $('#news-challenge').bind('click', function() {
