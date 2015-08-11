@@ -626,7 +626,7 @@ var isoNews = $('#all-text').isotope({
   layoutMode: 'fitRows'
 });
 // filter items on button click
-$('.news-buttons').on( 'click', 'button', function() {
+$('.news-buttons').bind('click', function() {
   var filterValue = $(this).attr('data-filter');
   isoNews.isotope({ filter: filterValue });
 });
