@@ -357,11 +357,11 @@ $event_text
     News
   </div>
   <div class="news-buttons">
-    <a class="button active" href="#" id="all-button">All</a>
-    <a class="button" href="#" id="personal-button">Personal</a>
-    <a class="button" href="#" id="election-button">{$election_tab}s</a>
-    <a class="button" href="#" id="clan-button">$party_small</a>
-    <a class="button" href="#" id="system-button">$system</a>
+    <button data-filter="*" active">All</button>
+    <button data-filter="user">Personal</button>
+    <button data-filter="challenge">{$election_tab}s</button>
+    <button data-filter=".party, .clan, .values">$party_small</button>
+    <button data-filter="system">$system</button>
   </div>
   <div id="all-text">
 EOF;
@@ -624,6 +624,11 @@ EOF;
 var isoNews = $('#all-text').isotope({
   itemSelector: '.news-item',
   layoutMode: 'fitRows'
+});
+// filter items on button click
+$('.news-buttons').on( 'click', 'button', function() {
+  var filterValue = $(this).attr('data-filter');
+  isoNews.isotope({ filter: filterValue });
 });
 </script>
 <!--  <div id="personal-text">-->

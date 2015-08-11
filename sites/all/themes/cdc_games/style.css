@@ -675,6 +675,10 @@ li {
   right: 16px;
 }
 
+.news-item {
+  width: 100%;
+}
+
 .user-profile .action {
   display: inline-block;
   text-align: right;
