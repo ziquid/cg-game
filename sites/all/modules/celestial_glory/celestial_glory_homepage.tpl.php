@@ -569,6 +569,37 @@ EOF;
 
   $msg_shown = FALSE;
 
+  echo <<< EOF
+<div class="news-item clan clan-msg">
+  <div class="message-title">Send a message to your clan</div>
+  <div class="send-message">
+    <form method=get action="/$game/party_msg/$arg2">
+      <textarea class="message-textarea" name="message"
+      rows="2">$message</textarea>
+    <br/>
+    <div class="send-message-target">
+      <select name="target">
+EOF;
+
+  if ($game_user->fkey_clans_id)
+    echo ('<option value="clan">Clan</option>');
+
+ if ($game_user->can_broadcast_to_party)
+    echo ('<option value="neighborhood">' . $hood . '</option>');
+
+  echo ('<option value="values">' . $party . '</option>');
+
+  echo <<< EOF
+        </select>
+      </div>
+      <div class="send-message-send-wrapper">
+        <input class="send-message-send" type="submit" value="Send"/>
+      </div>
+    </form>
+  </div>
+</div>
+EOF;
+
   foreach ($data as $item) {
 // firep($item);
 
