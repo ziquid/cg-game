@@ -658,7 +658,7 @@ var isoNews = $('#all-text').isotope({
 });
 
 $('#news-all').bind('click', function() {
-  isoNews.isotope({ filter: "*" });
+  isoNews.isotope({ filter: "*:not(.clan-msg)" });
 });
 
 $('#news-user').bind('click', function() {

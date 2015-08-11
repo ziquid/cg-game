@@ -648,6 +648,10 @@ li {
   text-decoration: none;
 }
 
+.news button {
+  color: white;
+}
+
 .news .message-reply-wrapper {
   position: absolute;
   right: 16px;
