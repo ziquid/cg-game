@@ -973,3 +973,10 @@ a .event-text {
   margin-top: -24px;
   text-align: center;
 }
+
+.version {
+  font: 8px Helvetica, Arial, sans-serif;
+  position: absolute;
+  left: 16px;
+  top: 428px;
+}
