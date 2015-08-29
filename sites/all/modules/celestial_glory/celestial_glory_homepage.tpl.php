@@ -569,7 +569,7 @@ EOF;
   $msg_shown = FALSE;
 
   echo <<< EOF
-<div class="news-item clan clan-msg" style="display: none;">
+<div class="news-item clan clan-msg">
   <div class="message-title">Send a message to your clan</div>
   <div class="send-message">
     <form method=get action="/$game/party_msg/$arg2">
