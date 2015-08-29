@@ -22,6 +22,15 @@
   </div>
 
   <div class="subtitle">
+    v1.90.3, 29 Aug 2015
+  </div>
+  <ul>
+    <li>
+      Aded message box to 'All' tab on home page
+    </li>
+  </ul>
+
+  <div class="subtitle">
     v1.90.2, 10 Aug 2015
   </div>
   <ul>
