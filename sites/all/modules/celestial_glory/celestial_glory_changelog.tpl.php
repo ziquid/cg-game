@@ -22,11 +22,20 @@
   </div>
 
   <div class="subtitle">
+    v1.91, 27 Nov 2015
+  </div>
+  <ul>
+    <li>
+      Support for Android 6
+    </li>
+  </ul>
+
+  <div class="subtitle">
     v1.90.3, 29 Aug 2015
   </div>
   <ul>
     <li>
-      Aded message box to 'All' tab on home page
+      Added message box to 'All' tab on home page
     </li>
   </ul>
 
