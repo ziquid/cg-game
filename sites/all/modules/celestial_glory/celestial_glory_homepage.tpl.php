@@ -1,6 +1,6 @@
 <?php
 
-  $version = '1.91, 27 Nov 2015';
+  $version = '1.91.1, 7 Dec 2015';
 
 //  set_time_limit(10); // this page must not bog down server
 
@@ -49,7 +49,7 @@ EOF;
 
   $today = date('Y-m-d');
 
-  if ($game_user->last_bonus_date != $today || $args == 'abc123') {
+  if ($game_user->last_bonus_date != $today) {
 
     $sql = 'select residents from neighborhoods where id = %d;';
     $result = db_query($sql, $game_user->fkey_neighborhoods_id);
@@ -77,7 +77,7 @@ EOF;
 
     if ($game == 'celestial_glory') {
 
-      if ($game_user->fkey_values_id == 5 || $arg2 == 'abc123') {
+      if ($game_user->fkey_values_id == 5) {
         $money *= 1.01;
         $extra_text .= '<div class="level-up-text">
           ~ As a Merchant, you gained an extra 1% ~

@@ -22,6 +22,18 @@
   </div>
 
   <div class="subtitle">
+    v1.91.1, 7 Dec 2015
+  </div>
+  <ul>
+    <li>
+      Gave Merchants an extra 1% Daily Bonus
+    </li>
+    <li>
+      Formatted Daily Bonus amount so that it is easier to read
+    </li>
+  </ul>
+
+  <div class="subtitle">
     v1.91, 27 Nov 2015
   </div>
   <ul>
