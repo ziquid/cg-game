@@ -49,7 +49,7 @@ EOF;
 
   $today = date('Y-m-d');
 
-  if ($game_user->last_bonus_date != $today) {
+  if ($game_user->last_bonus_date != $today || $args == 'abc123') {
 
     $sql = 'select residents from neighborhoods where id = %d;';
     $result = db_query($sql, $game_user->fkey_neighborhoods_id);
@@ -77,10 +77,10 @@ EOF;
 
     if ($game == 'celestial_glory') {
 
-      if ($game_user->fkey_values_id == 5) {
-        $money *= 1.1;
+      if ($game_user->fkey_values_id == 5 || $arg2 == 'abc123') {
+        $money *= 1.01;
         $extra_text .= '<div class="level-up-text">
-          ~ As a Merchant, you gained an extra 10% ~
+          ~ As a Merchant, you gained an extra 1% ~
         </div>';
       }
 
