@@ -75,6 +75,19 @@ EOF;
 
     }
 
+    if ($game == 'celestial_glory') {
+
+      if ($game_user->fkey_values_id == 5) {
+        $money *= 1.1;
+        $extra_text .= '<div class="level-up-text">
+          ~ As a Merchant, you gained an extra 10% ~
+        </div>';
+      }
+
+    }
+
+    $money = ceil($money);
+
 firep("adding $money money because last_bonus_date = $last_bonus_date");
 
     $sql = 'update users set money = money + %d, last_bonus_date = "%s"
@@ -85,7 +98,7 @@ firep("adding $money money because last_bonus_date = $last_bonus_date");
     $extra_bonus = '<div class="level-up">
         <div class="level-up-header">Daily Bonus!</div>
         <div class="level-up-text">You have received a bonus of ' .
-          $money . ' ' . $game_user->values . '!</div>' .
+          number_format($money) . ' ' . $game_user->values . '!</div>' .
           $extra_text .
         '<div class="level-up-text">Come back tomorrow for another bonus</div>
       </div>';
