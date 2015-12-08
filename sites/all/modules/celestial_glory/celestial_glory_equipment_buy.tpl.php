@@ -193,12 +193,19 @@ firep("game_equipment->quantity: $game_equipment->quantity");
 firep("quantity: $quantity");
 
   $quantity = (int) $game_equipment->quantity + (int) $quantity;
-  $equipment_price = $game_equipment->price + ($quantity * $game_equipment->price_increase);
+  $equipment_price = $game_equipment->price
+  + ($quantity * $game_equipment->price_increase);
 
   if ($quantity == 0) $quantity = '<em>None</em>'; // gotta love PHP typecasting
 
+  if (($equipment_price % 1000) == 0 && ($equipment_price > 0))
+    $equipment_price = ($equipment_price / 1000) . 'K';
+  else
+    $equipment_price = number_format($equipment_price);
+
   if ($game_equipment->quantity_limit > 0) {
-    $quantity_limit = '<em>(Limited to ' . $game_equipment->quantity_limit . ')</em>';
+    $quantity_limit = '<em>(Limited to ' . $game_equipment->quantity_limit
+    . ')</em>';
   } else {
     $quantity_limit = '';
   }
@@ -375,6 +382,11 @@ firep($item);
 
     $equipment_price = $item->price + ($item->quantity *
       $item->price_increase);
+
+    if (($equipment_price % 1000) == 0 && ($equipment_price > 0))
+      $equipment_price = ($equipment_price / 1000) . 'K';
+    else
+      $equipment_price = number_format($equipment_price);
 
     if ($item->quantity_limit > 0) {
       $quantity_limit = '<em>(Limited to ' . $item->quantity_limit . ')</em>';
