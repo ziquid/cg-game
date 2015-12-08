@@ -120,8 +120,10 @@ firep($item);
 
     if (!$item->is_loot) $ai_output .= " $item->id=$equipment_price";
 
-    if (($equipment_price % 1000) == 0)
+    if (($equipment_price % 1000) == 0 && ($equipment_price > 0))
       $equipment_price = ($equipment_price / 1000) . 'K';
+    else
+      $equipment_price = number_format($equipment_price);
 
     if ($item->quantity_limit > 0) {
       $quantity_limit = '<em>(Limited to ' . $item->quantity_limit . ')</em>';
