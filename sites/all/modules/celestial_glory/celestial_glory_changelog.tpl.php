@@ -22,6 +22,22 @@
   </div>
 
   <div class="subtitle">
+    v1.91.2, 7 Dec 2015
+  </div>
+  <ul>
+    <li>
+      Added loot for the &quot;Go Hunting&quot; quest
+    </li>
+    <li>
+      Added a question completion bonus for finishing the &quot;Food and Faith,
+      Pt.1&quot; quest group
+    </li>
+    <li>
+      Formatted the equipment cost amounts so that they are easier to read
+    </li>
+  </ul>
+
+  <div class="subtitle">
     v1.91.1, 7 Dec 2015
   </div>
   <ul>
