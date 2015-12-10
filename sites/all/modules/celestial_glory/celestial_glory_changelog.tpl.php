@@ -22,6 +22,21 @@
   </div>
 
   <div class="subtitle">
+    v1.91.3, 10 Dec 2015
+  </div>
+  <ul>
+    <li>
+      New quest: Added the &quot;You make a bow&quot; quest, with its associated
+      equipment and loot, as the first quest in the &quot;Food and Faith,
+      Pt. 2&quot; quest group
+    </li>
+    <li>
+      New equipment: Fine Steel Bow, Nephi's Fine Steel Bow, Sling, and
+      Wooden Bow
+    </li>
+  </ul>
+
+  <div class="subtitle">
     v1.91.2, 7 Dec 2015
   </div>
   <ul>
