@@ -337,7 +337,8 @@ EOF;
       ($item->fkey_neighborhoods_id == 0 || $item->fkey_neighborhoods_id ==
         $game_user->fkey_neighborhoods_id) &&
       ($item->fkey_values_id == 0 || $item->fkey_values_id ==
-        $game_user->fkey_values_id)) {
+        $game_user->fkey_values_id) &&
+      ($item->required_level <= $game_user->level)) {
 
       echo <<< EOF
   <div class="land-button-wrapper"><div class="land-buy-button"><a

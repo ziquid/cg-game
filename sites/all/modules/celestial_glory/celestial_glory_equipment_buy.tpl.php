@@ -102,8 +102,21 @@
     $ai_output = 'equipment-failed loot-only';
     $outcome_reason = '<div class="land-failed">' . t('Sorry!') .
       '</div><div class="subtitle">' .
-      t('This item cannot be purchased &mdash;<br/>it must be earned',
-      array('@quests' => $quest_lower . 's')) .
+      t('This item cannot be purchased &mdash;<br/>it must be earned') .
+      '</div><br/>';
+
+  }
+
+// wrong hood
+  if (($game_equipment->fkey_neighborhoods_id != 0) &&
+    ($game_equipment->fkey_neighborhoods_id
+      != $game_user->fkey_neighborhoods_id)) {
+
+    $equipment_succeeded = FALSE;
+    $ai_output = 'equipment-failed wrong-hood';
+    $outcome_reason = '<div class="land-failed">' . t('Sorry!') .
+      '</div><div class="subtitle">' .
+      t('You cannot find this item here') .
       '</div><br/>';
 
   }
