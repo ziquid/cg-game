@@ -1,6 +1,6 @@
 <?php
 
-  $version = '1.92, 12 Dec 2015';
+  $version = 'v1.92, 12 Dec 2015';
 
 //  set_time_limit(10); // this page must not bog down server
 
