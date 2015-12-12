@@ -67,7 +67,7 @@ EOF;
 
   echo <<< EOF
 <div class="title">
-Purchase $equipment
+  Purchase $equipment
 </div>
 EOF;
 

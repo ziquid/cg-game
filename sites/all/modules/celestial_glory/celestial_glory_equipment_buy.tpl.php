@@ -137,6 +137,19 @@
 
   }
 
+// not high enough level
+  if ($game_equipment->required_level < $game_user->level) {
+
+    $equipment_succeeded = FALSE;
+    $ai_output = 'equipment-failed need-higher-level';
+    $outcome_reason = '<div class="land-failed">' . t('Sorry!') .
+      '</div><div class="subtitle">' .
+      t('Come back when you have more @experience',
+        array('@experience' => $experience_lower)) .
+      '</div><br/>';
+
+  }
+
   if ($equipment_succeeded) {
 
     if ($game_equipment->quantity == '') { // no record exists - insert one
@@ -356,7 +369,7 @@ EOF;
 </div>
 
 <div class="title">
-Purchase $equipment
+  Purchase $equipment
 </div>
 EOF;
 
@@ -366,36 +379,47 @@ EOF;
     return;
   }
 
-  $land_active = ' AND active = 1 ';
-
-// for testing - exclude all exclusions (!) if I am abc123
-  if ($game_user->phone_id == 'abc123') {
-    $land_active = ' AND (active = 1 OR active = 0) ';
-  }
-
-  $data = array();
+$data = array();
   $sql = 'SELECT equipment.*, equipment_ownership.quantity
     FROM equipment
 
-    LEFT OUTER JOIN equipment_ownership ON equipment_ownership.fkey_equipment_id = equipment.id
-    AND equipment_ownership.fkey_users_id = %d
+    LEFT OUTER JOIN equipment_ownership
+      ON equipment_ownership.fkey_equipment_id = equipment.id
+      AND equipment_ownership.fkey_users_id = %d
 
-    WHERE ((
-      fkey_neighborhoods_id = 0
-      OR fkey_neighborhoods_id = %d
-    )
+    WHERE
 
-    AND
+      equipment_ownership.quantity > 0
+
+    OR
+
+      "%s" = "abc123"
+
+    OR
 
     (
-      fkey_values_id = 0
-      OR fkey_values_id = %d
-    ))
 
-    AND required_level <= %d' . $land_active .
-    'AND is_loot = 0
+      ((
+        fkey_neighborhoods_id = 0
+        OR fkey_neighborhoods_id = %d
+      )
+
+      AND
+
+      (
+        fkey_values_id = 0
+        OR fkey_values_id = %d
+      ))
+
+      AND required_level <= %d
+      AND active = 1
+      AND is_loot = 0
+
+    )
+
     ORDER BY required_level ASC';
-  $result = db_query($sql, $game_user->id, $game_user->fkey_neighborhoods_id,
+  $result = db_query($sql, $game_user->id, $arg2,
+    $game_user->fkey_neighborhoods_id,
     $game_user->fkey_values_id, $game_user->level);
 
   while ($item = db_fetch_object($result)) $data[] = $item;
