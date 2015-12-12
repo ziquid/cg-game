@@ -117,7 +117,7 @@
     $outcome_reason = '<div class="land-failed">' . t('Sorry!') .
       '</div><div class="subtitle">' .
       t('You have searched all of %location<br/>but you cannot find this item here',
-        array('%location' => $location)) .
+        array('%location' => $game_user->location)) .
       '</div><br/>';
 
   }
