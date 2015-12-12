@@ -74,9 +74,8 @@ EOF;
   $land_active = ' AND active = 1 ';
 
 // for testing - exclude all exclusions (!) if I am abc123
-  if ($game_user->phone_id == 'abc123') {
+  if ($arg2 == 'abc123')
     $land_active = ' AND (active = 1 OR active = 0) ';
-  }
 
   $data = array();
   $sql = 'SELECT equipment.*, equipment_ownership.quantity
@@ -89,6 +88,10 @@ EOF;
     WHERE
 
       equipment_ownership.quantity > 0
+
+    OR
+
+      "%s" = "abc123"
 
     OR
 
@@ -113,7 +116,8 @@ EOF;
     )
 
     ORDER BY required_level ASC';
-  $result = db_query($sql, $game_user->id, $game_user->fkey_neighborhoods_id,
+  $result = db_query($sql, $game_user->id, $arg2,
+    $game_user->fkey_neighborhoods_id,
     $game_user->fkey_values_id, $game_user->level);
 
   while ($item = db_fetch_object($result)) $data[] = $item;
