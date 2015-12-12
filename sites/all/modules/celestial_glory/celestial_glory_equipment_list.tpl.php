@@ -86,20 +86,32 @@ EOF;
       ON equipment_ownership.fkey_equipment_id = equipment.id
     AND equipment_ownership.fkey_users_id = %d
 
-    WHERE ((
-      fkey_neighborhoods_id = 0
-      OR fkey_neighborhoods_id = %d
-    )
+    WHERE
 
-    AND
+      equipment_ownership.quantity > 0
+
+    OR
 
     (
-      fkey_values_id = 0
-      OR fkey_values_id = %d
-    ))
 
-    AND required_level <= %d' . $land_active .
-    'AND (is_loot = 0 OR equipment_ownership.quantity > 0)
+      ((
+        fkey_neighborhoods_id = 0
+        OR fkey_neighborhoods_id = %d
+      )
+
+      AND
+
+      (
+        fkey_values_id = 0
+        OR fkey_values_id = %d
+      ))
+
+      AND required_level <= %d'
+      . $land_active .
+      'AND (is_loot = 0 OR equipment_ownership.quantity > 0)
+
+    )
+
     ORDER BY required_level ASC';
   $result = db_query($sql, $game_user->id, $game_user->fkey_neighborhoods_id,
     $game_user->fkey_values_id, $game_user->level);
