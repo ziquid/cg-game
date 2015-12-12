@@ -632,29 +632,46 @@ EOF;
 
     } // foreach action
 
-      if ($item->can_sell) {
+    echo '</div>';
+
+    if ((!$item->is_loot) &&
+      ($item->fkey_neighborhoods_id == 0 || $item->fkey_neighborhoods_id ==
+        $game_user->fkey_neighborhoods_id) &&
+      ($item->fkey_values_id == 0 || $item->fkey_values_id ==
+        $game_user->fkey_values_id) &&
+      ($item->required_level <= $game_user->level)) {
 
       echo <<< EOF
-  </div>
   <div class="land-button-wrapper"><div class="land-buy-button"><a
     href="/$game/equipment_buy/$arg2/$item->id/1">Buy</a></div>
-  <div class="land-sell-button"><a
-    href="/$game/equipment_sell/$arg2/$item->id/1">Sell</a></div></div>
-</div>
 EOF;
 
     } else {
 
       echo <<< EOF
-  </div>
-  <div class="land-button-wrapper"><div class="land-buy-button"><a
-    href="/$game/equipment_buy/$arg2/$item->id/1">Buy</a></div>
-  <div class="land-sell-button not-yet"><!--<a
-    href="/$game/equipment_sell/$arg2/$item->id/1">-->Can't Sell<!--</a>--></div></div>
-</div>
+  <div class="land-button-wrapper"><div class="land-buy-button not-yet">Can't
+    Buy</div>
 EOF;
 
     }
+
+    if ($item->can_sell) {
+
+      echo <<< EOF
+  <div class="land-sell-button"><a
+    href="/$game/equipment_sell/$arg2/$item->id/1">Sell</a></div></div>
+EOF;
+
+    } else {
+
+      echo <<< EOF
+  <div class="land-sell-button not-yet"><!--<a
+    href="/$game/equipment_sell/$arg2/$item->id/1">-->Can't Sell<!--</a>--></div></div>
+EOF;
+
+    }
+
+    echo '</div>';
 
   }
 
