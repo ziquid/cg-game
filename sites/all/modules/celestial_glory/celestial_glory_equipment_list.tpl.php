@@ -354,7 +354,7 @@ EOF;
 
     }
 
-    if ($item->can_sell) {
+    if ($item->can_sell && $item->quantity > 0) {
 
       echo <<< EOF
   <div class="land-sell-button"><a
