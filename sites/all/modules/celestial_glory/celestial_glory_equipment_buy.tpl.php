@@ -138,7 +138,7 @@
   }
 
 // not high enough level
-  if ($game_equipment->required_level < $game_user->level) {
+  if ($game_equipment->required_level > $game_user->level) {
 
     $equipment_succeeded = FALSE;
     $ai_output = 'equipment-failed need-higher-level';
