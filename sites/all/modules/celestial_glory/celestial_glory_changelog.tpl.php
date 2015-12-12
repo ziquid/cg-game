@@ -22,16 +22,35 @@
   </div>
 
   <div class="subtitle">
+    v1.92, 12 Dec 2015
+  </div>
+  <ul>
+    <li>
+      New quest: Added the &quot;And ask your father&quot; quest as the second
+      quest in the &quot;Food and Faith, Pt. 2&quot; quest group
+    </li>
+    <li>
+      Bugfix: Fixed an issue where previously purchased/looted supplies would
+      not show in your inventory if they could not be purchased/looted
+      currently.
+    </li>
+    <li>
+      Bugfix: Fixed an issue where you could try to sell items even if you had
+      none.
+    </li>
+  </ul>
+
+  <div class="subtitle">
     v1.91.3, 10 Dec 2015
   </div>
   <ul>
     <li>
       New quest: Added the &quot;You make a bow&quot; quest, with its associated
-      equipment and loot, as the first quest in the &quot;Food and Faith,
+      supplies and loot, as the first quest in the &quot;Food and Faith,
       Pt. 2&quot; quest group
     </li>
     <li>
-      New equipment: Fine Steel Bow, Nephi's Fine Steel Bow, Sling, and
+      New supplies: Fine Steel Bow, Nephi's Fine Steel Bow, Sling, and
       Wooden Bow
     </li>
   </ul>
@@ -48,7 +67,7 @@
       Pt.1&quot; quest group
     </li>
     <li>
-      Formatted the equipment cost amounts so that they are easier to read
+      Formatted the supplies cost amounts so that they are easier to read
     </li>
   </ul>
 
