@@ -262,40 +262,51 @@ EOF;
 </div>
 
 <div class="title">
-Purchase $equipment
+  Purchase $equipment
 </div>
 EOF;
-
-  $land_active = ' AND active = 1 ';
-
-// for testing - exclude all exclusions (!) if I am abc123
-  if ($game_user->phone_id == 'abc123') {
-    $land_active = ' AND (active = 1 OR active = 0) ';
-  }
 
   $data = array();
   $sql = 'SELECT equipment.*, equipment_ownership.quantity
     FROM equipment
 
-    LEFT OUTER JOIN equipment_ownership ON equipment_ownership.fkey_equipment_id = equipment.id
-    AND equipment_ownership.fkey_users_id = %d
+    LEFT OUTER JOIN equipment_ownership
+      ON equipment_ownership.fkey_equipment_id = equipment.id
+      AND equipment_ownership.fkey_users_id = %d
 
-    WHERE ((
-      fkey_neighborhoods_id = 0
-      OR fkey_neighborhoods_id = %d
-    )
+    WHERE
 
-    AND
+      equipment_ownership.quantity > 0
+
+    OR
+
+      "%s" = "abc123"
+
+    OR
 
     (
-      fkey_values_id = 0
-      OR fkey_values_id = %d
-    ))
 
-    AND required_level <= %d' . $land_active .
-    'AND is_loot = 0
+      ((
+        fkey_neighborhoods_id = 0
+        OR fkey_neighborhoods_id = %d
+      )
+
+      AND
+
+      (
+        fkey_values_id = 0
+        OR fkey_values_id = %d
+      ))
+
+      AND required_level <= %d
+      AND active = 1
+      AND is_loot = 0
+
+    )
+
     ORDER BY required_level ASC';
-  $result = db_query($sql, $game_user->id, $game_user->fkey_neighborhoods_id,
+  $result = db_query($sql, $game_user->id, $arg2,
+    $game_user->fkey_neighborhoods_id,
     $game_user->fkey_values_id, $game_user->level);
 
   while ($item = db_fetch_object($result)) $data[] = $item;
@@ -508,29 +519,46 @@ EOF;
 
     } // foreach action
 
-    if ($item->can_sell) {
+    echo '</div>';
+
+    if ((!$item->is_loot) &&
+      ($item->fkey_neighborhoods_id == 0 || $item->fkey_neighborhoods_id ==
+        $game_user->fkey_neighborhoods_id) &&
+      ($item->fkey_values_id == 0 || $item->fkey_values_id ==
+        $game_user->fkey_values_id) &&
+      ($item->required_level <= $game_user->level)) {
 
       echo <<< EOF
-  </div>
   <div class="land-button-wrapper"><div class="land-buy-button"><a
     href="/$game/equipment_buy/$arg2/$item->id/1">Buy</a></div>
-  <div class="land-sell-button"><a
-    href="/$game/equipment_sell/$arg2/$item->id/1">Sell</a></div></div>
-</div>
 EOF;
 
     } else {
 
       echo <<< EOF
-  </div>
-  <div class="land-button-wrapper"><div class="land-buy-button"><a
-    href="/$game/equipment_buy/$arg2/$item->id/1">Buy</a></div>
-  <div class="land-sell-button not-yet"><!--<a
-    href="/$game/equipment_sell/$arg2/$item->id/1">-->Can't Sell<!--</a>--></div></div>
-</div>
+  <div class="land-button-wrapper"><div class="land-buy-button not-yet">Can't
+    Buy</div>
 EOF;
 
     }
+
+    if ($item->can_sell && $item->quantity > 0) {
+
+      echo <<< EOF
+  <div class="land-sell-button"><a
+    href="/$game/equipment_sell/$arg2/$item->id/1">Sell</a></div></div>
+EOF;
+
+    } else {
+
+      echo <<< EOF
+  <div class="land-sell-button not-yet"><!--<a
+    href="/$game/equipment_sell/$arg2/$item->id/1">-->Can't Sell<!--</a>--></div></div>
+EOF;
+
+    }
+
+    echo '</div>';
 
   }
 
