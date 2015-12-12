@@ -116,8 +116,23 @@
     $ai_output = 'equipment-failed wrong-hood';
     $outcome_reason = '<div class="land-failed">' . t('Sorry!') .
       '</div><div class="subtitle">' .
-      t('You have searched all of %location<br/>but you cannot find this item here',
-        array('%location' => $game_user->location)) .
+      t('You have searched all of @location<br/>but you cannot find this item here',
+        array('@location' => $game_user->location)) .
+      '</div><br/>';
+
+  }
+
+// wrong family
+  if (($game_equipment->fkey_values_id != 0) &&
+    ($game_equipment->fkey_values_id
+      != $game_user->fkey_values_id)) {
+
+    $equipment_succeeded = FALSE;
+    $ai_output = 'equipment-failed wrong-party';
+    $outcome_reason = '<div class="land-failed">' . t('Sorry!') .
+      '</div><div class="subtitle">' .
+      t('No one seems willing to sell this item<br/>to a member of your @party',
+        array('@party' => $party_small_lower)) .
       '</div><br/>';
 
   }
