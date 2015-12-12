@@ -71,19 +71,13 @@ Purchase $equipment
 </div>
 EOF;
 
-  $land_active = ' AND active = 1 ';
-
-// for testing - exclude all exclusions (!) if I am abc123
-  if ($arg2 == 'abc123')
-    $land_active = ' AND (active = 1 OR active = 0) ';
-
   $data = array();
   $sql = 'SELECT equipment.*, equipment_ownership.quantity
     FROM equipment
 
     LEFT OUTER JOIN equipment_ownership
       ON equipment_ownership.fkey_equipment_id = equipment.id
-    AND equipment_ownership.fkey_users_id = %d
+      AND equipment_ownership.fkey_users_id = %d
 
     WHERE
 
@@ -109,9 +103,9 @@ EOF;
         OR fkey_values_id = %d
       ))
 
-      AND required_level <= %d'
-      . $land_active .
-      'AND (is_loot = 0 OR equipment_ownership.quantity > 0)
+      AND required_level <= %d
+      AND active = 1
+      AND is_loot = 0
 
     )
 
@@ -339,7 +333,9 @@ EOF;
 
     echo '</div>';
 
-    if (!$item->is_loot) {
+    if ((!$item->is_loot) &&
+      ($item->fkey_neighborhoods_id == 0 || $item->fkey_neighborhoods_id ==
+        $game_user->fkey_neighborhoods_id)) {
 
       echo <<< EOF
   <div class="land-button-wrapper"><div class="land-buy-button"><a
