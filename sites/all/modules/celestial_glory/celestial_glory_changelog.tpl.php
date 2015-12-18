@@ -22,6 +22,21 @@
   </div>
 
   <div class="subtitle">
+    v1.93, 17 Dec 2015
+  </div>
+  <ul>
+    <li>
+      New quest: Added the &quot;Your father asks the Lord&quot;, &quot;The
+      Lord tells your father&quot;, and &quot;Inspecting the Liahona&quot;
+      quests as the third, fourth, and fifth quests in the &quot;Food and Faith,
+      Pt. 2&quot; quest group, with their associated loot.
+    </li>
+    <li>
+      New supplies: Faith, Diligence, and Heed.
+    </li>
+  </ul>
+
+  <div class="subtitle">
     v1.92, 12 Dec 2015
   </div>
   <ul>
