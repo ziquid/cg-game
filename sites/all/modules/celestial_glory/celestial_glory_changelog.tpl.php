@@ -22,6 +22,15 @@
   </div>
 
   <div class="subtitle">
+    v1.94, 06 Feb 2016
+  </div>
+  <ul>
+    <li>
+      New side quests group: Love in the Desert
+    </li>
+  </ul>
+
+  <div class="subtitle">
     v1.93, 17 Dec 2015
   </div>
   <ul>
