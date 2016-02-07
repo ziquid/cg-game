@@ -239,6 +239,9 @@ if (($today == '2012-12-26') || $game_user->username == 'abc123')
     case EVENT_CG_VALENTINES:
 
       $event_text = '<div class="event">
+          <div class="event-title">
+            Love in the Desert
+          </div>
           Valentine\' Day event Feb 7 - 21
         <br>
           This Valentine\'s Day, help Nephi woo his bride.

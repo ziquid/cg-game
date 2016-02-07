@@ -959,6 +959,11 @@ li {
   text-decoration: none;
 }
 
+.event .event-title {
+  margin: 3px;
+  font-size: 15px;
+}
+
 .event-text {
   padding: 22px 12px 0 192px;
   font-weight: bold;
