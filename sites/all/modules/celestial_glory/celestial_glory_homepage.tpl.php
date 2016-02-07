@@ -242,7 +242,7 @@ if (($today == '2012-12-26') || $game_user->username == 'abc123')
           <div class="event-title">
             &hearts; Love in the Desert &hearts;
           </div>
-          Valentine\' Day event Feb 7 - 21
+          Valentine\'s Day event Feb 7 - 21
         <br>
           This Valentine\'s Day, help Nephi woo his bride.
         <br>
