@@ -127,7 +127,8 @@ EOF;
   $item = db_fetch_object($result);
 firep($item);
 
-  if (!empty($item->min) && ($item->min <= $game_user->level + 1)) {
+  if (!empty($item->min) && ($item->min <= $game_user->level + 1) &&
+    ($group_to_show <= 1000)) {
 
     $newer_group = $group_to_show + 1;
     $newer_missions_html =<<< EOF
