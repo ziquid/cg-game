@@ -942,8 +942,9 @@ li {
 }
 
 .event {
-  float: left;
-  margin: 0 0 6px 12px;
+  margin: 12px 0 6px 12px;
+  text-align: center;
+  color: #aa6;
 }
 
 .event-text {

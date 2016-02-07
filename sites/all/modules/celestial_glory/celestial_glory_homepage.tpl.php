@@ -240,7 +240,7 @@ if (($today == '2012-12-26') || $game_user->username == 'abc123')
 
       $event_text = '<div class="event">
           This Valentine\'s Day, help Nephi woo his bride.
-        </div><div class="event-tagline small">
+        <br/>
           <a href="/' . $game . '/quests/' . $arg2 . '/'
           . EVENT_CG_VALENTINES . '">Start the Quest</a>
         </div>';
