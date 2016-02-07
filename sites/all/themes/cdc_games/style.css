@@ -942,9 +942,21 @@ li {
 }
 
 .event {
-  margin: 12px 0 6px 12px;
+  margin: 16px 0 6px 12px;
   text-align: center;
   color: #aa6;
+}
+
+.event a {
+  display: block;
+  padding: 4px;
+  font-size: 18px;
+  font-weight: bold;
+  background-color: #cc0;
+  border-radius: 50px;
+  margin: 10px auto 0;
+  width: 156px;
+  text-decoration: none;
 }
 
 .event-text {
