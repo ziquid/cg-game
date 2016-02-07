@@ -1018,7 +1018,7 @@ firep($qg);
 
   }
 
-  if ($game_quest->group > 0) { // have i said i love php's automatic typecasting?
+  if (($group_to_show > 0) && ($group_to_show <= 1000)) {
 
     $older_group = $game_quest->group - 1;
     $older_missions_html =<<< EOF

@@ -112,7 +112,7 @@ firep($qg);
 
   if ($game_user->level < 6) $location = '';
 
-  if ($group_to_show > 0) { // have i said i love php's automatic typecasting?
+  if (($group_to_show > 0) && ($group_to_show <= 1000)) {
 
     $older_group = $group_to_show - 1;
     $older_missions_html =<<< EOF
