@@ -241,7 +241,7 @@
     if ($game_quest->group > 1000) { // don't save quests group
 
       $sql = 'update users set energy = energy - %d,
-        experience = experience + %d, money = money + %d,
+        experience = experience + %d, money = money + %d
         where id = %d;';
       $result = db_query($sql, $game_quest->required_energy,
         $game_quest->experience, $money_added, $game_user->id);
