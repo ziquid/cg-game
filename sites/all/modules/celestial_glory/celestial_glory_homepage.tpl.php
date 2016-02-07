@@ -1,6 +1,6 @@
 <?php
 
-  $version = 'v1.93, 17 Dec 2015';
+  $version = 'v1.94, 06 Feb 2016';
 
 //  set_time_limit(10); // this page must not bog down server
 
@@ -232,6 +232,17 @@ if (($today == '2012-12-26') || $game_user->username == 'abc123')
         </div><div class="event-tagline small">
           <a href="/' . $game . '/top_event_points/' . $arg2 .
             '">Leaderboard</a>
+        </div>';
+
+      break;
+
+    case EVENT_CG_VALENTINES:
+
+      $event_text = '<div class="event">
+          This Valentine\'s Day, help Nephi woo his bride.
+        </div><div class="event-tagline small">
+          <a href="/' . $game . '/quests/' . $arg2 . '/'
+          . EVENT_CG_VALENTINES . '">Start the Quest</a>
         </div>';
 
       break;

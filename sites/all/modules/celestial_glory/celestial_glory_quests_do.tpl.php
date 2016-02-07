@@ -238,13 +238,25 @@
     $money_added += mt_rand($game_quest->min_money, $game_quest->max_money);
     $game_user->money += $money_added;
 
-    $sql = 'update users set energy = energy - %d,
-      experience = experience + %d, money = money + %d,
-      fkey_last_played_quest_groups_id = %d
-      where id = %d;';
-    $result = db_query($sql, $game_quest->required_energy,
-      $game_quest->experience,
-      $money_added, $game_quest->group, $game_user->id);
+    if ($game_quest->group > 1000) { // don't save quests group
+
+      $sql = 'update users set energy = energy - %d,
+        experience = experience + %d, money = money + %d,
+        where id = %d;';
+      $result = db_query($sql, $game_quest->required_energy,
+        $game_quest->experience, $money_added, $game_user->id);
+
+    } else { // save all
+
+      $sql = 'update users set energy = energy - %d,
+        experience = experience + %d, money = money + %d,
+        fkey_last_played_quest_groups_id = %d
+        where id = %d;';
+      $result = db_query($sql, $game_quest->required_energy,
+        $game_quest->experience, $money_added, $game_quest->group,
+        $game_user->id);
+
+    }
 
     if ($old_energy == $game_user->energy_max) { // start the energy clock again
 
