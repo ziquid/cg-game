@@ -240,7 +240,7 @@ if (($today == '2012-12-26') || $game_user->username == 'abc123')
 
       $event_text = '<div class="event">
           <div class="event-title">
-            Love in the Desert
+            &hearts; Love in the Desert &hearts;
           </div>
           Valentine\' Day event Feb 7 - 21
         <br>
