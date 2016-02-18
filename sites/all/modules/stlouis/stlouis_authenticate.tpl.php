@@ -35,7 +35,7 @@
         " for phone_id " . check_plain(arg(2)));
 */
       echo t('This game must be accessed through an authorized client.  ');
-      echo t('Please e-mail support@cheek.com if you have any questions.');
+      echo t('Please e-mail zipport@ziquid.com if you have any questions.');
       exit;
 
   }
@@ -50,7 +50,7 @@
     $extra_stuff_pos = stripos($user_agent, '(com.cheek');
     if ($extra_stuff_pos !== FALSE) { // remove our added stuff, if present
       $user_agent = trim(substr($user_agent, 0, $extra_stuff_pos));
-    } 
+    }
 
     $set_value = '_' . $game . '_set_value';
     $set_value($game_user->id, 'user_agent', $user_agent);
@@ -82,7 +82,7 @@
     password?
   </p>
   <p class="second">
-    If you can't remember it, you can e-mail <strong>support@cheek.com</strong>
+    If you can't remember it, you can e-mail <strong>zipport@ziquid.com</strong>
     and we can reset it for you.
   </p>
   <div class="ask-name">
@@ -93,5 +93,5 @@
   </div>
 </div>
 EOF;
-    
+
   db_set_active('default');

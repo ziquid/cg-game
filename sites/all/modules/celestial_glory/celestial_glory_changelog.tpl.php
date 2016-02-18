@@ -22,6 +22,18 @@
   </div>
 
   <div class="subtitle">
+    v1.94.1, 18 Feb 2016
+  </div>
+  <ul>
+    <li>
+      Changed support email address to <strong>zipport@ziquid.com</strong>
+    </li>
+    <li>
+      Added more words to profanity filter
+    </li>
+  </ul>
+
+  <div class="subtitle">
     v1.94, 06 Feb 2016
   </div>
   <ul>

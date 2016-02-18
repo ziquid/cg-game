@@ -19,19 +19,18 @@
 
 <div class="help">
 <div class="title">
-Help / FAQ
+  Help / FAQ
 </div>
 <div class="subtitle">
 	Terms of Service
 </div>
 <p>Since this product includes user-generated content (ie, you can choose
-  your own usernames and send each other messages and post forum messages),
+  your own usernames and send each other messages),
   we need to tell you that we moderate these for appropriateness.&nbsp;
   We have a filter in place for profanity on user messages; you can block
-  users from sending you messages at all; and you can post forum messages
-  or send e-mail to us at support@cheek.com if you have complaints or
-  need assistance.&nbsp; We occasionally lock or delete harassing forum
-  threads and delete user accounts for abuse.</p>
+  users from sending you messages at all; and you can
+  send e-mail to us at zipport@ziquid.com if you have complaints or
+  need assistance.&nbsp; We occasionally delete user accounts for abuse.</p>
 <div class="subtitle">
 	Goal of the Game
 </div>

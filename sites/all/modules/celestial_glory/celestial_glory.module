@@ -329,6 +329,7 @@ function _celestial_glory_filter_profanity($message) {
 	'asshole',
 	'assholes',
 	'asskisser',
+	'asss',
 	'asswad',
 	'asswhole',
 	'asswipe',
@@ -393,6 +394,7 @@ function _celestial_glory_filter_profanity($message) {
 	'buttfuck',
 	'buttfucker',
 	'butthead',
+	'buttheadddd',
 	'butthole',
 	'buttmuch',
 	'buttpicker',
@@ -456,6 +458,7 @@ function _celestial_glory_filter_profanity($message) {
 	'd1ck',
 	'damn',
 	'damn',
+	'dbag',
 	'dick',
 	'dickk',
 	'dickhead',
@@ -486,6 +489,7 @@ function _celestial_glory_filter_profanity($message) {
 	'ejaculatings',
 	'ejaculation',
 	'ejakulate',
+	'fuc',
 	'fuc k',
 	'fu c k',
 	'fukin',
@@ -779,6 +783,7 @@ function _celestial_glory_filter_profanity($message) {
 	'sex',
 	'sh!+',
 	'sh!t',
+	'sh.it',
 	'sh1t',
 	'shag',
 	'shagger',
@@ -1399,15 +1404,15 @@ function _celestial_glory_fetch_user() {
         " for phone_id " . check_plain(arg(2)));
 */
       echo t('This game must be accessed through an authorized client.  ');
-      echo t('Please e-mail support@cheek.com if you have any questions.');
+      echo t('Please e-mail zipport@ziquid.com if you have any questions.');
       exit;
 
   }
 
   if (strpos($arg2, 'cheek.com') !== FALSE) { // Jon?  send headers
-    mail('joseph@cheek.com', 'Jon? headers',
+    mail('joseph@ziquid.com', 'Jon? headers',
     implode('\n', getallheaders()));
-    mail('joseph@cheek.com', 'Jon? headers',
+    mail('joseph@ziquid.com', 'Jon? headers',
     'Jon is back!');
   }
 
