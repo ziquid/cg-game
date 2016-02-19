@@ -22,6 +22,18 @@
   </div>
 
   <div class="subtitle">
+    v1.94.2, 19 Feb 2016
+  </div>
+  <ul>
+    <li>
+      Completed Love in the Desert quest group
+    </li>
+    <li>
+      Added two and three-heart items
+    </li>
+  </ul>
+
+  <div class="subtitle">
     v1.94.1, 18 Feb 2016
   </div>
   <ul>

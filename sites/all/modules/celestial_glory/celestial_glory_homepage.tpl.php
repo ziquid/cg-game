@@ -1,6 +1,6 @@
 <?php
 
-  $version = 'v1.94.1, 18 Feb 2016';
+  $version = 'v1.94.2, 19 Feb 2016';
 
 //  set_time_limit(10); // this page must not bog down server
 
@@ -244,7 +244,7 @@ if (($today == '2012-12-26') || $game_user->username == 'abc123')
           </div>
           Valentine\'s Day event Feb 7 - 21
         <br>
-          ~ Complete the quest group once to gain eight skill points ~
+          ~ Complete the quest group once to gain <strong>8</strong> skill points ~
         <br>
           ~ Complete the quest group twice to gain a triple heart worth
           500 attack, 500 defense, and 3500 cunning ~
