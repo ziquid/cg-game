@@ -244,7 +244,10 @@ if (($today == '2012-12-26') || $game_user->username == 'abc123')
           </div>
           Valentine\'s Day event Feb 7 - 21
         <br>
-          This Valentine\'s Day, help Nephi woo his bride.
+          ~ Complete the quest group once to gain eight skill points ~
+        <br>
+          ~ Complete the quest group twice to gain a triple heart worth
+          500 attack, 500 defense, and 3500 cunning ~
         <br>
           <a href="/' . $game . '/quests/' . $arg2 . '/'
           . EVENT_CG_VALENTINES . '">Start the Quest</a>
