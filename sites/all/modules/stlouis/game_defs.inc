@@ -72,13 +72,8 @@
 
     $date = date('Y-m-d');
 
-    if (($date >= '2016-02-07') && ($date <= '2016-02-21') ||
-      ($arg2 == 'abc123')) {
-
+    if (($date >= '2016-02-07') && ($date <= '2016-02-21'))
       $event_type = EVENT_CG_VALENTINES;
-
-
-    }
 
     $alderman = 'Chief Priest';
     $aldermen = 'Chief Priests';
