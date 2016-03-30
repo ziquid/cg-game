@@ -255,10 +255,29 @@ if (($today == '2012-12-26') || $game_user->username == 'abc123')
 
       break;
 
+    case EVENT_PRE_APR1:
+
+      $event_text = '<div class="event">
+          <div class="event-title">
+            Upcoming Events
+          </div>
+          April 1: All Quests cost 100 Energy
+          <br>
+          Pick your favorite Quests and get ready to do them!
+          <br>
+          April 6: Merchant Quests!!!
+          <br>
+          ~ New Quests and Loot at the bottom of the map ~
+          <br>
+          ~ Become a Merchant or get your Merchant Comprehension ~
+        </div>';
+
+      break;
+
   }
 
 // dead presidents event
-if (FALSE)
+/*
   if ($game == 'stlouis') $event_text = '<!--<a href="/' . $game .
   '/top_event_points/' . $arg2 . '">-->
   <div class="event">
@@ -276,7 +295,7 @@ if (FALSE)
   </div>
   </div>
   <!--</a>-->';
-
+*/
   echo <<< EOF
 $extra_bonus
 <div class="title">

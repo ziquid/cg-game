@@ -4,13 +4,17 @@
   define(EVENT_DONE, 1);
   define(EVENT_DEBATE, 2);
   define(EVENT_CG_VALENTINES, 1001);
+  define(EVENT_PRE_APR1, 1002);
+  define(EVENT_QUESTS_100, 1003);
+  define(EVENT_PRE_MERCH_QUESTS, 1004);
+  define(EVENT_MERCH_QUESTS, 1005);
 
   $debate_time = 1200;
   $zombie_debate_wait = 180; // 300
   $event_type = EVENT_NONE;
 
   global $game;
-
+/*
   if ($game == 'stlouis') {
 
     switch(date('Y-m-d', time() - 3600)) {
@@ -56,24 +60,28 @@
     $system = 'System';
     $top20 = 'Top 20';
 
-/*
 // boxing day
     if ((date('Y-m-d') == '2012-12-26') || arg(2) == 'abc123') {
       $debate = 'Box';
       $debate_tab = 'Boxing';
       $top20 = 'Top Boxers';
     }
-*/
-
 
   }
-
+*/
   if ($game == 'celestial_glory') {
 
     $date = date('Y-m-d');
 
-    if (($date >= '2016-02-07') && ($date <= '2016-02-21'))
-      $event_type = EVENT_CG_VALENTINES;
+    if (($date >= '2016-03-30') && ($date <= '2016-03-31'))
+      $event_type = EVENT_PRE_APR1;
+
+    if ($date == '2016-04-01') $event_type = EVENT_QUESTS_100;
+
+    if (($date >= '2016-04-02') && ($date <= '2016-04-05'))
+      $event_type = EVENT_PRE_MERCH_QUESTS;
+
+    if ($date == '2016-04-06') $event_type = EVENT_MERCH_QUESTS;
 
     $alderman = 'Chief Priest';
     $aldermen = 'Chief Priests';
@@ -106,7 +114,7 @@
     $top20 = 'Top 20';
 
   }
-
+/*
   if ($game == 'robber_barons') {
 
     $beauty = 'Piety';
@@ -132,7 +140,7 @@
     $system = 'System';
 
   }
-
+*/
   $beauty_lower = strtolower($beauty);
   $city_lower = strtolower($city);
   $debate_lower = strtolower($debate);
