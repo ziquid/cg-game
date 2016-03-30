@@ -261,12 +261,13 @@ if (($today == '2012-12-26') || $game_user->username == 'abc123')
           <div class="event-title">
             Upcoming Events
           </div>
-          April 1: All Quests cost 100 Energy
-          <br>
+          <h4>
+            April 1: All Quests cost 100 Energy
+          </h4>
           Pick your favorite Quests and get ready to do them!
-          <br>
-          April 6: Merchant Quests!!!
-          <br>
+          <h4>
+            April 6: Merchant Quests!!!
+          </h4>
           ~ New Quests and Loot at the bottom of the map ~
           <br>
           ~ Become a Merchant or get your Merchant Comprehension ~
