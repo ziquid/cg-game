@@ -461,6 +461,9 @@ EOF;
 
     foreach ($data as $item) {
 
+      if ($event_type == EVENT_QUESTS_100 || $arg2 == 'abc123')
+        $item->required_energy = min($item->required_energy, 100);
+
       $description = str_replace('%clan', "<em>$clan_title</em>",
         $item->description);
 
