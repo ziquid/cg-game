@@ -28,7 +28,7 @@
   $game_quest = db_fetch_object($result); // limited to 1 in DB
 //firep($game_quest);
 
-  if ($event_type == EVENT_QUESTS_100 || $arg2 == 'abc123')
+  if ($event_type == EVENT_QUESTS_100)
     $game_quest->required_energy = min($game_quest->required_energy, 100);
 
   $quest_succeeded = TRUE;
@@ -1121,7 +1121,7 @@ EOF;
 
   foreach ($data as $item) {
 
-    if ($event_type == EVENT_QUESTS_100 || $arg2 == 'abc123')
+    if ($event_type == EVENT_QUESTS_100)
       $item->required_energy = min($item->required_energy, 100);
 
     $description = str_replace('%clan', "<em>$clan_title</em>",
@@ -1375,7 +1375,7 @@ EOF;
 
     foreach ($data as $item) {
 
-      if ($event_type == EVENT_QUESTS_100 || $arg2 == 'abc123')
+      if ($event_type == EVENT_QUESTS_100)
         $item->required_energy = min($item->required_energy, 100);
 
       $description = str_replace('%clan', "<em>$clan_title</em>",

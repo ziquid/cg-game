@@ -22,6 +22,15 @@
   </div>
 
   <div class="subtitle">
+    v1.94.3, 30 Mar 2016
+  </div>
+  <ul>
+    <li>
+      Added support for 100-energy Quests
+    </li>
+  </ul>
+
+  <div class="subtitle">
     v1.94.2, 19 Feb 2016
   </div>
   <ul>
