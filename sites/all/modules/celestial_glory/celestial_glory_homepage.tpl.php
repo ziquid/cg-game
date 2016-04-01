@@ -255,26 +255,6 @@ if (($today == '2012-12-26') || $game_user->username == 'abc123')
 
       break;
 
-    case EVENT_PRE_APR1:
-
-      $event_text = '<div class="event">
-          <div class="event-title">
-            Upcoming Events
-          </div>
-          <h3>
-            April 1: All Quests cost 100 Energy
-          </h3>
-          Pick your favorite Quests and get ready to do them!
-          <h3>
-            April 6: Merchant Quests!!!
-          </h3>
-          ~ New Quests and Loot at the bottom of the map ~
-          <br>
-          ~ Become a Merchant or get your Merchant Comprehension ~
-        </div>';
-
-      break;
-
     case EVENT_QUESTS_100:
 
       $event_text = '<div class="event">
@@ -295,6 +275,21 @@ if (($today == '2012-12-26') || $game_user->username == 'abc123')
 
       break;
 
+    case EVENT_PRE_MERCH_QUESTS:
+
+      $event_text = '<div class="event">
+          <div class="event-title">
+            Upcoming Events
+          </div>
+          <h3>
+            April 6: Merchant Quests!!!
+          </h3>
+          ~ New Quests and Loot at the bottom of the map ~
+          <br>
+          ~ Become a Merchant or get your Merchant Comprehension ~
+        </div>';
+
+      break;
 
   }
 
