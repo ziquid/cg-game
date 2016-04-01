@@ -275,6 +275,27 @@ if (($today == '2012-12-26') || $game_user->username == 'abc123')
 
       break;
 
+    case EVENT_APR1:
+
+      $event_text = '<div class="event">
+          <div class="event-title">
+            Upcoming Events
+          </div>
+          <h3>
+            *TODAY*: All Quests cost 100 Energy
+          </h3>
+          Pick your favorite Quests and go do them!
+          <h3>
+            April 6: Merchant Quests!!!
+          </h3>
+          ~ New Quests and Loot at the bottom of the map ~
+          <br>
+          ~ Become a Merchant or get your Merchant Comprehension ~
+        </div>';
+
+      break;
+
+
   }
 
 // dead presidents event
