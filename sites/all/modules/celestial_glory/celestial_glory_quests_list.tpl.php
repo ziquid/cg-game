@@ -43,7 +43,7 @@
   $data = db_fetch_object($result);
   $clan_title = preg_replace('/^The /', '', $data->clan_title);
 
-  if ($arg2 == 'abc123') {
+  if ($game_user->level >= 6) { // show quests menu after level 6
 
     if ($group_to_show >= 1000) {
       $merch_active = '';
@@ -56,10 +56,16 @@
       $lehite_active = 'active';
     }
 
+    if ($arg2 == 'abc123') {
+      $merch_url = '/' . $game . '/quests/' . $arg2 . '/100';
+    } else {
+      $merch_url = '#';
+    }
+
     echo <<< EOF
 <div class="news">
   <a href="/$game/quests/$arg2/0" class="button $lehite_active">Lehites</a>
-  <a href="/$game/quests/$arg2/100"
+  <a href="$merch_url"
     class="button $merch_active">Merchants</a>
 </div>
 EOF;
@@ -91,7 +97,7 @@ EOF;
     drupal_goto($game . '/choose_clan/' . $arg2 . '/0');
 // don't let them do quests at levels 6-25 without being in a party
 
-  if (!$game_user->seen_neighborhood_quests and $game_user->level >= 6) {
+  if (!$game_user->seen_neighborhood_quests && $game_user->level >= 6) {
 // intro neighborhood quests at level 6
 
     echo <<< EOF
