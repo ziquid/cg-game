@@ -112,7 +112,11 @@ firep($qg);
 
   if ($game_user->level < 6) $location = '';
 
-  if (($group_to_show > 0) && ($group_to_show <= 1000)) {
+  $sql = 'select name from quest_groups where id = %s;';
+  $result = db_query($sql, $group_to_show - 1);
+  $qgo = db_fetch_object($result);
+
+  if (!empty($qgo->name)) {
 
     $older_group = $group_to_show - 1;
     $older_missions_html =<<< EOF
