@@ -27,6 +27,16 @@
   $data = db_fetch_object($result);
   $clan_title = preg_replace('/^The /', '', $data->clan_title);
 
+  if ($arg2 == 'abc123') {
+
+    echo <<< EOF
+<div class="news">
+  <a href="/$game/quests/$arg2/0" class="button active">Lehites</a>
+  <a href="/$game/quests/$arg2/100" class="button">Merchants</a>
+EOF;
+
+  }
+
   if ($game_user->experience == 0) { // show more welcome text for new user
 
     echo <<< EOF

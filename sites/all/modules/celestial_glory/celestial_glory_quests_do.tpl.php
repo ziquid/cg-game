@@ -19,6 +19,16 @@
   $data = db_fetch_object($result);
   $clan_title = preg_replace('/^The /', '', $data->clan_title);
 
+  if ($arg2 == 'abc123') {
+
+    echo <<< EOF
+<div class="news">
+  <a href="/$game/quests/$arg2/0" class="button active">Lehites</a>
+  <a href="/$game/quests/$arg2/100" class="button">Merchants</a>
+EOF;
+
+  }
+
   $data = array();
   $sql = 'select quests.*, neighborhoods.name as hood from quests
     LEFT OUTER JOIN neighborhoods
