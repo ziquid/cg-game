@@ -25,6 +25,7 @@
 <div class="news">
   <a href="/$game/quests/$arg2/0" class="button active">Lehites</a>
   <a href="/$game/quests/$arg2/100" class="button">Merchants</a>
+</div>
 EOF;
 
   }
