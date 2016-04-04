@@ -17,6 +17,22 @@
 
   if (is_numeric(arg(3))) $group_to_show = arg(3);
 
+  if (is_numeric($group_to_show)) {
+
+    $sql_quest_neighborhood = 'where `group` = ' . $group_to_show;
+
+  } elseif ($game_user->level < 6) { // show beginning quests
+
+    $group_to_show = '0';
+    $sql_quest_neighborhood = 'where `group` = 0';
+
+  } else { // show the group for which the player last successfully completed a quest
+
+    $group_to_show = $game_user->fkey_last_played_quest_groups_id;
+    $sql_quest_neighborhood = 'where `group` = ' . $group_to_show;
+
+  }
+
   $sql = 'select name from neighborhoods where id = %d;';
   $result = db_query($sql, $game_user->fkey_neighborhoods_id);
   $data = db_fetch_object($result);
@@ -29,10 +45,22 @@
 
   if ($arg2 == 'abc123') {
 
+    if ($group_to_show >= 1000) {
+      $merch_active = '';
+      $lehite_active = '';
+    } elseif ($group_to_show >= 100) {
+      $merch_active = 'active';
+      $lehite_active = '';
+    } else {
+      $merch_active = '';
+      $lehite_active = 'active';
+    }
+
     echo <<< EOF
 <div class="news">
-  <a href="/$game/quests/$arg2/0" class="button active">Lehites</a>
-  <a href="/$game/quests/$arg2/100" class="button">Merchants</a>
+  <a href="/$game/quests/$arg2/0" class="button $lehite_active">Lehites</a>
+  <a href="/$game/quests/$arg2/100"
+    class="button $merch_active">Merchants</a>
 </div>
 EOF;
 
@@ -95,22 +123,6 @@ EOF;
   <li>Wait and rest for a few minutes if you run out of Energy</li>
 </ul>
 EOF;
-
-  }
-
-  if (is_numeric($group_to_show)) {
-
-    $sql_quest_neighborhood = 'where `group` = ' . $group_to_show;
-
-  } elseif ($game_user->level < 6) { // show beginning quests
-
-    $group_to_show = '0';
-    $sql_quest_neighborhood = 'where `group` = 0';
-
-  } else { // show the group for which the player last successfully completed a quest
-
-    $group_to_show = $game_user->fkey_last_played_quest_groups_id;
-    $sql_quest_neighborhood = 'where `group` = ' . $group_to_show;
 
   }
 
