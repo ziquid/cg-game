@@ -31,35 +31,6 @@
   if ($event_type == EVENT_QUESTS_100)
     $game_quest->required_energy = min($game_quest->required_energy, 100);
 
-  if ($game_user->level >= 6) { // show quests menu after level 6
-
-    if ($game_quest->group >= 1000) {
-      $merch_active = '';
-      $lehite_active = '';
-    } elseif ($game_quest->group >= 100) {
-      $merch_active = 'active';
-      $lehite_active = '';
-    } else {
-      $merch_active = '';
-      $lehite_active = 'active';
-    }
-
-    if ($arg2 == 'abc123') {
-      $merch_url = '/' . $game . '/quests/' . $arg2 . '/100';
-    } else {
-      $merch_url = '#';
-    }
-
-    echo <<< EOF
-<div class="news">
-  <a href="/$game/quests/$arg2/0" class="button $lehite_active">Lehites</a>
-  <a href="$merch_url"
-    class="button $merch_active">Merchants</a>
-</div>
-EOF;
-
-  }
-
   $quest_succeeded = TRUE;
   $outcome_reason = '<div class="quest-succeeded">' . t('Success!') .
     '</div>';
@@ -923,6 +894,35 @@ EOF;
 
     $game_user = $fetch_user();
     $fetch_header($game_user);
+
+    if ($game_user->level >= 6) { // show quests menu after level 6
+
+      if ($game_quest->group >= 1000) {
+        $merch_active = '';
+        $lehite_active = '';
+      } elseif ($game_quest->group >= 100) {
+        $merch_active = 'active';
+        $lehite_active = '';
+      } else {
+        $merch_active = '';
+        $lehite_active = 'active';
+      }
+
+      if ($arg2 == 'abc123') {
+        $merch_url = '/' . $game . '/quests/' . $arg2 . '/100';
+      } else {
+        $merch_url = '#';
+      }
+
+      echo <<< EOF
+<div class="news">
+  <a href="/$game/quests/$arg2/0" class="button $lehite_active">Lehites</a>
+  <a href="$merch_url"
+    class="button $merch_active">Merchants</a>
+</div>
+EOF;
+
+    }
 
     if ($game_user->level < 6 and $game_user->experience > 0) {
 
