@@ -56,7 +56,12 @@
       $lehite_active = 'active';
     }
 
-    if ($arg2 == 'abc123' || $game_user->fkey_values_id == 5) {
+    $sql = 'select quantity from `equipment_ownership` where
+      fkey_equipment_id = 36 and fkey_users_id = %d;';
+    $result = db_query($sql, $game_user->id);
+    $data = db_fetch_object($result);
+
+    if ($game_user->fkey_values_id == 5 || $data->quantity > 0) {
       $merch_url = '/' . $game . '/quests/' . $arg2 . '/100';
     } else {
       $merch_url = '#';
