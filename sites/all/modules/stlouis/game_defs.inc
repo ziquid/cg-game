@@ -81,7 +81,8 @@
     if (($date >= '2016-04-02') && ($date <= '2016-04-05'))
       $event_type = EVENT_PRE_MERCH_QUESTS;
 
-    if ($date == '2016-04-06') $event_type = EVENT_MERCH_QUESTS;
+    if (($date >= '2016-04-06') && ($date <= '2016-04-14'))
+      $event_type = EVENT_MERCH_QUESTS;
 
     $alderman = 'Chief Priest';
     $aldermen = 'Chief Priests';

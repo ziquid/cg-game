@@ -291,6 +291,19 @@ if (($today == '2012-12-26') || $game_user->username == 'abc123')
 
       break;
 
+    case EVENT_MERCH_QUESTS:
+
+      $event_text = '<div class="event">
+          <div class="event-title">
+            Merchant Quests!!!
+          </div>
+          ~ Quests Group 1, <strong>Learning to Trade</strong>, is ready ~
+          <br>
+          ~ Become a Merchant or get your Merchant Comprehension ~
+        </div>';
+
+      break;
+
   }
 
 // dead presidents event
