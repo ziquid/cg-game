@@ -908,7 +908,7 @@ EOF;
         $lehite_active = 'active';
       }
 
-      if ($arg2 == 'abc123') {
+      if ($arg2 == 'abc123' || $game_user->fkey_values_id == 5) {
         $merch_url = '/' . $game . '/quests/' . $arg2 . '/100';
       } else {
         $merch_url = '#';
