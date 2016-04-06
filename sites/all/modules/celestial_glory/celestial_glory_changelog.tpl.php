@@ -22,6 +22,15 @@
   </div>
 
   <div class="subtitle">
+    v2.0.0, 06 Apr 2016
+  </div>
+  <ul>
+    <li>
+      Merchant Quests!!!
+    </li>
+  </ul>
+
+  <div class="subtitle">
     v1.94.3, 30 Mar 2016
   </div>
   <ul>

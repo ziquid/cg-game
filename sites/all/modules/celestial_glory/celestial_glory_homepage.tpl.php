@@ -1,6 +1,6 @@
 <?php
 
-  $version = 'v1.94.3, 30 Mar 2016';
+  $version = 'v2.0.0, 06 Apr 2016';
 
 //  set_time_limit(10); // this page must not bog down server
 
@@ -295,7 +295,7 @@ if (($today == '2012-12-26') || $game_user->username == 'abc123')
 
       $event_text = '<div class="event">
           <div class="event-title">
-            Merchant Quests!!!
+            !!! Merchant Quests !!!
           </div>
           ~ Quests Group 1, <strong>Learning to Trade</strong>, is ready ~
           <br>
