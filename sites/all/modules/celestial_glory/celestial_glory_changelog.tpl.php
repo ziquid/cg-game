@@ -22,6 +22,16 @@
   </div>
 
   <div class="subtitle">
+    v2.0.1, 07 Apr 2016
+  </div>
+  <ul>
+    <li>
+      Fix minor display bug &mdash; menus were shown in the center of the
+      screen on some devices
+    </li>
+  </ul>
+
+  <div class="subtitle">
     v2.0.0, 06 Apr 2016
   </div>
   <ul>

@@ -540,6 +540,7 @@ li {
 .news {
   width: 99%;
   margin: 3px 3px 0;
+  clear: both;
 }
 
 .news-buttons {
