@@ -2925,7 +2925,7 @@ EOF;
   function _celestial_glory_action_count_your_votes_function(&$outcome_reason,
     $target, &$can_do_again) {
 
-    return _sltouis_action_count_your_votes_function($outcome_reason, $target,
+    return _stlouis_action_count_your_votes_function($outcome_reason, $target,
       $can_do_again);
 
   }
