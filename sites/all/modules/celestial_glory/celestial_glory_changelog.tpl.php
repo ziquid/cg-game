@@ -22,6 +22,14 @@
   </div>
 
   <div class="subtitle">
+    v2.0.3, 09 Apr 2016
+  </div>
+  <ul>
+    <li>
+      Support for 411dip-width screens, such as the Galaxy Note 5.
+  </ul>
+
+  <div class="subtitle">
     v2.0.2, 09 Apr 2016
   </div>
   <ul>
