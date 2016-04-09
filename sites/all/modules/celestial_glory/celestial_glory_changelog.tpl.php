@@ -22,6 +22,19 @@
   </div>
 
   <div class="subtitle">
+    v2.0.2, 09 Apr 2016
+  </div>
+  <ul>
+    <li>
+      Added &quot;Get challenge results&quot; action (shows detailed results of
+      the last five office challenges against you)
+    </li>
+    <li>
+      Minor formatting changes &mdash; added commas on some numbers on the
+      Profile page.
+  </ul>
+
+  <div class="subtitle">
     v2.0.1, 07 Apr 2016
   </div>
   <ul>
