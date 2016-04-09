@@ -2931,8 +2931,8 @@ EOF;
   }
 
 
-  function _stlouis_action_get_challenge_results_function(&$outcome_reason, $target,
-    &$can_do_again) {
+  function _stlouis_action_get_challenge_results_function(&$outcome_reason,
+    $target, &$can_do_again) {
 
     global $game, $phone_id;
 
@@ -3015,6 +3015,15 @@ EOF;
     $outcome_reason .= '</div>';
 
     return true;
+
+  }
+
+
+  function _celestial_glory_action_get_challenge_results_function(
+    &$outcome_reason, $target, &$can_do_again) {
+
+    return _stlouis_action_get_challenge_results_function($outcome_reason,
+      $target, $can_do_again);
 
   }
 
