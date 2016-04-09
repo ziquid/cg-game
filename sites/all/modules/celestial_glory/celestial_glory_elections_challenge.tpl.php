@@ -990,9 +990,13 @@ EOF;
   echo '<div class="election-continue"><a href="/' . $game . '/elections/' .
     $arg2 . '">' . t('Continue') . '</a></div>';
 
-  $message = "$game_user->username [$my_influence] challenged $item->username " .
-  "[$opp_influence] for the seat $item->ep_name in $location and " .
-  (($votes < 0) ? 'won' : 'lost') . " by " . abs($votes) . " votes.
+  // logic based on influence stats is done -- we can convert these to strings
+  $my_influence = number_format($my_influence);
+  $opp_influence = number_format($opp_influence);
+
+  $message = "$game_user->username [$my_influence] challenged $item->username "
+  . "[$opp_influence] for the seat $item->ep_name in $location and " .
+  (($votes < 0) ? 'won' : 'lost') . ' by ' . abs($votes) . " votes.
 
 {$game_user->username}'s initiative = $st_initiative_bonus->initiative staff initiative + $eq_initiative_bonus->initiative equipment initiative + 100 = $in_bonus
 total influence: ceil($game_user->experience influence / 5) [" .
@@ -1028,7 +1032,7 @@ Extra defending votes: $extra_defending_votes
 $residents residents";
 
   if (($item->ep_id == 1) && ($votes < 0)) // mail me hood tosses
-    mail('joseph@cheek.com', "election results" /* for $game_user->username " .
+    mail('joseph@ziquid.com', 'election results' /* for $game_user->username " .
       "[$my_influence] vs. $item->username [$opp_influence] in $location" */,
       $message);
 
