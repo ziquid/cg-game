@@ -14,11 +14,11 @@
     drupal_goto($game . '/choose_name/' . $arg2);
 
   $phone_id_to_check = $phone_id;
-  
+
   if (arg(3) != '') $phone_id_to_check = check_plain(arg(3));
 
   $show_all = FALSE;
-  
+
   if (($phone_id_to_check == $phone_id) ||
     ($_GET['show_all'] == 'yes'))
     $show_all = TRUE;
@@ -37,14 +37,14 @@
   }
 
   if (substr($message, 0, 3) == 'XXX') {
-    
+
     echo '<div class="message-error">Your message contains words that are not
       allowed.&nbsp; Please rephrase.&nbsp; ' . $message . '</div>';
     $message = '';
-    
+
   }
-  
-  $sql = 'SELECT username, experience, initiative, endurance, 
+
+  $sql = 'SELECT username, experience, initiative, endurance,
     elocution, debates_won, debates_lost, skill_points, luck,
     debates_last_time, users.fkey_values_id, level, referral_code,
     family_members_found, users.meta,
@@ -57,21 +57,21 @@
     clans.name as clan_name, clans.acronym as clan_acronym,
     clans.id as fkey_clans_id,
     event_points.points
-    
+
     FROM `users`
-    
+
     LEFT JOIN `values` ON users.fkey_values_id = `values`.id
-    
+
     LEFT OUTER JOIN elected_officials
     ON elected_officials.fkey_users_id = users.id
-    
+
     LEFT OUTER JOIN elected_positions
     ON elected_positions.id = elected_officials.fkey_elected_positions_id
-    
+
     LEFT OUTER JOIN clan_members on clan_members.fkey_users_id = users.id
-    
+
     LEFT OUTER JOIN clans on clan_members.fkey_clans_id = clans.id
-    
+
     LEFT JOIN user_creations on user_creations.phone_id = users.phone_id
 
     LEFT JOIN event_points on event_points.fkey_users_id = users.id
@@ -80,7 +80,7 @@
 
     ORDER by user_creations.datetime ASC
     LIMIT 1';
-  
+
   $result = db_query($sql, $phone_id_to_check);
   $item = db_fetch_object($result);
 firep($item);
@@ -121,18 +121,18 @@ firep($icon_path);
   $result = db_query($sql, $item->fkey_neighborhoods_id);
   $data = db_fetch_object($result);
   $location = $data->name;
-  
+
 // save the message, if any
 
   $private = check_plain($_GET['private']) == '1' ? 1 : 0;
 
   if (!empty($message)) {
-    
+
     $sql = 'insert into user_messages (fkey_users_from_id,
       fkey_users_to_id, private, message) values (%d, %d, %d, "%s");';
     $result = db_query($sql, $game_user->id, $item->id, $private, $message);
     $message_orig = '';
-    
+
   }
 
   if (($want_jol == '/want_jol') && !empty($message)) { // halloween Jack-o-lantern posting
@@ -146,7 +146,7 @@ firep($icon_path);
         without a costume!</div>';
       $get_jol = FALSE;
 
-mail('joseph@cheek.com', $game_user->username . ' has no costume but tried to message',
+mail('joseph@cheek.tv', $game_user->username . ' has no costume but tried to message',
  $item->username);
 
     }
@@ -227,20 +227,20 @@ mail('joseph@cheek.com', $game_user->username . ' has no costume but tried to me
   } else {
     $clan_link = t('None');
   }
-    
+
   if ($item->is_clan_leader) {
     $clan_acronym .= '*';
     $clan_link .= " (leader)";
   }
-  
+
   if (($game_user->fkey_clans_id) &&
     ($game_user->fkey_clans_id == $item->fkey_clans_id)) {
-      
+
       $clan_link = '<a href="/' . $game . '/clan_list/' . $arg2 .
         '/' . $game_user->fkey_clans_id . '">' . $clan_link . '</a>';
-      
+
     }
-  
+
   echo <<< EOF
 <div class="title">
 $item->ep_name $item->username $clan_acronym
@@ -270,16 +270,18 @@ EOF;
 EOF;
 
   }
-  
+
+  $exp = number_format($item->experience);
+
   echo <<< EOF
   <div class="heading">Level:</div>
   <div class="clan-icon">$item->level</div><br/>
   <div class="heading">$experience:</div>
-  <div class="value">$item->experience</div><br/>
+  <div class="value">$exp</div><br/>
 EOF;
 
   if ($show_all) { // show more stats if it's you
-    
+
     $sql = 'SELECT
       SUM( staff.extra_votes * staff_ownership.quantity ) AS extra_votes,
       SUM( staff.extra_defending_votes * staff_ownership.quantity )
@@ -292,7 +294,7 @@ EOF;
       AND staff_ownership.fkey_users_id = %d;';
     $result = db_query($sql, $item->id);
     $staff_bonus = db_fetch_object($result);
-    
+
     $sql = 'SELECT
       SUM( equipment.initiative_bonus * equipment_ownership.quantity ) AS initiative,
       SUM( equipment.endurance_bonus * equipment_ownership.quantity ) AS endurance,
@@ -302,7 +304,7 @@ EOF;
       AND equipment_ownership.fkey_users_id = %d;';
     $result = db_query($sql, $item->id);
     $equipment_bonus = db_fetch_object($result);
-    
+
 /*
 // memorial day promo -- every 250 vets = extra vote
     $sql = 'SELECT quantity
@@ -310,10 +312,13 @@ EOF;
       WHERE fkey_users_id = %d AND fkey_staff_id = 7;';
     $result = db_query($sql, $item->id);
     $vet_bonus = db_fetch_object($result);
-*/    
-    $extra_initiative = $staff_bonus->initiative + $equipment_bonus->initiative + 0;
-    $extra_endurance = $staff_bonus->endurance + $equipment_bonus->endurance + 0;
-    $extra_elocution = $staff_bonus->elocution + $equipment_bonus->elocution + 0;
+*/
+    $extra_initiative = number_format($staff_bonus->initiative
+    + $equipment_bonus->initiative);
+    $extra_endurance = number_format($staff_bonus->endurance
+    + $equipment_bonus->endurance);
+    $extra_elocution = number_format($staff_bonus->elocution
+    + $equipment_bonus->elocution);
     $extra_votes = $staff_bonus->extra_votes + 0;
     $extra_defending_votes = $staff_bonus->extra_defending_votes + 0;
 //    $extra_vet_votes = (int) ($vet_bonus->quantity / 250);
@@ -328,7 +333,7 @@ EOF;
 EOF;
 
     if ($game == 'stlouis') {
-      
+
       echo <<< EOF
   <div class="heading">Extra Votes:</div>
   <div class="value">$extra_votes<!-- + $extra_vet_votes--></div><br/>
@@ -339,7 +344,7 @@ EOF;
     } // stlouis only
 
   } // show_all
-  
+
   if ($item->debates_won >= $item->level * 100) {
     $super_debater = '<strong>(** Super **)</strong>';
   } else {
@@ -357,7 +362,7 @@ EOF;
   if (($phone_id_to_check != $phone_id) &&
     (abs($item->level - $game_user->level) <= 15) &&
     (($item->fkey_clans_id != $game_user->fkey_clans_id) ||
-      empty($item->fkey_clans_id) || empty($game_user->fkey_clans_id))) { 
+      empty($item->fkey_clans_id) || empty($game_user->fkey_clans_id))) {
 
     if ((((time() - strtotime($item->debates_last_time)) > $debate_time) ||
       (($item->meta == 'zombie') &&
@@ -392,11 +397,11 @@ EOF;
     } // debateable?
 
   } else { // not debateable at all
-    
+
     echo '<br/>';
 
   }
-  
+
   echo <<< EOF
 <div class="heading">{$debate}s lost:</div>
 <div class="value">$item->debates_lost</div><br/>
@@ -448,41 +453,41 @@ EOF;
 
 /*
   if ($game == 'celestial_glory') {
-    
+
   echo <<< EOF
 <div class="heading">Ancestors Found:</div>
 <div class="value">$item->family_members_found</div><br/>
 EOF;
-    
+
   }
 */
   echo <<< EOF
 <div class="heading">$residence:</div>
 <div class="value">$location</div><br/>
 EOF;
-  
+
   if (!empty($item->ep_name)) { // elected?  give approval rating!
-    
+
     echo <<< EOF
   <div class="heading">Approval Rating:</div>
   <div class="value">$item->approval_rating%</div><br/>
 EOF;
 
   }
-  
+
   if ($phone_id_to_check == $phone_id) { // show more stats if it's you
 
     if ($item->skill_points == 0) {
-      
+
       $skill_button = '<div class="action not-yet">Can\'t increase skills</div>';
-      
+
     } else {
-      
+
       $skill_button = '<div class="action"><a href="/' . $game . '/increase_skills/' .
         $arg2 . '/none">Increase skills</a></div>';
-      
+
     }
-    
+
     echo <<< EOF
   <div class="heading">Luck:</div>
   <div class="value">$item->luck</div><br/>
@@ -493,26 +498,26 @@ EOF;
 EOF;
 
   }
-  
+
   $block_this_user = '<div class="block-user"><a href="/' . $game .
     '/block_user_toggle/' . $arg2 . '/' . $phone_id_to_check .
     '">Block this user</a></div>';
-  
+
   $sql = 'select * from message_blocks where fkey_blocked_users_id = %d
     and fkey_blocking_users_id = %d;';
   $result = db_query($sql, $item->id, $game_user->id);
   $block = db_fetch_object($result);
-  
+
    $sql = 'select * from message_blocks where fkey_blocked_users_id = %d
     and fkey_blocking_users_id = %d;';
   $result = db_query($sql, $game_user->id, $item->id);
   $is_blocked = db_fetch_object($result);
-  
+
   if (!empty($block))
     $block_this_user = '<div class="block-user"><a href="/' . $game .
     '/block_user_toggle/' . $arg2 . '/' . $phone_id_to_check .
     '">Unblock this user</a></div>';
-    
+
   if ($phone_id == $phone_id_to_check) $block_this_user = '';
 
   if (($phone_id == 'abc123') || ($game_user->username == 'New iPad test')) {
@@ -544,11 +549,11 @@ EOF;
 </div>
 EOF;
    } else { // you can't send to them but you can still block them
-     
+
      echo '<div class="send-message">' . $block_this_user . '</div>';
-     
+
    }
-   
+
   echo <<< EOF
 <div class="news">
   <div class="messages-title">
@@ -566,33 +571,33 @@ EOF;
     elected_positions.name as ep_name,
     clan_members.is_clan_leader,
     clans.acronym as clan_acronym
-    
-    from user_messages 
-    
+
+    from user_messages
+
     left join users on user_messages.fkey_users_from_id = users.id
-    
+
     LEFT OUTER JOIN elected_officials
     ON elected_officials.fkey_users_id = users.id
-    
+
     LEFT OUTER JOIN elected_positions
     ON elected_positions.id = elected_officials.fkey_elected_positions_id
-    
+
     LEFT OUTER JOIN clan_members on clan_members.fkey_users_id =
       user_messages.fkey_users_from_id
-    
+
     LEFT OUTER JOIN clans on clan_members.fkey_clans_id = clans.id
-    
+
     where fkey_users_to_id = %d ' . $no_private . '
-    
+
     order by id DESC
     LIMIT 50;';
-  
+
   $result = db_query($sql, $item->id);
   $msg_shown = FALSE;
 
   $data = array();
   while ($item = db_fetch_object($result)) $data[] = $item;
-  
+
   foreach ($data as $item) {
 firep($item->id);
     $display_time = _stlouis_format_date(strtotime($item->timestamp));
@@ -600,10 +605,10 @@ firep($item->id);
 
   if (!empty($item->clan_acronym))
     $clan_acronym = "($item->clan_acronym)";
-    
+
   if ($item->is_clan_leader)
     $clan_acronym .= '*';
-    
+
   if ($item->private) {
     $private_css = 'private';
     $private_text = '(private)';
@@ -621,7 +626,7 @@ firep($item->id);
 EOF;
 
     if ($phone_id_to_check == $phone_id) { // allow user to delete own messages
-    
+
       echo <<< EOF
         <div class="message-delete"><a href="/$game/msg_delete/$arg2/$item->id"><img
           src="/sites/default/files/images/delete.png" width="16" height="16"/></a></div>
@@ -637,7 +642,7 @@ EOF;
 </div>
 EOF;
     $msg_shown = TRUE;
-    
+
   }
 
   db_set_active('default');
