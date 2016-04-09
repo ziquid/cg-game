@@ -2917,7 +2917,16 @@ EOF;
 
     $outcome_reason .= '</div>';
 
-    return true;
+    return TRUE;
+
+  }
+
+
+  function _celestial_glory_action_count_your_votes_function(&$outcome_reason,
+    $target, &$can_do_again) {
+
+    return _sltouis_action_count_your_votes_function($outcome_reason, $target,
+      $can_do_again);
 
   }
 
