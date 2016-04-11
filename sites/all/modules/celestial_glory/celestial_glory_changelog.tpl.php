@@ -22,11 +22,27 @@
   </div>
 
   <div class="subtitle">
+    v2.0.4, 11 Apr 2016
+  </div>
+  <ul>
+    <li>
+      Fixed luck purchases on Apple devices, re-added game to Apple Store.
+    </li>
+    <li>
+      Added a &quot;Continue&quot; button to the top of the debates result
+      screen,
+      as I was tired of having to scroll down the entire page each time
+      I debated someone.
+    </li>
+  </ul>
+
+  <div class="subtitle">
     v2.0.3, 09 Apr 2016
   </div>
   <ul>
     <li>
       Support for 411dip-width screens, such as the Galaxy Note 5.
+    </li>
   </ul>
 
   <div class="subtitle">
@@ -40,6 +56,7 @@
     <li>
       Minor formatting changes &mdash; added commas on some numbers on the
       Profile page.
+    </li>
   </ul>
 
   <div class="subtitle">

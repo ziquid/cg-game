@@ -581,8 +581,7 @@ firep("update equipment_ownership set fkey_users_id = $game_user->id
     <a href="/' . $game . '/debates/' . $arg2 . '">
       <img src="/sites/default/files/images/' . $game . '_continue.png"/>
     </a>
-  </div>
-  <div>&nbsp;</div>';
+  </div>';
 
   echo "<div class=\"subtitle\">You used</div><div class=\"debate-used-wrapper\">";
 
