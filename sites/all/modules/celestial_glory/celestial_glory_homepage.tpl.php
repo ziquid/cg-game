@@ -300,6 +300,9 @@ if (($today == '2012-12-26') || $game_user->username == 'abc123')
           ~ Quests Group 1, <strong>Learning to Trade</strong>, is ready ~
           <br>
           ~ Become a Merchant or get your Merchant Comprehension ~
+          <br>
+          Merchant Comprehension is the second-round bonus for
+          Retrieving the Records, Pt. 2
         </div>';
 
       break;
