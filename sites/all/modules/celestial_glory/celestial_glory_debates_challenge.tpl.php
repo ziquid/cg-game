@@ -11,25 +11,25 @@
 
   if (empty($game_user->username))
     drupal_goto($game . '/choose_name/' . $arg2);
-  
+
   $sql = 'SELECT users.*,  elected_positions.name as ep_name,
     clan_members.is_clan_leader,
     clans.acronym as clan_acronym
-    
-    from users 
-    
+
+    from users
+
     LEFT OUTER JOIN elected_officials
     ON elected_officials.fkey_users_id = users.id
-    
+
     LEFT OUTER JOIN elected_positions
     ON elected_positions.id = elected_officials.fkey_elected_positions_id
-    
+
     LEFT OUTER JOIN clan_members on clan_members.fkey_users_id = users.id
-    
+
     LEFT OUTER JOIN clans on clan_members.fkey_clans_id = clans.id
-    
+
     WHERE users.id = %d';
-  
+
   $result = db_query($sql, $position_id);
   $item = db_fetch_object($result);
 firep($item);
@@ -57,11 +57,11 @@ firep($item);
     return;
 
   }
-  
+
   if ($game_user->actions == 0) {
 
     $fetch_header($game_user);
-    
+
     echo "<div class=\"title\">$title</div>";
     echo '<div class="subtitle">' . t('Out of Action!') .
       '</div>';
@@ -83,10 +83,10 @@ firep($item);
 
   if (($item->meta != 'zombie' &&
     (time() - strtotime($item->debates_last_time)) <= $debate_time) ||
-    ($item->meta == 'zombie' && 
+    ($item->meta == 'zombie' &&
     (time() - strtotime($item->debates_last_time)) <= $zombie_debate_wait)) {
 // not long enough
-    
+
     $fetch_header($game_user);
 
     echo "<div class=\"title\">$title</div>";
@@ -104,9 +104,9 @@ firep($item);
 
     db_set_active('default');
     return;
-    
+
   }
-  
+
 /*  if ($game_user->experience > ($item->experience * 2)) {
 // you cannot challenge someone if you have more than twice their influence
 
@@ -116,14 +116,14 @@ firep($item);
     echo '<div class="election-failed">' . t('Sorry!') . '</div>';
     echo '<div class="subtitle">' .
       t('Your @experience is too high to challenge ',
-        array('@experience' => $experience)) . $item->username . 
+        array('@experience' => $experience)) . $item->username .
         '.</div>';
     echo '<div class="election-continue"><a href="/' . $game . '/debates/' .
       $arg2 . '">' . t('Continue') . '</a></div>';
 
     db_set_active('default');
     return;
-    
+
   }*/
 
 // otherwise, we need to apply a formula to get votes
@@ -132,12 +132,12 @@ firep($item);
 
 // comment these out until i figure out the right formulas
   $sql = 'SELECT sum(equipment.elocution_bonus * equipment_ownership.quantity)
-    as elocution from equipment 
+    as elocution from equipment
 
     left join equipment_ownership
     on equipment_ownership.fkey_equipment_id = equipment.id and
     equipment_ownership.fkey_users_id = %d;';
-  
+
   $result = db_query($sql, $game_user->id);
   $elocution_bonus = db_fetch_object($result);
 
@@ -147,7 +147,7 @@ firep($item);
     left join staff_ownership
     on staff_ownership.fkey_staff_id = staff.id and
     staff_ownership.fkey_users_id = %d;';
-  
+
   $result = db_query($sql, $game_user->id);
   $elocution_bonus_st = db_fetch_object($result);
 firep('staff elocution bonus is ' . $elocution_bonus_st->elocution);
@@ -158,12 +158,12 @@ firep('staff elocution bonus is ' . $elocution_bonus_st->elocution);
 // opponent elocution
 
   $sql = 'SELECT sum(equipment.elocution_bonus * equipment_ownership.quantity)
-    as elocution from equipment 
+    as elocution from equipment
 
-    left join equipment_ownership 
+    left join equipment_ownership
     on equipment_ownership.fkey_equipment_id = equipment.id and
     equipment_ownership.fkey_users_id = %d;';
-  
+
   $result = db_query($sql, $item->id);
   $elocution_bonus = db_fetch_object($result);
 
@@ -173,7 +173,7 @@ firep('staff elocution bonus is ' . $elocution_bonus_st->elocution);
     left join staff_ownership
     on staff_ownership.fkey_staff_id = staff.id and
     staff_ownership.fkey_users_id = %d;';
-  
+
   $result = db_query($sql, $game_user->id);
   $elocution_bonus_st = db_fetch_object($result);
 
@@ -185,11 +185,11 @@ firep('staff elocution bonus is ' . $elocution_bonus_st->elocution);
 firep("your total influence: sqrt($game_user->experience) +
   ($game_user->elocution * $my_el_bonus) = $my_influence");
 
-  $opp_influence = sqrt(max(0, $item->experience)) + ($item->elocution * 
+  $opp_influence = sqrt(max(0, $item->experience)) + ($item->elocution *
     $opp_el_bonus);
-firep("opp total influence: sqrt($item->experience) + ($item->elocution * 
+firep("opp total influence: sqrt($item->experience) + ($item->elocution *
     $opp_el_bonus) = $opp_influence");
-    
+
   $money_change = mt_rand(5 + $game_user->level,
     10 + ($game_user->level * 2)); // values changed
 
@@ -203,13 +203,13 @@ firep("opp total influence: sqrt($item->experience) + ($item->elocution *
   if ($money_change > $game_user->money) $money_change = $game_user->money;
   if ($money_change > $item->money) $money_change = $item->money;
   if ($money_change < 0) $money_change = 0;
-  
+
   if ($my_influence > $opp_influence) { // you won!  woohoo!
 
     $experience_gained = mt_rand(floor($item->level / 3),
       ceil($item->level * 2 / 3));
-// the experience you gain is based on their level    
-    
+// the experience you gain is based on their level
+
     $sql = 'insert into challenge_messages
       (fkey_users_from_id, fkey_users_to_id, message)
       values (%d, %d, "%s");';
@@ -218,7 +218,7 @@ firep("opp total influence: sqrt($item->experience) + ($item->elocution *
       array('%user' => $game_user->username, '@money' => $money_change,
         '@value' => $item->values, '@debated' => "{$debate_lower}d"));
     $result = db_query($sql, $game_user->id, $item->id, $message);
-    
+
     $sql = 'update users set money = money + %d, experience = experience + %d,
       actions = actions - 1, debates_won = debates_won + 1 where id = %d;';
     $result = db_query($sql, $money_change, $experience_gained, $game_user->id);
@@ -246,9 +246,9 @@ firep("opp total influence: sqrt($item->experience) + ($item->elocution *
        $sql = 'update users set actions_next_gain = "%s" where id = %d;';
       $result = db_query($sql, date('Y-m-d H:i:s', time() + 180),
          $game_user->id);
-         
+
     }
-    
+
     $game_user = $fetch_user();
 
     if ($event_type == EVENT_DEBATE) {
@@ -262,9 +262,9 @@ firep("opp total influence: sqrt($item->experience) + ($item->elocution *
     }
 
     $fetch_header($game_user);
-    
+
     echo '<div class="election-succeeded">' . t('Success!') . '</div>';
-    echo "<div class=\"subtitle\">You beat 
+    echo "<div class=\"subtitle\">You beat
       <a href=\"/$game/user/$arg2/$item->phone_id\">$item->username</a></div>
       <div class=\"action-effect\">You gained
       $money_change $game_user->values $gain_extra
@@ -272,7 +272,7 @@ firep("opp total influence: sqrt($item->experience) + ($item->elocution *
 
     if (substr($phone_id, 0, 3) == 'ai-')
       echo "<!--\n<ai \"debate-won\"/>\n-->";
-      
+
     if ($event_type == EVENT_DEBATE) {
 
       echo '<div class="subsubtitle">You have ' . $row->tags_con .
@@ -289,16 +289,16 @@ firep("opp total influence: sqrt($item->experience) + ($item->elocution *
       if ($game_user->debates_won >= ($game_user->level * 100)) {
 // beaten by super debater... evolve
 
-        $sql = 'select fkey_clans_id from clan_members 
+        $sql = 'select fkey_clans_id from clan_members
           where fkey_users_id = %d;';
         $result = db_query($sql, $game_user->id);
         $clan_player = db_fetch_object($result);
-        $sql = 'select fkey_clans_id from clan_members 
+        $sql = 'select fkey_clans_id from clan_members
           where fkey_users_id = %d;';
         $result = db_query($sql, $item->id);
         $clan_zombie = db_fetch_object($result);
 
-        if (($item->fkey_values_id != $game_user->fkey_values_id) 
+        if (($item->fkey_values_id != $game_user->fkey_values_id)
           && ($phone_id != 'abc123')) {
 // first -- join party
 
@@ -313,7 +313,7 @@ firep("opp total influence: sqrt($item->experience) + ($item->elocution *
           $result = db_query($sql, $game_user->fkey_values_id);
           $party = db_fetch_object($result);
           echo '<div class="subtitle">Because you are a super debater,<br/>' .
-            $item->username . ' now owes his allegiance to ' . 
+            $item->username . ' now owes his allegiance to ' .
             $party->clan_title . '.</div>';
 
           $points_to_add = 10;
@@ -322,7 +322,7 @@ firep("opp total influence: sqrt($item->experience) + ($item->elocution *
 //            "$item->username was beaten by super debater $game_user->username"
 //            . " and has switched to $party->clan_title!");
 
-        } else if 
+        } else if
           (($clan_player->fkey_clans_id != $clan_zombie->fkey_clans_id) &&
           ($clan_player->fkey_clans_id > 0) && $phone_id != 'abc123') {
 // second -- join clan
@@ -348,7 +348,7 @@ firep("opp total influence: sqrt($item->experience) + ($item->elocution *
 //            . " and has switched to $clan_name->name!");
 
 // already party and clan -- move them!
-        } else if 
+        } else if
           ((($clan_player->fkey_clans_id == $clan_zombie->fkey_clans_id) &&
           ($clan_player->fkey_clans_id > 0) &&
           ($item->fkey_values_id == $game_user->fkey_values_id))
@@ -441,7 +441,7 @@ EOF;
     if ($flag->quantity > 0) { // they had a flag -- you get it!
 
       echo '<div class="election-succeeded">You found a flag!</div>';
-      echo '<div class="subtitle"><img 
+      echo '<div class="subtitle"><img
         src="/sites/default/files/images/equipment/stlouis-23.png"></div>';
       echo '<div class="subtitle">It will give you 1 Luck every 5 minutes</div>';
       $sql = 'update equipment_ownership set fkey_users_id = %d
@@ -456,18 +456,18 @@ firep("update equipment_ownership set fkey_users_id = $game_user->id
     $message = t('%user took your flag!',
       array('%user' => $game_user->username));
     $result = db_query($sql, $game_user->id, $item->id, $message);
-    
+
       mail('joseph@cheek.com', 'flag transfer',
         "$item->username's flag was captured by $game_user->username!");
 
     }
 */ // flag day
   } else { // you lost
-    
+
     $experience_gained = mt_rand(floor($game_user->level / 3),
       ceil($game_user->level * 2 / 3));
-// the experience they gain is based on your level 
-    
+// the experience they gain is based on your level
+
     $sql = 'insert into challenge_messages
       (fkey_users_from_id, fkey_users_to_id, message)
       values (%d, %d, "%s");';
@@ -477,7 +477,7 @@ firep("update equipment_ownership set fkey_users_id = $game_user->id
         '@value' => $item->values, '@experience' => $experience,
         '@exp' => $experience_gained, '@debate' => $debate_lower));
     $result = db_query($sql, $game_user->id, $item->id, $message);
-    
+
     $sql = 'update users set money = money - %d, actions = actions - 1,
       debates_lost = debates_lost + 1 where id = %d;';
     $result = db_query($sql, $money_change, $game_user->id);
@@ -508,7 +508,7 @@ firep("update equipment_ownership set fkey_users_id = $game_user->id
        $sql = 'update users set actions_next_gain = "%s" where id = %d;';
       $result = db_query($sql, date('Y-m-d H:i:s', time() + 180),
          $game_user->id);
-         
+
     }
 
     $game_user = $fetch_user();
@@ -537,9 +537,9 @@ firep("update equipment_ownership set fkey_users_id = $game_user->id
 //        "growing stronger...");
 
     }
-    
+
     echo '<div class="election-failed">' . t('Defeated') . '</div>';
-    echo "<div class=\"subtitle\">You lost to 
+    echo "<div class=\"subtitle\">You lost to
     <a href=\"/$game/user/$arg2/$item->phone_id\">$item->username</a></div>
       <div class=\"action-effect\">" .
       t('You lost @money @value' . $gain_extra, array('@money' => $money_change,
@@ -577,8 +577,15 @@ firep("update equipment_ownership set fkey_users_id = $game_user->id
 
 // YOU USED
 
+  echo '<div class="subtitle">
+    <a href="/' . $game . '/debates/' . $arg2 . '">
+      <img src="/sites/default/files/images/' . $game . '_continue.png"/>
+    </a>
+  </div>
+  <div>&nbsp;</div>';
+
   echo "<div class=\"subtitle\">You used</div><div class=\"debate-used-wrapper\">";
-  
+
   $data = array();
   $sql = 'SELECT equipment.id, equipment.elocution_bonus,
     "equipment" as type, equipment_ownership.quantity
@@ -593,7 +600,7 @@ firep("update equipment_ownership set fkey_users_id = $game_user->id
 
     union
 
-    SELECT staff.id, staff.elocution_bonus, "staff" as type, 
+    SELECT staff.id, staff.elocution_bonus, "staff" as type,
     staff_ownership.quantity
     FROM staff
 
@@ -608,9 +615,9 @@ firep("update equipment_ownership set fkey_users_id = $game_user->id
   $result = db_query($sql, $game_user->id, $game_user->id);
 
   while ($item = db_fetch_object($result)) $data[] = $item;
-  
+
   if (empty($data)) echo '<div class="debate-used">' . t('Nothing') . '</div>';
-    
+
   foreach ($data as $item) {
 firep($item);
 
@@ -626,7 +633,7 @@ EOF;
 
   echo "</div><div class=\"subtitle\">$username used</div>
     <div class=\"debate-used-wrapper\">";
-  
+
   $data = array();
   $sql = 'SELECT equipment.id, equipment.elocution_bonus,
     "equipment" as type, equipment_ownership.quantity
@@ -641,7 +648,7 @@ EOF;
 
     union
 
-    SELECT staff.id, staff.elocution_bonus, "staff" as type, 
+    SELECT staff.id, staff.elocution_bonus, "staff" as type,
     staff_ownership.quantity
     FROM staff
 
@@ -655,9 +662,9 @@ EOF;
     ORDER BY elocution_bonus DESC;';
   $result = db_query($sql, $position_id, $position_id);
   while ($item = db_fetch_object($result)) $data[] = $item;
-  
+
   if (empty($data)) echo '<div class="debate-used">' . t('Nothing') . '</div>';
-  
+
   foreach ($data as $item) {
 firep($item);
 
@@ -668,12 +675,12 @@ firep($item);
 EOF;
 
   }
-  
+
     echo '<div class="subtitle">
       <a href="/' . $game . '/debates/' . $arg2 . '">
         <img src="/sites/default/files/images/' . $game . '_continue.png"/>
       </a>
     </div>
     <div>&nbsp;</div>';
-  
+
   db_set_active('default');
