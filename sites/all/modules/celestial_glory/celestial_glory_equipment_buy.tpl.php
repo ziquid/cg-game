@@ -59,7 +59,7 @@
     $ai_output = 'equipment-failed no-money';
 
     $offer = ($game_user->income - $game_user->expenses) * 5;
-    $offer = min($offer, $game_user->level * 1000);
+    $offer = min($offer, $game_user->level * 10000);
     $offer = max($offer, $game_user->level * 100);
 
     $outcome_reason = '<div class="land-failed">' . t('Not enough @value!',

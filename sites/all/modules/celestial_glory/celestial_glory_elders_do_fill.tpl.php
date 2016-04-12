@@ -38,6 +38,10 @@ EOF;
   $quest_lower = strtolower($quest);
   $experience_lower = strtolower($experience);
 
+  slack_send_message('Player ' . $arg2 . ' (' . $luck . ': '
+  . $game_user->luck . ') is attempting to refill '
+  . $fill_type, $slack_channel);
+
   switch ($fill_type) {
 
     case 'action':
@@ -137,7 +141,7 @@ EOF;
       }
 
       $offer = ($game_user->income - $game_user->expenses) * 5;
-      $offer = min($offer, $game_user->level * 1000);
+      $offer = min($offer, $game_user->level * 10000);
       $offer = max($offer, $game_user->level * 100);
 
       $sql = 'update users set money = money + %d, luck = luck - 1

@@ -111,6 +111,7 @@
     $politics = 'Heritage';
     $quest = 'Quest';
     $residence = 'Residence';
+    $slack_channel = 'cg-data';
     $system = 'System';
     $top20 = 'Top 20';
 

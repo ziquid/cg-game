@@ -19,7 +19,7 @@
   }
 
   $offer = ($game_user->income - $game_user->expenses) * 5;
-  $offer = min($offer, $game_user->level * 1000);
+  $offer = min($offer, $game_user->level * 10000);
   $offer = max($offer, $game_user->level * 100);
 
   echo <<< EOF
@@ -36,7 +36,7 @@ EOF;
       echo <<< EOF
 <div class="menu-option"><a href="/$game/choose_name/$arg2">Change your
   character's name (10&nbsp;$luck)</a></div>
-<div class="menu-option"><a href="/$game/choose_clan/$arg2/0">Join a 
+<div class="menu-option"><a href="/$game/choose_clan/$arg2/0">Join a
   different $party_lower (5&nbsp;$luck)</a></div>
 <div class="menu-option"><a href="/$game/elders_ask_reset_skills/$arg2">Reset
   your skill points (3&nbsp;$luck)</a></div>
@@ -52,7 +52,7 @@ EOF;
 
       echo <<< EOF
 <div class="menu-option not-yet">Change your character's name (10&nbsp;$luck)</div>
-<div class="menu-option"><a href="/$game/choose_clan/$arg2/0">Join a 
+<div class="menu-option"><a href="/$game/choose_clan/$arg2/0">Join a
   different political party (5&nbsp;$luck)</a></div>
 <div class="menu-option"><a href="/$game/elders_ask_reset_skills/$arg2">Reset
   your skill points (3&nbsp;$luck)</a></div>
@@ -79,7 +79,7 @@ EOF;
 <div class="menu-option"><a href="/$game/elders_do_fill/$arg2/money">Receive
   $offer $game_user->values (1&nbsp;$luck)</a></div>
 EOF;
-  		
+
    } elseif ($game_user->luck > 0) { // AT LEAST ONE LUCK
 
       echo <<< EOF
@@ -93,7 +93,7 @@ EOF;
 <div class="menu-option"><a href="/$game/elders_do_fill/$arg2/money">Receive
   $offer $game_user->values (1&nbsp;$luck)</a></div>
 EOF;
-  		
+
     } else { // NO LUCK!
 
       echo <<< EOF
@@ -104,7 +104,7 @@ EOF;
 <div class="menu-option not-yet">Refill your Energy (1&nbsp;$luck)</div>
 <div class="menu-option not-yet">Receive $offer $game_user->values (1&nbsp;$luck)</div>
 EOF;
-  		
+
     } // luck?
 
   } // level >= 6?
@@ -114,7 +114,7 @@ EOF;
   password for your account (Free)</a></div>
 <div class="menu-option"><a href="/$game/elders_ask_reset/$arg2">Reset
   your character (Free)</a></div>
-<!--<div class="menu-option"><a href="/$game/elders_preferences/$arg2">Game 
+<!--<div class="menu-option"><a href="/$game/elders_preferences/$arg2">Game
   Preferences</a></div>-->
 <div class="menu-option"><a href="/$game/elders_ask_purchase/$arg2">Purchase
   more $luck</a></div>
