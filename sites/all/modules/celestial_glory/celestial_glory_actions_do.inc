@@ -862,11 +862,11 @@ EOF;
     $sql = 'select * from users where id = %d;';
     $result = db_query($sql, $target_id);
     $target_user = db_fetch_object($result);
-    $actions_required = ceil($target_user->level / 2);
+    $actions_required = ceil($target_user->level / 3);
     $money_required = $target_user->level * 1000;
 
-    if ($ep_type == 1) $actions_required = min($actions_required, 35);
-// actions cap of 35 for alderman
+    if ($ep_type == 1) $actions_required = min($actions_required, 25);
+// actions cap of 25 for chief priests
 
     if ($game_user->actions < $actions_required) { // not enough actions
 
