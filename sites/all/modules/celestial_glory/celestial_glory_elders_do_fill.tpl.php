@@ -39,8 +39,7 @@ EOF;
   $experience_lower = strtolower($experience);
 
   slack_send_message('Player ' . $arg2 . ' (' . $luck . ': '
-  . $game_user->luck . ') is attempting to refill '
-  . $fill_type, $slack_channel);
+  . $game_user->luck . ') is refilling ' . $fill_type, $slack_channel);
 
   switch ($fill_type) {
 

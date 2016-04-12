@@ -22,6 +22,15 @@
   </div>
 
   <div class="subtitle">
+    v2.0.6, 12 Apr 2016
+  </div>
+  <ul>
+    <li>
+      Raised the money limit for each piece of luck spent.
+    </li>
+  </ul>
+
+  <div class="subtitle">
     v2.0.5, 12 Apr 2016
   </div>
   <ul>
