@@ -22,6 +22,16 @@
   </div>
 
   <div class="subtitle">
+    v2.0.5, 12 Apr 2016
+  </div>
+  <ul>
+    <li>
+      Altered &quot;Run someone out of the region&quot; to use only 1/3 of
+      the level of the user for actions, with a max of 25 actions.
+    </li>
+  </ul>
+
+  <div class="subtitle">
     v2.0.4, 11 Apr 2016
   </div>
   <ul>
