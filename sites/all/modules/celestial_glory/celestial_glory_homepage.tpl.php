@@ -441,7 +441,7 @@ $event_text
   <div class="news-buttons">
     <button id="news-all" class="active">All</button>
     <button id="news-user">Personal</button>
-    <button id="news-challenge">{$election_tab}s</button>
+    <button id="news-challenge">{$election_tab}</button>
     <button id="news-clan">$party_small</button>
     <button id="news-system">$system</button>
   </div>
