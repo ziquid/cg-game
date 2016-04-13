@@ -370,8 +370,8 @@ li {
 }
 
 
-.new-main-menu .elections {
+.new-main-menu .elections-menu {
   position: absolute;
-  top: 99px;
-  left: 12px;
+  top: 75px;
+  left: 50px;
 }

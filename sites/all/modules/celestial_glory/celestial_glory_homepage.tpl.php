@@ -337,9 +337,9 @@ $extra_bonus
 <div class="new-main-menu">
   <img src="/sites/default/files/images/{$game}_home_menu{$extra_menu}.png"
   usemap="#new_main_menu"/>
-  <div class="elections">
+  <a class="elections-menu" href="/$game/elections/$arg2">
     $election_tab
-  </div>
+  </a>
 
   <map name="new_main_menu">
 EOF;
@@ -355,16 +355,6 @@ EOF;
   echo <<< EOF
     <area shape="rect" coords="$coords" alt="Debates" href="/$game/debates/$arg2" />
 EOF;
-
-//  if ($game != 'celestial_glory') {
-
-    $coords = _stlouis_scale_coords($coefficient, 32, 93, 127, 115);
-
-    echo <<< EOF
-    <area shape="rect" coords="$coords" alt="Elections" href="/$game/elections/$arg2" />
-EOF;
-
-//  }
 
   $coords = _stlouis_scale_coords($coefficient, 197, 72, 257, 92);
   $coords2 = _stlouis_scale_coords($coefficient, 187, 93, 267, 115);
