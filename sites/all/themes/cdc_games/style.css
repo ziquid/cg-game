@@ -1016,3 +1016,7 @@ a .event-text {
   left: 16px;
   top: 356px;
 }
+
+.new-main-menu {
+  position: relative;
+}

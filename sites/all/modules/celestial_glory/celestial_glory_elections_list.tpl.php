@@ -22,7 +22,7 @@
   echo <<< EOF
 <div class="news">
   <a href="/$game/debates/$arg2" class="button">{$debate_tab}</a>
-  <a href="/$game/elections/$arg2" class="button active">Elections</a>
+  <a href="/$game/elections/$arg2" class="button active">{$election_tab}</a>
   <a href="/$game/top20/$arg2" class="button">$top20</a>
   <a href="/$game/top_aldermen/$arg2" class="button">Top $alders_short</a>
 </div>

@@ -94,7 +94,7 @@
     $debate_tab = 'Challenges';
     $elders = 'Elders';
     $election = 'Challenge';
-    $election_tab = 'Trial';
+    $election_tab = 'Offices';
     $elocution = 'Cunning';
     $endurance = 'Defense';
     $equipment = 'Supplies for Use';

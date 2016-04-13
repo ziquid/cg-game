@@ -21,7 +21,7 @@
   echo <<< EOF
 <div class="news">
   <a href="/$game/debates/$arg2" class="button active">{$debate_tab}</a>
-  <a href="/$game/elections/$arg2" class="button">Elections</a>
+  <a href="/$game/elections/$arg2" class="button">{$election_tab}</a>
   <a href="/$game/top20/$arg2" class="button">$top20</a>
   <a href="/$game/top_aldermen/$arg2" class="button">Top $alders_short</a>
 </div>
@@ -31,7 +31,7 @@ EOF;
 // intro neighborhood quests == debates, if they haven't been shown
 
     if ($game == 'celestial_glory') {
-      
+
       echo <<< EOF
 <p>&nbsp;</p>
 <div class="welcome">
@@ -42,18 +42,18 @@ EOF;
   <p class="second">&quot;The more $elocution you have, the better you
   will do in these challenges.</p>
   <p></p>
-</div>    
+</div>
 EOF;
-  
+
       $sql = 'update users set seen_neighborhood_quests = 1 where id = %d;';
       $result = db_query($sql, $game_user->id);
 
     }
-    
+
   }
 
   if ($game_user->level < 15) {
-    
+
     echo <<< EOF
 <ul>
   <li>Win {$debate_lower}s to give you more $game_user->values and $experience</li>
@@ -93,7 +93,7 @@ EOF;
     }
 
   }
-  
+
   echo <<< EOF
 <div class="title">
 Whom would you like to $debate_lower?
@@ -148,13 +148,13 @@ firep($item);
 
     $username = $item->username;
     if (empty($username)) $username = '<em>Anonymous</em>';
-    
+
     if ($item->id == $game_user->id) {
       $clan_class = 'election-details me';
     } else {
       $clan_class = 'election-details';
     }
-    
+
     $icon = $game . '_clan_' . $item->clan_icon . '.png';
     $clan_acronym = '';
 
@@ -172,20 +172,20 @@ firep($icon_path);
 
     if ($item->is_clan_leader)
       $clan_acronym .= '*';
-    
+
     $action_class = '';
     $action = $debate;
-    
+
 //    if ($game == 'celestial_glory') {
-      
+
 //      $ward = "$item->neighborhood / ";
-      
+
 //    } else {
-      
+
       $ward = '';
-      
+
 //    }
-    
+
     echo <<< EOF
 <div class="$clan_class">
   <div class="clan-icon"><img width="24"
