@@ -337,6 +337,10 @@ $extra_bonus
 <div class="new-main-menu">
   <img src="/sites/default/files/images/{$game}_home_menu{$extra_menu}.png"
   usemap="#new_main_menu"/>
+  <div class="elections">
+    $election_tab
+  </div>
+
   <map name="new_main_menu">
 EOF;
 

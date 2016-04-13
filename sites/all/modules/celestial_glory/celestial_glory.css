@@ -368,3 +368,10 @@ li {
 .version {
   color: #aa6;
 }
+
+
+.new-main-menu .elections {
+  position: absolute;
+  top: 99px;
+  left: 12px;
+}
