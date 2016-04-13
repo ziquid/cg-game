@@ -22,6 +22,15 @@
   </div>
 
   <div class="subtitle">
+    v2.0.7, 13 Apr 2016
+  </div>
+  <ul>
+    <li>
+      Changed Merchants logo.
+    </li>
+  </ul>
+
+  <div class="subtitle">
     v2.0.6, 12 Apr 2016
   </div>
   <ul>
