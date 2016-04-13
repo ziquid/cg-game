@@ -22,6 +22,16 @@
   </div>
 
   <div class="subtitle">
+    v2.0.8, 13 Apr 2016
+  </div>
+  <ul>
+    <li>
+      Added &quot;Offices&quot; link on home page, removed &quot;Forum&quot;
+      link.
+    </li>
+  </ul>
+
+  <div class="subtitle">
     v2.0.7, 13 Apr 2016
   </div>
   <ul>

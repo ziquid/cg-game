@@ -372,12 +372,13 @@ li {
 
 .new-main-menu .elections-menu {
   position: absolute;
-  top: 96px;
-  left: 54px;
+  top: 97px;
+  left: 53px;
   text-decoration: none;
   color: rgba(255, 255, 0, 0.7);
   font-size: 15px;
   font-family: Georgia, "times new roman", serif;
   font-style: italic;
   font-weight: bold;
+  text-shadow: 0 0 8px yellow;
 }
