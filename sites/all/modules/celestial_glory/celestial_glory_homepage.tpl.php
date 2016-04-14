@@ -406,33 +406,15 @@ EOF;
     <area shape="rect" coords="$coords" alt="Help" href="/$game/help/$arg2" />
 EOF;
 
-    $coords = _stlouis_scale_coords($coefficient, 214, 192, 265, 210);
-
-//     if ($game == 'stlouis') {
-//
-//     echo <<< EOF
-//     <area shape="rect" coords="$coords" alt="Forum"
-//       href="http://forum.cheek.com/forum/2" />
-// EOF;
-//
-//     } else {
-//
-//     echo <<< EOF
-//     <area shape="rect" coords="$coords" alt="Forum"
-//       href="http://forum.cheek.com/forum/12" />
-// EOF;
-//
-//     }
-
     echo <<< EOF
   </map>
 </div>
 <div class="location">
   $game_user->location
 </div>
-<div class="version">
+<a class="version" href="/$game/changelog/$arg2">
   $version
-</div>
+</a>
 $event_text
 <div class="news">
   <div class="title">

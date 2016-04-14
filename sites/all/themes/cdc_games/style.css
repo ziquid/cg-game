@@ -772,6 +772,10 @@ li {
   float: left;
 }
 
+.elections .election-details .clan-icon img {
+  width: 24px;
+}
+
 .can-broadcast-to-party {
   display: inline;
   margin: 0 4px;
