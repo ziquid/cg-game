@@ -22,6 +22,18 @@
   </div>
 
   <div class="subtitle">
+    v2.0.9, 14 Apr 2016
+  </div>
+  <ul>
+    <li>
+      Made the version text on the home page a link to the changelog.
+    </li>
+    <li>
+      Fixed the size of merchants icon on the Offices page.
+    </li>
+  </ul>
+
+  <div class="subtitle">
     v2.0.8, 13 Apr 2016
   </div>
   <ul>

@@ -365,8 +365,9 @@ li {
   color: #aaa;
 }
 
-.version {
+a.version {
   color: #aa6;
+  text-decoration: none;
 }
 
 
