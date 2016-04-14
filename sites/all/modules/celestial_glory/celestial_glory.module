@@ -168,7 +168,7 @@ function celestial_glory_cron() {
     $icon = imagecreatefrompng(
       'sites/default/files/images/celestial_glory_clan_' .
       $item->clan_icon . '.png');
-    $icon_scaled = imagescale($icon, 24, 24);
+    $icon_scaled = imagescale($icon, 32, 32);
     imagecopy($map_large, $icon_scaled, $item->xcoor - 12, $item->ycoor, 0, 0,
       imagesx($icon_scaled), imagesy($icon_scaled));
     imagedestroy($icon);
