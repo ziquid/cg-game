@@ -316,8 +316,9 @@ if (($today == '2012-12-26') || $game_user->username == 'abc123')
           <h3>
             Gathering Amethyst all Weekend
           </h3>
-          Prize list coming soon &ndash;
           <a href="/' . $game. '/top20/' . $arg2 . '">stats here</a>
+          <br>
+          <a href="/' . $game. '/prize_list/' . $arg2 . '">prize list</a>
         </div>';
 
       break;

@@ -290,10 +290,7 @@ EOF;
   </div>
   <ul>
     <li>
-      20 Perfect Amethyst
-    </li>
-    <li>
-      20 Luck
+      20 Perfect Amethyst, 20 Luck
     </li>
   </ul>
 
@@ -302,10 +299,7 @@ EOF;
   </div>
   <ul>
     <li>
-      19 Perfect Amethyst
-    </li>
-    <li>
-      19 Luck
+      19 Perfect Amethyst, 19 Luck
     </li>
   </ul>
 
@@ -314,10 +308,7 @@ EOF;
   </div>
   <ul>
     <li>
-      18 Perfect Amethyst
-    </li>
-    <li>
-      18 Luck
+      18 Perfect Amethyst, 18 Luck
     </li>
   </ul>
 
@@ -326,10 +317,7 @@ EOF;
   </div>
   <ul>
     <li>
-      17 Perfect Amethyst
-    </li>
-    <li>
-      17 Luck
+      17 Perfect Amethyst, 17 Luck
     </li>
   </ul>
 
@@ -338,10 +326,7 @@ EOF;
   </div>
   <ul>
     <li>
-      16 Perfect Amethyst
-    </li>
-    <li>
-      16 Luck
+      16 Perfect Amethyst, 16 Luck
     </li>
   </ul>
 
@@ -350,10 +335,7 @@ EOF;
   </div>
   <ul>
     <li>
-      15 Perfect Amethyst
-    </li>
-    <li>
-      15 Luck
+      15 Perfect Amethyst, 15 Luck
     </li>
   </ul>
 
@@ -362,10 +344,7 @@ EOF;
   </div>
   <ul>
     <li>
-      14 Perfect Amethyst
-    </li>
-    <li>
-      14 Luck
+      14 Perfect Amethyst, 14 Luck
     </li>
   </ul>
 
@@ -374,10 +353,7 @@ EOF;
   </div>
   <ul>
     <li>
-      13 Perfect Amethyst
-    </li>
-    <li>
-      13 Luck
+      13 Perfect Amethyst, 13 Luck
     </li>
   </ul>
 
@@ -386,10 +362,7 @@ EOF;
   </div>
   <ul>
     <li>
-      12 Perfect Amethyst
-    </li>
-    <li>
-      12 Luck
+      12 Perfect Amethyst, 12 Luck
     </li>
   </ul>
 
@@ -398,10 +371,7 @@ EOF;
   </div>
   <ul>
     <li>
-      11 Perfect Amethyst
-    </li>
-    <li>
-      11 Luck
+      11 Perfect Amethyst, 11 Luck
     </li>
   </ul>
 
@@ -410,10 +380,7 @@ EOF;
   </div>
   <ul>
     <li>
-      10 Perfect Amethyst
-    </li>
-    <li>
-      10 Luck
+      10 Perfect Amethyst, 10 Luck
     </li>
   </ul>
 
@@ -422,10 +389,7 @@ EOF;
   </div>
   <ul>
     <li>
-      5 Perfect Amethyst
-    </li>
-    <li>
-      5 Luck
+      5 Perfect Amethyst, 5 Luck
     </li>
   </ul>
 
