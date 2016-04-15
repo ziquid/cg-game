@@ -307,6 +307,22 @@ if (($today == '2012-12-26') || $game_user->username == 'abc123')
 
       break;
 
+    case EVENT_GATHER_AMETHYST:
+
+      $event_text = '<div class="event">
+          <div class="event-title">
+            Just in time for U.S. Tax Day
+          </div>
+          <h3>
+            Gathering Event all Weekend
+          </h3>
+          ~ Compete for valuable prizes ~
+          <br>
+          More details coming soon
+        </div>';
+
+      break;
+
   }
 
 // dead presidents event
