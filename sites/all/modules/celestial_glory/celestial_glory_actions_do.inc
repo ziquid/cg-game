@@ -976,6 +976,9 @@ EOF;
     $outcome_reason .= '<div class="action-effect">' . $target_user->username .
       ' has been returned to his or her home neighborhood.';
 
+    slack_send_message('Player ' . $game_user->username . ' has booted '
+    . $target_user->username . ' from ' . $location, $slack_channel);
+
     return TRUE;
 
   }

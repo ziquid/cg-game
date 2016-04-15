@@ -314,7 +314,7 @@ if (($today == '2012-12-26') || $game_user->username == 'abc123')
             Just in time for U.S. Tax Day
           </div>
           <h3>
-            Gathering Amethyst all Weekend
+            Gathering Amethyst all Weekend (Apr 15-18)
           </h3>
           <a href="/' . $game. '/top20/' . $arg2 . '">stats here</a>
           <a href="/' . $game. '/prize_list/' . $arg2 . '">prize list</a>
