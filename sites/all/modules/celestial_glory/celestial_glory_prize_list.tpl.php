@@ -10,6 +10,13 @@
   include_once(drupal_get_path('module', $game) . '/game_defs.inc');
   $arg2 = check_plain(arg(2));
 
+  echo <<< EOF
+<div class="help">
+  <div class="title">
+    Event Prize List
+  </div>
+EOF;
+
 // straight from the equipment pages
 $data = array();
   $sql = 'SELECT equipment.*, equipment_ownership.quantity
@@ -278,11 +285,6 @@ EOF;
   }
 
   echo <<< EOF
-<div class="help">
-  <div class="title">
-    Event Prize List
-  </div>
-
   <div class="subtitle">
     1st Place
   </div>
@@ -304,6 +306,153 @@ EOF;
     </li>
     <li>
       19 Luck
+    </li>
+  </ul>
+
+  <div class="subtitle">
+    3rd Place
+  </div>
+  <ul>
+    <li>
+      18 Perfect Amethyst
+    </li>
+    <li>
+      18 Luck
+    </li>
+  </ul>
+
+  <div class="subtitle">
+    4th Place
+  </div>
+  <ul>
+    <li>
+      17 Perfect Amethyst
+    </li>
+    <li>
+      17 Luck
+    </li>
+  </ul>
+
+  <div class="subtitle">
+    5th Place
+  </div>
+  <ul>
+    <li>
+      16 Perfect Amethyst
+    </li>
+    <li>
+      16 Luck
+    </li>
+  </ul>
+
+  <div class="subtitle">
+    6th Place
+  </div>
+  <ul>
+    <li>
+      15 Perfect Amethyst
+    </li>
+    <li>
+      15 Luck
+    </li>
+  </ul>
+
+  <div class="subtitle">
+    7th Place
+  </div>
+  <ul>
+    <li>
+      14 Perfect Amethyst
+    </li>
+    <li>
+      14 Luck
+    </li>
+  </ul>
+
+  <div class="subtitle">
+    8th Place
+  </div>
+  <ul>
+    <li>
+      13 Perfect Amethyst
+    </li>
+    <li>
+      13 Luck
+    </li>
+  </ul>
+
+  <div class="subtitle">
+    9th Place
+  </div>
+  <ul>
+    <li>
+      12 Perfect Amethyst
+    </li>
+    <li>
+      12 Luck
+    </li>
+  </ul>
+
+  <div class="subtitle">
+    10th Place
+  </div>
+  <ul>
+    <li>
+      11 Perfect Amethyst
+    </li>
+    <li>
+      11 Luck
+    </li>
+  </ul>
+
+  <div class="subtitle">
+    11th - 15th Places
+  </div>
+  <ul>
+    <li>
+      10 Perfect Amethyst
+    </li>
+    <li>
+      10 Luck
+    </li>
+  </ul>
+
+  <div class="subtitle">
+    16th - 20th Places
+  </div>
+  <ul>
+    <li>
+      5 Perfect Amethyst
+    </li>
+    <li>
+      5 Luck
+    </li>
+  </ul>
+
+  <div class="subtitle">
+    Everyone else who loots at least 100 Raw Amethyst
+  </div>
+  <ul>
+    <li>
+      3 Perfect Amethyst
+    </li>
+  </ul>
+
+  <div class="subtitle">
+    Everyone else who loots at least 25 Raw Amethyst
+  </div>
+  <ul>
+    <li>
+      2 Perfect Amethyst
+    </li>
+  </ul>
+
+  <div class="subtitle">
+    Everyone else who loots at least 10 Raw Amethyst
+  </div>
+  <ul>
+    <li>
+      1 Perfect Amethyst
     </li>
   </ul>
 
