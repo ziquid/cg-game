@@ -15,7 +15,7 @@
 
   if ($debate == 'Box') {
     $title = 'Top Boxers';
-  } elseif ($event_type == GATHER_AMETHYST_EVENT) {
+  } elseif ($event_type == EVENT_GATHER_AMETHYST) {
     $title = 'Top 20 Gatherers';
   } else {
     $title = 'Top 20 Players';
