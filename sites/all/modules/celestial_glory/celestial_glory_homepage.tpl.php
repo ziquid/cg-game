@@ -316,6 +316,7 @@ if (($today == '2012-12-26') || $game_user->username == 'abc123')
           <h3>
             Gathering Amethyst all Weekend (Apr 15-18)
           </h3>
+          Amethyst is a loot item for the Merchant Quests
           <a href="/' . $game. '/top20/' . $arg2 . '">leaderboard</a>
           <a href="/' . $game. '/prize_list/' . $arg2 . '">prize list</a>
         </div>';

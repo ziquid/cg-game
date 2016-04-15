@@ -995,16 +995,20 @@ EOF;
   $opp_influence = number_format($opp_influence);
   $in_bonus_str = number_format($in_bonus);
   $en_bonus_str = number_format($en_bonus);
+  $eq_in = number_format($eq_initiative_bonus->initiative);
+  $gu_exp = number_format($game_user->experience);
+  $gu_expc = number_format(ceil($game_user->experience / 5));
+  $gu_inb = number_format(ceil($game_user->initiative * $in_bonus));
 
   $message = "$game_user->username [$my_influence] challenged $item->username "
   . "[$opp_influence] for the seat $item->ep_name in $location and " .
   (($votes < 0) ? 'won' : 'lost') . ' by ' . abs($votes) . " votes.
 
-{$game_user->username}'s $initiative_lower = $st_initiative_bonus->initiative staff $initiative_lower + $eq_initiative_bonus->initiative equipment $initiative_lower + 100 = $in_bonus_str
-total $experience_lower: ceil($game_user->experience $experience_lower / 5) [" .
-  ceil($game_user->experience / 5) .
-  "] + ($game_user->initiative $initiative_lower * $in_bonus_str $initiative_lower bonus) [" .
-  ceil($game_user->initiative * $in_bonus) . "] = $my_influence
+{$game_user->username}'s $initiative_lower = $st_initiative_bonus->initiative staff $initiative_lower + $eq_in equipment $initiative_lower + 100 = $in_bonus_str
+total $experience_lower: ceil($gu_exp $experience_lower / 5) ["
+  . $gu_expc .
+  "] + ($game_user->initiative $initiative_lower * $in_bonus_str $initiative_lower bonus) ["
+  . $gu_inb . "] = $my_influence
 
 Clan votes: $votes_you_same_clan
 Party votes: $votes_you_same_party
