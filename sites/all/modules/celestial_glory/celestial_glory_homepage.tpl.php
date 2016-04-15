@@ -318,7 +318,8 @@ if (($today == '2012-12-26') || $game_user->username == 'abc123')
           </h3>
           ~ Compete for valuable prizes ~
           <br>
-          More details coming soon
+          More details coming soon &ndash;
+          <a href="/$game/top20/$arg2">stats here</a>
         </div>';
 
       break;

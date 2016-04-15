@@ -15,6 +15,8 @@
 
   if ($debate == 'Box') {
     $title = 'Top Boxers';
+  } elseif ($event_type == GATHER_AMETHYST_EVENT) {
+    $title = 'Top 20 Gatherers';
   } else {
     $title = 'Top 20 Players';
   }
@@ -62,6 +64,8 @@ EOF;
 
       LEFT OUTER JOIN neighborhoods
         ON users.fkey_neighborhoods_id = neighborhoods.id
+
+      where users.meta_int > 0
 
       ORDER by users.meta_int DESC, users.experience ASC
       LIMIT 20;';

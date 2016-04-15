@@ -794,6 +794,15 @@ EOF;
 
 // add/update db entry
 
+        if ($game_quest->fkey_loot_equipment_id == 51 &&
+          $event_type == EVENT_GATHER_AMETHYST) {
+
+          $sql = 'update users set meta_int = meta_int + 1
+            where id = %d;';
+          $result = db_query($sql, $game_user->id);
+
+        }
+
         $sql = 'SELECT equipment.*, equipment_ownership.quantity
           FROM equipment
 
