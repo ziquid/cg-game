@@ -88,6 +88,8 @@
     if (($date >= '2016-04-15') && ($date <= '2016-04-18'))
       $event_type = EVENT_GATHER_AMETHYST;
 
+    if ($date == '2016-04-19') $event_type = EVENT_DONE;
+
     $alderman = 'Chief Priest';
     $aldermen = 'Chief Priests';
     $alder_short = 'CP';

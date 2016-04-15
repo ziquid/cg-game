@@ -314,12 +314,22 @@ if (($today == '2012-12-26') || $game_user->username == 'abc123')
             Just in time for U.S. Tax Day
           </div>
           <h3>
-            Gathering Event all Weekend
+            Gathering Amethyst all Weekend
           </h3>
-          ~ Compete for valuable prizes ~
-          <br>
-          More details coming soon &ndash;
-          <a href="/$game/top20/$arg2">stats here</a>
+          Prize list coming soon &ndash;
+          <a href="/' . $game. '/top20/' . $arg2 . '">stats here</a>
+        </div>';
+
+      break;
+
+    case EVENT_DONE:
+
+      $event_text = '<div class="event">
+          <div class="event-title">
+            The Event Has Finished
+          </h3>
+          Prizes will be distributed soon!
+          <a href="/' . $game. '/top20/' . $arg2 . '">final stats</a>
         </div>';
 
       break;
