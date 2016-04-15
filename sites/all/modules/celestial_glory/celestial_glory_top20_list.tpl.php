@@ -31,7 +31,47 @@ EOF;
 
   $data = array();
 
-  if ($debate == 'Box') {
+  if ($event_type == EVENT_GATHER_AMETHYST) {
+
+    $sql = 'SELECT username, experience, initiative, endurance,
+      elocution, debates_won, debates_lost, skill_points, luck,
+      debates_last_time, users.fkey_values_id, level, phone_id,
+      `values`.clan_title, `values`.clan_icon,
+      `values`.name, users.id, users.fkey_neighborhoods_id,
+      elected_positions.name as ep_name,
+      elected_officials.approval_rating,
+      clan_members.is_clan_leader,
+      clans.name as clan_name, clans.acronym as clan_acronym,
+      neighborhoods.name as neighborhood,
+      users.meta_int,
+      "Raw Amethyst" as weight
+
+      FROM `users`
+
+      LEFT JOIN `values` ON users.fkey_values_id = `values`.id
+
+      LEFT OUTER JOIN elected_officials
+      ON elected_officials.fkey_users_id = users.id
+
+      LEFT OUTER JOIN elected_positions
+      ON elected_positions.id = elected_officials.fkey_elected_positions_id
+
+      LEFT OUTER JOIN clan_members on clan_members.fkey_users_id = users.id
+
+      LEFT OUTER JOIN clans on clan_members.fkey_clans_id = clans.id
+
+      LEFT OUTER JOIN neighborhoods
+        ON users.fkey_neighborhoods_id = neighborhoods.id
+
+      ORDER by users.meta_int DESC, users.experience ASC
+      LIMIT 20;';
+
+    $result = db_query($sql);
+    while ($item = db_fetch_object($result)) {
+      $data[] = $item;
+    }
+
+  } elseif ($debate == 'Box') {
 
     $already_listed = array();
 
@@ -486,6 +526,11 @@ firep($item);
     if ($debate == 'Box') {
       $exp = $item->meta_int;
       $experience = 'Boxing Points';
+    }
+
+    if ($event_type == EVENT_GATHER_AMETHYST) {
+      $exp = $item->meta_int;
+      $experience = 'Raw Amethyst';
     }
 
 //    if ($game == 'celestial_glory') {
