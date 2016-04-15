@@ -1,6 +1,6 @@
 <?php
 
-  $version = 'v2.0.9, 14 Apr 2016';
+  $version = 'v2.0.10, 15 Apr 2016';
 
 //  set_time_limit(10); // this page must not bog down server
 
@@ -317,7 +317,6 @@ if (($today == '2012-12-26') || $game_user->username == 'abc123')
             Gathering Amethyst all Weekend
           </h3>
           <a href="/' . $game. '/top20/' . $arg2 . '">stats here</a>
-          <br>
           <a href="/' . $game. '/prize_list/' . $arg2 . '">prize list</a>
         </div>';
 

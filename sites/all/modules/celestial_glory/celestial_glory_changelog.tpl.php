@@ -22,6 +22,15 @@
   </div>
 
   <div class="subtitle">
+    v2.0.10, 15 Apr 2016
+  </div>
+  <ul>
+    <li>
+      Gathering Amethyst Event
+    </li>
+  </ul>
+
+  <div class="subtitle">
     v2.0.9, 14 Apr 2016
   </div>
   <ul>
