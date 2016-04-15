@@ -670,7 +670,7 @@ EOF;
 
 
   function _stlouis_action_write_on_a_billboard_function(&$outcome_reason,
-    $target) {
+    $target, &$can_do_again) {
 
     global $game, $phone_id;
 
@@ -729,7 +729,7 @@ firep($item);
 </div>
 EOF;
 
-      return false;
+      return FALSE;
 
     } // no new msg
 
@@ -745,7 +745,16 @@ EOF;
     $outcome_reason .= '<div class="action-effect">The sign has been
       successfully created.';
 
-    return true;
+    return TRUE;
+
+  }
+
+
+  function _celestial_glory_action_create_a_sign_function(&$outcome_reason,
+    $target, &$can_do_again) {
+
+      return _stlouis_action_write_on_a_billboard_function($outcome_reason,
+    $target, $can_do_again);
 
   }
 

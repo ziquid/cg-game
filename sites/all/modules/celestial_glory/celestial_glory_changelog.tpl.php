@@ -22,6 +22,15 @@
   </div>
 
   <div class="subtitle">
+    v2.0.11, 15 Apr 2016
+  </div>
+  <ul>
+    <li>
+      Added the &quot;Create a sign&quot; action for Chief Priests.
+    </li>
+  </ul>
+
+  <div class="subtitle">
     v2.0.10, 15 Apr 2016
   </div>
   <ul>
