@@ -33,7 +33,7 @@ EOF;
 
   $data = array();
 
-  if ($event_type == EVENT_GATHER_AMETHYST) {
+  if ($event_type == EVENT_GATHER_AMETHYST || $event_type == EVENT_DONE) {
 
     $sql = 'SELECT username, experience, initiative, endurance,
       elocution, debates_won, debates_lost, skill_points, luck,
@@ -68,7 +68,7 @@ EOF;
       where users.meta_int > 0
 
       ORDER by users.meta_int DESC, users.experience ASC
-      LIMIT 20;';
+      LIMIT 100;';
 
     $result = db_query($sql);
     while ($item = db_fetch_object($result)) {
@@ -490,6 +490,8 @@ EOF;
 
   }
 
+    $count = 0;
+
     echo <<< EOF
 <div class="elections-header">
 <div class="election-details">
@@ -502,8 +504,9 @@ EOF;
 EOF;
 
   foreach ($data as $item) {
-firep($item);
+// firep($item);
 
+    $count++;
     $username = $item->username;
     $action_class = '';
     $official_link = $item->ep_name;
@@ -548,6 +551,12 @@ firep($item);
 //    }
 
     if (($item->weight != $last_weight) && $last_weight != '')
+      echo '</div><div class="elections">';
+
+    if ($event_type == EVENT_GATHER_AMETHYST && $count == 20)
+      echo '</div><div class="elections">';
+
+    if ($event_type == EVENT_DONE && $count == 20)
       echo '</div><div class="elections">';
 
     echo <<< EOF

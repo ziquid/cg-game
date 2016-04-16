@@ -438,6 +438,24 @@ EOF;
 
   }
 
+  if ($event_type == EVENT_GATHER_AMETHYST) {
+
+    echo <<< EOF
+<div class="heading">Raw Amethyst:</div>
+<div class="value">$item->meta_int</div><br/>
+EOF;
+
+  }
+
+  if ($event_type == EVENT_DONE) {
+
+    echo <<< EOF
+<div class="heading">Event Points:</div>
+<div class="value">$item->meta_int</div><br/>
+EOF;
+
+  }
+
   if ($show_all && $game == 'stlouis') { // valentine's day massacre
 
     echo <<< EOF
