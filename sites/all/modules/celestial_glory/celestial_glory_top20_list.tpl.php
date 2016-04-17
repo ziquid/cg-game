@@ -557,7 +557,7 @@ EOF;
       echo '</div><div class="elections">';
 
     if ($event_type == EVENT_DONE && $count == 20)
-      echo '</div><div class="elections">';
+      echo '</div><div class="title">The Rest</div><div class="elections">';
 
     echo <<< EOF
 <div class="$clan_class">
