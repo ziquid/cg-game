@@ -22,6 +22,19 @@
   </div>
 
   <div class="subtitle">
+    v2.0.12, 16 Apr 2016
+  </div>
+  <ul>
+    <li>
+      Top 20 list shows all Amethyst gatherers, even if you aren't in the
+      top 20.
+    </li>
+    <li>
+      User profile page shows how much Amethyst you have gathered.
+    </li>
+  </ul>
+
+  <div class="subtitle">
     v2.0.11, 15 Apr 2016
   </div>
   <ul>
