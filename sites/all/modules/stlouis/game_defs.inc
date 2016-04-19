@@ -9,6 +9,7 @@
   define(EVENT_PRE_MERCH_QUESTS, 1004);
   define(EVENT_MERCH_QUESTS, 1005);
   define(EVENT_GATHER_AMETHYST, 1006);
+  define(EVENT_AMETHYST_DONE, 1007);
 
   $debate_time = 1200;
   $zombie_debate_wait = 180; // 300
@@ -88,7 +89,7 @@
     if (($date >= '2016-04-15') && ($date <= '2016-04-18'))
       $event_type = EVENT_GATHER_AMETHYST;
 
-    if ($date == '2016-04-19') $event_type = EVENT_DONE;
+    if ($date == '2016-04-19') $event_type = EVENT_AMETHYST_DONE;
 
     $alderman = 'Chief Priest';
     $aldermen = 'Chief Priests';

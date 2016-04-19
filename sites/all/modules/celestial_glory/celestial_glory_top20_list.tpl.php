@@ -15,7 +15,8 @@
 
   if ($debate == 'Box') {
     $title = 'Top Boxers';
-  } elseif ($event_type == EVENT_GATHER_AMETHYST) {
+  } elseif ($event_type == EVENT_GATHER_AMETHYST
+  || $event_type == EVENT_AMETHYST_DONE) {
     $title = 'Top 20 Gatherers';
   } else {
     $title = 'Top 20 Players';
@@ -33,7 +34,8 @@ EOF;
 
   $data = array();
 
-  if ($event_type == EVENT_GATHER_AMETHYST || $event_type == EVENT_DONE) {
+  if ($event_type == EVENT_GATHER_AMETHYST
+  || $event_type == EVENT_AMETHYST_DONE) {
 
     $sql = 'SELECT username, experience, initiative, endurance,
       elocution, debates_won, debates_lost, skill_points, luck,
@@ -535,7 +537,8 @@ EOF;
       $experience = 'Boxing Points';
     }
 
-    if ($event_type == EVENT_GATHER_AMETHYST) {
+    if ($event_type == EVENT_GATHER_AMETHYST
+    || $event_type == EVENT_AMETHYST_DONE) {
       $exp = $item->meta_int;
       $experience = 'Raw Amethyst';
     }
@@ -553,10 +556,9 @@ EOF;
     if (($item->weight != $last_weight) && $last_weight != '')
       echo '</div><div class="elections">';
 
-    if ($event_type == EVENT_GATHER_AMETHYST && $count == 20)
-      echo '</div><div class="elections">';
-
-    if ($event_type == EVENT_DONE && $count == 20)
+    if (($event_type == EVENT_GATHER_AMETHYST
+    || $event_type == EVENT_AMETHYST_DONE)
+    && $count == 20)
       echo '</div><div class="title">The Rest</div><div class="elections">';
 
     echo <<< EOF
