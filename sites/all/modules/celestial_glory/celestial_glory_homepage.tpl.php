@@ -317,7 +317,7 @@ if (($today == '2012-12-26') || $game_user->username == 'abc123')
       $event_text = '<div class="event">
           <div class="event-title">
             The Event Has Finished
-          </h3>
+          </div>
           Prizes will be distributed soon!
           <a href="/' . $game. '/top20/' . $arg2 . '">final stats</a>
         </div>';
