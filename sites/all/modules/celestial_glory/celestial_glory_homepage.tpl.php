@@ -1,6 +1,6 @@
 <?php
 
-  $version = 'v2.0.12, 16 Apr 2016';
+  $version = 'v2.0.13, 19 Apr 2016';
 
 //  set_time_limit(10); // this page must not bog down server
 
@@ -212,17 +212,6 @@ if (($today == '2012-12-26') || $game_user->username == 'abc123')
   $event_text = '';
 
   switch($event_type) {
-
-    case EVENT_DONE:
-
-      $event_text = '<div class="event">
-        The event is over!&nbsp; We hope you had fun.
-        </div><div class="event-tagline small">
-          <a href="/' . $game . '/top_event_points/' . $arg2 .
-            '">Leaderboard</a>
-        </div>';
-
-      break;
 
     case EVENT_DEBATE:
 

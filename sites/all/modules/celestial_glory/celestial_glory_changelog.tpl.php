@@ -22,6 +22,15 @@
   </div>
 
   <div class="subtitle">
+    v2.0.13, 19 Apr 2016
+  </div>
+  <ul>
+    <li>
+      Fix leaderboard.
+    </li>
+  </ul>
+
+  <div class="subtitle">
     v2.0.12, 16 Apr 2016
   </div>
   <ul>
