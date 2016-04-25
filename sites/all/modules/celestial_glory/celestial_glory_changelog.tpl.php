@@ -22,6 +22,18 @@
   </div>
 
   <div class="subtitle">
+    v2.0.15, 25 Apr 2016
+  </div>
+  <ul>
+    <li>
+      Added a second-round bonus for &quot;Finding the Liahona&quot;.
+    </li>
+    <li>
+      Made most second-round bonus items give extra energy every 5 minutes.
+    </li>
+  </ul>
+
+  <div class="subtitle">
     v2.0.14, 25 Apr 2016
   </div>
   <ul>
