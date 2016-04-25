@@ -22,6 +22,18 @@
   </div>
 
   <div class="subtitle">
+    v2.0.14, 25 Apr 2016
+  </div>
+  <ul>
+    <li>
+      Fewer extra resident voters.
+    </li>
+    <li>
+      Region piety moves toward 50 more quickly.
+    </li>
+  </ul>
+
+  <div class="subtitle">
     v2.0.13, 19 Apr 2016
   </div>
   <ul>
