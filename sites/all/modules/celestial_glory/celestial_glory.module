@@ -68,35 +68,35 @@ function celestial_glory_cron() {
 
 // move all hoods toward a 50 beauty rating
 
-// all hoods: move by 0.1
+// all hoods: move by 0.25
 
   $sql = 'update neighborhoods set rating = 50
-    where (rating >= 49.9 AND rating <= 50.1);';
+    where (rating >= 49.75 AND rating <= 50.25);';
   $result = db_query($sql);
 
   $sql = 'update neighborhoods
-    set rating = rating + 0.1
-    where rating < 49.9;';
+    set rating = rating + 0.25
+    where rating < 49.75;';
   $result = db_query($sql);
 
   $sql = 'update neighborhoods
-    set rating = rating - 0.1
-    where rating > 50.1;';
+    set rating = rating - 0.25
+    where rating > 50.25;';
   $result = db_query($sql);
 
-// hoods with no CP: move by an additional 0.4 (total: 0.5)
+// hoods with no CP: move by an additional 1.75 (total: 2.0)
 
   $sql = 'update neighborhoods
-    set rating = rating + 0.4
-    where rating < 49.6 and id not in
+    set rating = rating + 1.75
+    where rating < 48.25 and id not in
     (SELECT users.fkey_neighborhoods_id FROM elected_officials
     left join users on elected_officials.fkey_users_id = users.id
     where fkey_elected_positions_id = 1);';
   $result = db_query($sql);
 
   $sql = 'update neighborhoods
-    set rating = rating - 0.4
-    where rating > 50.4 and id not in
+    set rating = rating - 1.75
+    where rating > 51.75 and id not in
     (SELECT users.fkey_neighborhoods_id FROM elected_officials
     left join users on elected_officials.fkey_users_id = users.id
     where fkey_elected_positions_id = 1);';
@@ -107,14 +107,14 @@ function celestial_glory_cron() {
   $addition = 0; // winter
 //  $addition = 5; // spring / fall
 //  $addition = 10; // summer
-  $addition = -1; // testing jwc 26Jul2014
+  $addition = -4; // testing jwc 26Jul2014
 
   $sql = 'UPDATE `neighborhoods` SET residents = residents + 1
     WHERE floor(rating / 6) > (residents - %d);'; // AND rand() > 0.9';
   $result = db_query($sql, $addition);
 
   $sql = 'UPDATE `neighborhoods` SET residents = residents - 1
-    WHERE floor(rating / 6) < (residents - %d);'; // AND rand() > 0.9';
+    WHERE floor(rating / 6) < (residents - %d) and residents > 0;'; // AND rand() > 0.9';
   $result = db_query($sql, $addition);
 
 
