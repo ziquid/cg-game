@@ -107,14 +107,14 @@ function celestial_glory_cron() {
   $addition = 0; // winter
 //  $addition = 5; // spring / fall
 //  $addition = 10; // summer
-  $addition = 1; // testing jwc 26Jul2014
+  $addition = -1; // testing jwc 26Jul2014
 
   $sql = 'UPDATE `neighborhoods` SET residents = residents + 1
-    WHERE floor(rating / 6) > (residents - %d) AND rand() > 0.95';
+    WHERE floor(rating / 6) > (residents - %d);'; // AND rand() > 0.9';
   $result = db_query($sql, $addition);
 
   $sql = 'UPDATE `neighborhoods` SET residents = residents - 1
-    WHERE floor(rating / 6) < (residents - %d) AND rand() > 0.95';
+    WHERE floor(rating / 6) < (residents - %d);'; // AND rand() > 0.9';
   $result = db_query($sql, $addition);
 
 
@@ -166,8 +166,8 @@ function celestial_glory_cron() {
   foreach ($data as $item) {
 
     $icon = imagecreatefrompng(
-      'sites/default/files/images/celestial_glory_clan_' .
-      $item->clan_icon . '.png');
+      'sites/default/files/images/celestial_glory_clan_'
+      . $item->clan_icon . '.png');
     $icon_scaled = imagescale($icon, 32, 32);
     imagecopy($map_large, $icon_scaled, $item->xcoor - 12, $item->ycoor, 0, 0,
       imagesx($icon_scaled), imagesy($icon_scaled));
