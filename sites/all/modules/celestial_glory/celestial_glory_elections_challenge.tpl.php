@@ -265,11 +265,17 @@ EOF;
   </a>
 </div>';
 
-    $message = "$game_user->username ran unopposed for the seat $item->ep_name" .
-      " in $location.";
+    $message = "$game_user->username ran unopposed for the seat $item->ep_name"
+    . ' in ' . $location . '.'
 
     if (substr($phone_id, 0, 3) == 'ai-')
       echo "<!--\n<ai \"election-won\"/>\n-->";
+
+    if ($item->ep_id == 1) {
+      // you beat the CP -- update the map to reflect the new positions
+      $draw_maps = '_' . $game . '_draw_maps';
+      $draw_maps();
+    }
 
     db_set_active('default');
     return;
