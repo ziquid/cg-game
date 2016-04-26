@@ -1,5 +1,4 @@
 <?php
-// $Id$
 
 
 function celestial_glory_menu() {
