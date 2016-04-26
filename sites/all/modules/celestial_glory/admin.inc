@@ -7,7 +7,7 @@
  * @todo: add a lockfile so that the maps aren't requested as they are being
  *   generated.
  */
-function _celestial_glory_draw_map() {
+function _celestial_glory_draw_maps() {
 
   // Grab and slice the files.
   $map_large = imagecreatefromjpeg(
