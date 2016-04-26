@@ -22,6 +22,16 @@
   </div>
 
   <div class="subtitle">
+    v2.0.16, 26 Apr 2016
+  </div>
+  <ul>
+    <li>
+      The map now automatically updates each time a Chief Priest changes.&nbsp;
+      Previously the map only updated every fifteen minutes.
+    </li>
+  </ul>
+
+  <div class="subtitle">
     v2.0.15, 25 Apr 2016
   </div>
   <ul>

@@ -114,7 +114,7 @@ firep($actions_to_move);
 
 // you lose your old type 1 position, if any (type 1 = neighborhood)
 // moving to a new district loses the type 3 (house) position
-    $sql = 'SELECT elected_positions.type
+    $sql = 'SELECT elected_positions.type, elected_positions.id as ep_id
       FROM elected_officials
       LEFT JOIN elected_positions
       ON elected_officials.fkey_elected_positions_id = elected_positions.id
@@ -133,6 +133,12 @@ firep($actions_to_move);
       $result = db_query($sql, $game_user->id);
 
       $resigned_text = 'and resigned your current position';
+
+      if ($item->ep_id == 1) {
+      // you were a CP -- update the map to reflect your move
+        $draw_maps = '_' . $game . '_draw_maps';
+        $draw_maps();
+      }
 
     }
 

@@ -144,8 +144,8 @@ function celestial_glory_cron() {
   }
 */
 
-  // update maps.
-  _celestial_glory_draw_maps();
+  // update maps now done after each CP toss.
+//   _celestial_glory_draw_maps();
 
 // prune old log files
   $sql = 'delete from challenge_messages where timestamp < "%s"

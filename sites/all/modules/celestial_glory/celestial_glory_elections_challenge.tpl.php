@@ -158,13 +158,9 @@ EOF;
   $username = $item->username;
 
   if (empty($item->id)) {
-
     $title = "Run for the office of $item->ep_name";
-
   } else {
-
     $title = "Challenge $item->ep_name $username";
-
   }
 
   if ($item->id == $game_user->id) {
