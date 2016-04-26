@@ -266,7 +266,7 @@ EOF;
 </div>';
 
     $message = "$game_user->username ran unopposed for the seat $item->ep_name"
-    . ' in ' . $location . '.'
+    . ' in ' . $location . '.';
 
     if (substr($phone_id, 0, 3) == 'ai-')
       echo "<!--\n<ai \"election-won\"/>\n-->";
