@@ -26,7 +26,7 @@ function celestial_glory_perm() {
 
 
 require_once(drupal_get_path('module', 'celestial_glory') . '/menu.inc');
-require_once 'admin.inc';
+require_once(drupal_get_path('module', 'celestial_glory') . '/admin.inc');
 
 function celestial_glory_copy_of_stlouis_cron() {
 return; // USL not active now -- jwc 27Feb2014
