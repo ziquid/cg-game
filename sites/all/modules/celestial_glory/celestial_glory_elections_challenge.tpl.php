@@ -874,6 +874,10 @@ firep($ip_array);
       $result = db_query($sql, $game_user->fkey_neighborhoods_id);
       $all_officials_in = $location; // set a flag
 
+      // update the map to reflect the new positions
+      $draw_maps = '_' . $game . '_draw_maps';
+      $draw_maps();
+
     } // you beat the Alderman
 
     $sql = 'delete from elected_officials where fkey_users_id = %d or
