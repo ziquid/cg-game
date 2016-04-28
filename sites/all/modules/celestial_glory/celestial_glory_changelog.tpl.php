@@ -22,6 +22,17 @@
   </div>
 
   <div class="subtitle">
+    v2.0.18, 28 Apr 2016
+  </div>
+  <ul>
+    <li>
+      Two new defense aides exist: Radiant Bronze Shield and Brilliant
+      Bronze Shield.&nbsp; Use both to help defend your seats from
+      challengers.
+    </li>
+  </ul>
+
+  <div class="subtitle">
     v2.0.17, 28 Apr 2016
   </div>
   <ul>
