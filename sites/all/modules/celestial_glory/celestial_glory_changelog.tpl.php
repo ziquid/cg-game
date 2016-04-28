@@ -22,6 +22,16 @@
   </div>
 
   <div class="subtitle">
+    v2.0.17, 28 Apr 2016
+  </div>
+  <ul>
+    <li>
+      You can now perform the second round for &quot;Food and Faith, Pt. 2&quot;
+      quests.&nbsp; No second-round bonus exists yet.
+    </li>
+  </ul>
+
+  <div class="subtitle">
     v2.0.16, 26 Apr 2016
   </div>
   <ul>
