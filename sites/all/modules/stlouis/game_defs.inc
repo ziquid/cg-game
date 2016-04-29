@@ -93,6 +93,11 @@
 
     if ($date == '2016-04-19') $event_type = EVENT_AMETHYST_DONE;
 
+    if ($phone_id == 'abc123') {
+      $energy_wait = 60;
+      $energy_wait_str = '1 minute';
+    }
+
     $alderman = 'Chief Priest';
     $aldermen = 'Chief Priests';
     $alder_short = 'CP';
