@@ -471,7 +471,7 @@ EOF;
               if ($game_equipment->energy_increase > 0) {
 
                 $quest_completion_html .=<<< EOF
-    <div class="quest-payout">Energy: +$game_equipment->energy_increase every 5 minutes
+    <div class="quest-payout">Energy: +$game_equipment->energy_increase every $energy_wait_str
       </div>
 EOF;
 
@@ -593,7 +593,7 @@ EOF;
               if ($game_staff->energy_increase > 0) {
 
                 $quest_completion_html .=<<< EOF
-    <div class="quest-payout">Energy: +$game_staff->energy_increase every 5 minutes
+    <div class="quest-payout">Energy: +$game_staff->energy_increase every $energy_wait_str
       </div>
 EOF;
 

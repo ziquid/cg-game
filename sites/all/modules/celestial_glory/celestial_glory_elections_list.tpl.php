@@ -311,7 +311,7 @@ firep($item);
     src="/sites/default/files/images/$icon"/></div>
   <div class="clan-title">$clan_title</div>
   <div class="opponent-name">$official_link $clan_acronym</div>
-  <div class="opponent-influence">+$item->energy_bonus every 5 mins</div>
+  <div class="opponent-influence">+$item->energy_bonus every $energy_wait_str</div>
   <div class="approval-rating">Approval rating:
     <strong>$item->approval_rating%</strong></div>
   <div class="action-wrapper"><div class="action $action_class">$action</div></div>

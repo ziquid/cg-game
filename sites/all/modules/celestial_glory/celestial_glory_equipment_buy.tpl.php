@@ -279,7 +279,7 @@ EOF;
     if ($game_equipment->energy_increase > 0) {
 
       echo <<< EOF
-    <div class="land-payout">Energy: +$game_equipment->energy_increase every 5 minutes
+    <div class="land-payout">Energy: +$game_equipment->energy_increase every $energy_wait_str
       </div>
 EOF;
 
@@ -472,7 +472,7 @@ EOF;
     if ($item->energy_increase > 0) {
 
       echo <<< EOF
-    <div class="land-payout">Energy: +$item->energy_increase every 5 minutes
+    <div class="land-payout">Energy: +$item->energy_increase every $energy_wait_str
       </div>
 EOF;
 
@@ -734,7 +734,7 @@ EOF;
     if ($item->energy_increase > 0) {
 
       echo <<< EOF
-    <div class="land-payout">Energy: +$item->energy_increase every 5 minutes
+    <div class="land-payout">Energy: +$item->energy_increase every $energy_wait_str
       </div>
 EOF;
 
