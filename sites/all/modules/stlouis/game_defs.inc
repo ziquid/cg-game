@@ -10,6 +10,7 @@
   define(EVENT_MERCH_QUESTS, 1005);
   define(EVENT_GATHER_AMETHYST, 1006);
   define(EVENT_AMETHYST_DONE, 1007);
+  define(EVENT_SPEED_ENERGY, 1008);
 
   $debate_time = 1200;
   $zombie_debate_wait = 180; // 300
@@ -93,7 +94,8 @@
 
     if ($date == '2016-04-19') $event_type = EVENT_AMETHYST_DONE;
 
-    if ($phone_id == 'abc123') {
+    if (($date >= '2016-04-29') && ($date <= '2016-05-02')) {
+      $event_type = EVENT_SPEED_ENERGY;
       $energy_wait = 60;
       $energy_wait_str = '1 minute';
     }

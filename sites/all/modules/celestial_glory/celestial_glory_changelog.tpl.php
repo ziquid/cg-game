@@ -22,6 +22,15 @@
   </div>
 
   <div class="subtitle">
+    v2.0.19, 29 Apr 2016
+  </div>
+  <ul>
+    <li>
+      Support for the &quot;Speed Energy&quot; event.
+    </li>
+  </ul>
+
+  <div class="subtitle">
     v2.0.18, 28 Apr 2016
   </div>
   <ul>
