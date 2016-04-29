@@ -1341,6 +1341,7 @@ function _celestial_glory_reset_event_tags_con($id) {
 function _celestial_glory_fetch_user() {
 
   global $game, $phone_id, $extra_messages, $next_level, $user;
+  include_once(drupal_get_path('module', $game) . '/game_defs.inc');
 
 // only allow access through authorized clients
   if ((strpos($_SERVER['HTTP_USER_AGENT'], 'com.ziquid.celestialglory') === FALSE) &&
@@ -1704,6 +1705,7 @@ firep($game_user);
 function _celestial_glory_header($game_user) {
 
   global $game, $phone_id, $extra_messages, $next_level;
+  include_once(drupal_get_path('module', $game) . '/game_defs.inc');
 
   // energy
 
