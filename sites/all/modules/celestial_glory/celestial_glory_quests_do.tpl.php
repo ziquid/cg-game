@@ -263,8 +263,8 @@
 
     if ($old_energy == $game_user->energy_max) { // start the energy clock again
 
-       $sql = 'update users set energy_next_gain = "%s" where id = %d;';
-      $result = db_query($sql, date('Y-m-d H:i:s', time() + 300), $game_user->id);
+      $sql = 'update users set energy_next_gain = "%s" where id = %d;';
+      $result = db_query($sql, date('Y-m-d H:i:s', time() + $energy_wait), $game_user->id);
 
     }
 

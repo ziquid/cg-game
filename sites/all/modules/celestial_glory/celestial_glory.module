@@ -1604,8 +1604,8 @@ firep($game_user);
 
     $changes_made = TRUE;
     $game_user->energy += $energy_bonus; // add 10 energy
-    $energy_next_gain += 300; // next add in 5 mins
-    $secs_until += 300; // ditto
+    $energy_next_gain += $energy_wait; // next add in $energy_wait secs
+    $secs_until += $energy_wait; // ditto
 
   }
 
@@ -1962,7 +1962,7 @@ $extra_messages
   var energy = $game_user->energy;
   var energy_max = $game_user->energy_max;
   var energy_to_add = $energy_bonus;
-  var energy_interval = 300;
+  var energy_interval = $energy_wait;
 
   var money_minutes = $money_minutes;
   var money_seconds = $money_seconds;
