@@ -328,12 +328,17 @@ if (($today == '2012-12-26') || $game_user->username == 'abc123')
 
       $event_text = '<div class="event">
           <div class="event-title">
-            New Event This Weekend
+            !! New Event This Weekend !!
           </div>
           <h3>
-            Speed Energy Apr 29 - May 2
+            ~ Speed Energy Apr 29 - May 2 ~
           </h3>
-          This weekend energy gains happen every minute
+          <p>
+            This weekend energy gains happen every minute
+          </p>
+          <p>
+            Spend 80% less time waiting for energy to refill!
+          </p>
         </div>';
 
       break;
