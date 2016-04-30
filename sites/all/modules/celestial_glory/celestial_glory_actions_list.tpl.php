@@ -6,8 +6,8 @@
   $fetch_header = '_' . arg(0) . '_header';
 
   $game_user = $fetch_user();
-  include_once(drupal_get_path('module', $game) . '/game_defs.inc');
-  include_once(drupal_get_path('module', $game) . '/' . $game .
+  include(drupal_get_path('module', $game) . '/game_defs.inc');
+  include(drupal_get_path('module', $game) . '/' . $game .
     '_actions.inc');
 
   $arg2 = check_plain(arg(2));
