@@ -1605,8 +1605,8 @@ firep($game_user);
 
     $changes_made = TRUE;
     $game_user->energy += $energy_bonus; // add 10 energy
-    $energy_next_gain += 60; // next add in $energy_wait secs
-    $secs_until += 60; // ditto
+    $energy_next_gain += 300; // next add in $energy_wait secs
+    $secs_until += 300; // ditto
 
   }
 
