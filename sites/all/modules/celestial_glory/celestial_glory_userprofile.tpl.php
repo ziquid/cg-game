@@ -356,9 +356,6 @@ EOF;
 <div class="value">$item->debates_won $super_debater</div>
 EOF;
 
-//  $debate_time = 1200;
-//  if ($debate == 'Box') $debate_time = 900;
-
   if (($phone_id_to_check != $phone_id) &&
     (abs($item->level - $game_user->level) <= 15) &&
     (($item->fkey_clans_id != $game_user->fkey_clans_id) ||
@@ -397,9 +394,7 @@ EOF;
     } // debateable?
 
   } else { // not debateable at all
-
-    echo '<br/>';
-
+    echo '<br>';
   }
 
   echo <<< EOF

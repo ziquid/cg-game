@@ -78,9 +78,6 @@ firep($item);
 
   }
 
-//  $debate_time = 1200;
-//  if ($debate == 'Box') $debate_time = 900;
-
   if (($item->meta != 'zombie' &&
     (time() - strtotime($item->debates_last_time)) <= $debate_time) ||
     ($item->meta == 'zombie' &&

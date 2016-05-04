@@ -100,9 +100,6 @@ Whom would you like to $debate_lower?
 </div>
 EOF;
 
-//  $debate_time = 1200;
-//  if ($debate == 'Box') $debate_time = 900;
-
   $data = array();
   $sql = 'SELECT username, experience, `values`.clan_title, `values`.clan_icon,
     users.id, users.phone_id, clan_members.is_clan_leader, users.meta,
