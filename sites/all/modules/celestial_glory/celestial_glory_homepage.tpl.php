@@ -252,7 +252,7 @@ if (($today == '2012-12-26') || $game_user->username == 'abc123')
         </div>
           This Mother\'s Day, complete the &hearts; Love in the Desert &hearts;
           quest group if you didn\'t during Valentine\'s Day
-        <br>
+        <br><br>
           ~ Complete the quest group once to gain <strong>8</strong> skill points ~
         <br>
           ~ Complete the quest group twice to gain a triple heart worth
