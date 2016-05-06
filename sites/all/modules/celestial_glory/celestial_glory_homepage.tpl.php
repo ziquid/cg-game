@@ -244,7 +244,7 @@ if (($today == '2012-12-26') || $game_user->username == 'abc123')
 
       break;
 
-    case EVENT_CG_MOTHERS_DAY:
+    case EVENT_MOTHERS_DAY:
 
       $event_text = '<div class="event">
         <div class="event-title">
