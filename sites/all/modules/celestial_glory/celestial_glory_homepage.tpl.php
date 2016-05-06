@@ -244,6 +244,26 @@ if (($today == '2012-12-26') || $game_user->username == 'abc123')
 
       break;
 
+    case EVENT_CG_MOTHERS_DAY:
+
+      $event_text = '<div class="event">
+        <div class="event-title">
+          &hearts; Mother\'s Day Event May 6 - 9 &hearts;
+        </div>
+          This Mother\'s Day, complete the &hearts; Love in the Desert &hearts;
+          quest group if you didn\'t during Valentine\'s Day
+        <br>
+          ~ Complete the quest group once to gain <strong>8</strong> skill points ~
+        <br>
+          ~ Complete the quest group twice to gain a triple heart worth
+          500 attack, 500 defense, and 3500 cunning ~
+        <br>
+          <a href="/' . $game . '/quests/' . $arg2 . '/'
+          . EVENT_CG_VALENTINES . '">Start the Quest</a>
+        </div>';
+
+      break;
+
     case EVENT_QUESTS_100:
 
       $event_text = '<div class="event">
