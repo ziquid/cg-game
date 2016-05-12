@@ -56,6 +56,10 @@
     $set_value($game_user->id, 'user_agent', $user_agent);
     $set_value($game_user->id, 'last_IP', $ip_addr);
 
+    $save_authKey = '_' . $game . '_save_authKey';
+    $get_authKey = '_' . $game . '_get_authKey';
+    $save_authKey($game_user, $get_authKey());
+
 //    mail('joseph@cheek.com', 'successful user authentication',
 //      $game_user->username . ' has successfully entered his or her password.');
 
