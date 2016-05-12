@@ -1106,7 +1106,7 @@ function _celestial_glory_check_authKey($game_user) {
 
   if ($user->roles[4] == 'web game access') return; // web access trumps this
   if ($purchasing_luck) return; // loading luck does too
-
+  if (arg(1) == 'authenticate') return; // allow bad authkeys on authenticate page
   $authKey = _celestial_glory_get_authKey();
 
   if ($authKey != '') { // an authKey sent
