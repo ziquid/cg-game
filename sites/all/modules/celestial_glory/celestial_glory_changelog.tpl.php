@@ -22,6 +22,17 @@
   </div>
 
   <div class="subtitle">
+    v2.0.21, 12 May 2016
+  </div>
+  <ul>
+    <li>
+      Allow players to use passwords to authenticate after loading an update
+      to the game client.&nbsp; Previously a player would have to e-mail
+      zipport in almost all situations.
+    </li>
+  </ul>
+
+  <div class="subtitle">
     v2.0.20, 6 May 2016
   </div>
   <ul>
