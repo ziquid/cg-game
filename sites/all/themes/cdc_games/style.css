@@ -640,8 +640,8 @@ li {
 .news .button, .news button {
   display: inline-block;
 /*   float: left; */
-  margin-right: 10px;
-  margin-bottom: 6px;
+  margin-right: 9px;
+  margin-bottom: 4px;
   padding: 4px 7px;
   border: 1px solid #999;
   border-radius: 4px;
