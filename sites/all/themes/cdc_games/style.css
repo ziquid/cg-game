@@ -649,6 +649,10 @@ li {
   background-color: #999;
 }
 
+.news .button:last-child, .news button:last-child {
+  margin-right: 0px;
+}
+
 .news a.button {
   color: #fff;
   text-decoration: none;
