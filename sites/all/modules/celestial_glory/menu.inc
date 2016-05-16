@@ -19,6 +19,14 @@ function celestial_glory_menu() {
     'type' => MENU_CALLBACK,
   );
 
+  $items['celestial_glory/user_comp/%'] = array(
+    'title' => 'Celestial Glory User Competencies Page',
+    'page callback' => 'celestial_glory_user_competencies_callback',
+    'page arguments' => array(2),
+    'access arguments' => array('access celestial_glory content'),
+    'type' => MENU_CALLBACK,
+  );
+
   $items['celestial_glory/clan_list/%/%'] = array(
     'title' => 'Celestial Glory Clan List Page',
     'page callback' => 'celestial_glory_clan_list_callback',
@@ -553,6 +561,17 @@ function celestial_glory_userprofile_callback($phone_id) {
   }
 
   return theme('celestial_glory_userprofile', $phone_id);
+
+}
+
+
+function celestial_glory_user_competencies_callback($phone_id) {
+
+  if (empty($phone_id)) {
+    return drupal_access_denied();
+  }
+
+  return theme('celestial_glory_user_competencies', $phone_id);
 
 }
 
@@ -1276,6 +1295,13 @@ function celestial_glory_theme() {
 
     'celestial_glory_userprofile' => array(
       'template' => 'celestial_glory_userprofile',
+      'arguments' => array(
+        'phone_id' => null
+      )
+    ),
+
+    'celestial_glory_user_competencies' => array(
+      'template' => 'celestial_glory_user_competencies',
       'arguments' => array(
         'phone_id' => null
       )

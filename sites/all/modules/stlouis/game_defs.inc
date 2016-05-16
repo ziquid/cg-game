@@ -111,6 +111,7 @@
     $alders_short = 'CPs';
     $beauty = 'Piety';
     $city = 'Land';
+    $competencies = 'Competencies';
     $debate = 'Challenge';
     $debate_tab = 'Challenges';
     $elders = 'Elders';

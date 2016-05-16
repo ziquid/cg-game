@@ -22,6 +22,15 @@
   </div>
 
   <div class="subtitle">
+    v2.0.22, 16 May 2016
+  </div>
+  <ul>
+    <li>
+      Center some menus.
+    </li>
+  </ul>
+
+  <div class="subtitle">
     v2.0.21, 12 May 2016
   </div>
   <ul>

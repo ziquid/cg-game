@@ -541,10 +541,15 @@ li {
   width: 99%;
   margin: 3px 3px 0;
   clear: both;
+  text-align: center;
 }
 
 .news-buttons {
   text-align: center;
+}
+
+.news #all-text {
+  text-align: left;
 }
 
 .news .title {
