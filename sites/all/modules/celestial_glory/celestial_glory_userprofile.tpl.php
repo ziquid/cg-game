@@ -13,12 +13,20 @@
  if (empty($game_user->username))
     drupal_goto($game . '/choose_name/' . $arg2);
 
+  _show_profile_menu($game_user);
+
   $phone_id_to_check = $phone_id;
 
   if (arg(3) != '') $phone_id_to_check = check_plain(arg(3));
 
-  $show_all = FALSE;
+  if ($phone_id_to_check == $phone_id) {
+    competency_gain($game_user, 'introspective');
+  }
+  else {
+    competency_gain($game_user, 'people person');
+  }
 
+  $show_all = FALSE;
   if (($phone_id_to_check == $phone_id) ||
     ($_GET['show_all'] == 'yes'))
     $show_all = TRUE;
@@ -34,6 +42,7 @@
     echo '<div class="message-error">Your message must be at least 3
       characters long.</div>';
     $message = '';
+    competency_gain($game_user, 'silent cal');
   }
 
   if (substr($message, 0, 3) == 'XXX') {
@@ -41,6 +50,7 @@
     echo '<div class="message-error">Your message contains words that are not
       allowed.&nbsp; Please rephrase.&nbsp; ' . $message . '</div>';
     $message = '';
+    competency_gain($game_user, 'uncouth');
 
   }
 
@@ -132,7 +142,7 @@ firep($icon_path);
       fkey_users_to_id, private, message) values (%d, %d, %d, "%s");';
     $result = db_query($sql, $game_user->id, $item->id, $private, $message);
     $message_orig = '';
-
+    competency_gain($game_user, 'talkative');
   }
 
   if (($want_jol == '/want_jol') && !empty($message)) { // halloween Jack-o-lantern posting
@@ -649,11 +659,20 @@ EOF;
 
     echo <<< EOF
   <p>$item->message</p>
+EOF;
+
+    if ($item->username != 'Celestial Glory Game') {
+      echo <<< EOF
   <div class="message-reply-wrapper"><div class="message-reply">
     <a href="/$game/user/$arg2/$item->phone_id">View / Respond</a>
-  </div></div>
+ </div></div>
+EOF;
+    }
+
+    echo <<< EOF
 </div>
 EOF;
+
     $msg_shown = TRUE;
 
   }

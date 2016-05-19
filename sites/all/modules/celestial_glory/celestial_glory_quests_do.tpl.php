@@ -50,6 +50,8 @@
     $extra_html = '<p>&nbsp;</p><p class="second">&nbsp;</p>';
     $ai_output = 'quest-failed not-enough-energy';
 
+    competency_gain($game_user, 'too tired');
+
   } // not enough energy
 
   if ($game_quest->equipment_1_required_quantity > 0) {
@@ -76,6 +78,8 @@
         '</div>';
       $ai_output = 'quest-failed need-equipment-' .
         $game_quest->fkey_equipment_1_required_id;
+
+      competency_gain($game_user, 'hole in pockets');
     }
 
   } // no required equipment_1
@@ -102,6 +106,9 @@
         '</div>';
       $ai_output = 'quest-failed need-equipment-' .
         $game_quest->fkey_equipment_2_required_id;
+
+      competency_gain($game_user, 'hole in pockets');
+
     }
 
   } // no required equipment_2
@@ -128,6 +135,9 @@
         '</div>';
       $ai_output = 'quest-failed need-equipment-' .
         $game_quest->fkey_equipment_3_required_id;
+
+      competency_gain($game_user, 'hole in pockets');
+
     }
 
   } // no required equipment_3
@@ -152,6 +162,8 @@
         '</div>';
       $ai_output = 'quest-failed need-staff-' .
         $game_quest->fkey_staff_required_id;
+
+      competency_gain($game_user, 'friendless');
 
     }
 
@@ -180,6 +192,8 @@
       $ai_output = 'quest-failed need-land-' .
         $game_quest->fkey_land_required_id;
 
+      competency_gain($game_user, 'homeless');
+
     }
 
   } // no required land
@@ -199,13 +213,15 @@
       <div class="try-an-election-wrapper">
         <div class="try-an-election">
           <a href="/' . $game . '/move/' . $arg2 . '/'
-          . $item->fkey_neighborhoods_id . '">
+          . $game_quest->fkey_neighborhoods_id . '">
             Go there
           </a>
         </div>
       </div>';
     $extra_html = '<p>&nbsp;</p><p class="second">&nbsp;</p>';
     $ai_output = 'quest-failed wrong-hood';
+
+    competency_gain($game_user, 'lost');
 
   } // wrong hood
 
@@ -234,6 +250,8 @@
     }
 
   if ($quest_succeeded) {
+
+    competency_gain($game_user, 'questing');
 
     $old_energy = $game_user->energy;
     $game_user->energy -= $game_quest->required_energy;

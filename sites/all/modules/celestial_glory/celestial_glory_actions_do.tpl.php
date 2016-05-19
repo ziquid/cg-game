@@ -178,6 +178,8 @@ if ($action_succeeded) {
 
   _filter_actions($action, $game_user);
 
+  competency_gain($game_user, 'man/woman of action');
+
 // decrement available actions
   $sql = 'update users set actions = actions - %d where id = %d;';
   $result = db_query($sql, $action->cost,  $game_user->id);

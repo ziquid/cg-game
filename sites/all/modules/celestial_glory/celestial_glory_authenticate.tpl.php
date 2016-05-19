@@ -60,6 +60,8 @@
     $get_authKey = '_' . $game . '_get_authKey';
     $save_authKey($game_user, $get_authKey());
 
+    competency_gain($game_user, 'security conscious');
+
 //    mail('joseph@cheek.com', 'successful user authentication',
 //      $game_user->username . ' has successfully entered his or her password.');
 

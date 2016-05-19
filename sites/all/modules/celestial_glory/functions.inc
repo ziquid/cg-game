@@ -1,7 +1,6 @@
 <?php
 
-
-function _button($link = 'home', $type = 'continue', $extra_link = '') {
+function NO_button($link = 'home', $type = 'continue', $extra_link = '') {
 
   global $game, $phone_id;
 
@@ -30,7 +29,7 @@ EOF;
 }
 
 
-function _sound($name) {
+function NO_sound($name) {
 
   global $game;
 
@@ -56,7 +55,7 @@ EOF;
 }
 
 
-function _required_staff($game_user, $staff_id, $req_quantity) {
+function NO_required_staff($game_user, $staff_id, $req_quantity) {
 
   global $game;
   $arg2 = check_plain(arg(2));
@@ -95,7 +94,7 @@ EOF;
 }
 
 
-function _required_equipment($game_user, $equipment_id, $req_quantity) {
+function NO_required_equipment($game_user, $equipment_id, $req_quantity) {
 
   global $game;
   $arg2 = check_plain(arg(2));
@@ -135,7 +134,7 @@ EOF;
 }
 
 
-function _clan_required_equipment($game_user, $equipment_id, $req_quantity) {
+function NO_clan_required_equipment($game_user, $equipment_id, $req_quantity) {
 
   global $game;
   $arg2 = check_plain(arg(2));
@@ -175,7 +174,7 @@ EOF;
 }
 
 
-function _required_land($game_user, $land_id, $req_quantity) {
+function NO_required_land($game_user, $land_id, $req_quantity) {
 
   global $game;
   $arg2 = check_plain(arg(2));
@@ -214,7 +213,7 @@ EOF;
 }
 
 
-function _required_elected_position($game_user, $id, $name) {
+function NO_required_elected_position($game_user, $id, $name) {
 
   global $game;
   $arg2 = check_plain(arg(2));
@@ -245,7 +244,7 @@ EOF;
 }
 
 
-function _required_competency($game_user, $id, $level, $name) {
+function NO_required_competency($game_user, $id, $level, $name) {
 
   global $game;
   $arg2 = check_plain(arg(2));
@@ -280,7 +279,7 @@ EOF;
 }
 
 
-function _enhanced_competency($game_user, $id, $name) {
+function NO_enhanced_competency($game_user, $id, $name) {
 
   global $game;
 
@@ -399,7 +398,7 @@ EOF;
 }
 
 
-function _is_quest_complete($game_user, $quest_id) {
+function NO_is_quest_complete($game_user, $quest_id) {
 
   $sql = 'select percent_complete from quest_completion
     where fkey_users_id = %d and fkey_quests_id = %d;';
@@ -411,7 +410,7 @@ function _is_quest_complete($game_user, $quest_id) {
 }
 
 
-function _is_quest_started($game_user, $quest_id) {
+function NO_is_quest_started($game_user, $quest_id) {
 
   $sql = 'select percent_complete from quest_completion
     where fkey_users_id = %d and fkey_quests_id = %d;';
@@ -423,14 +422,14 @@ function _is_quest_started($game_user, $quest_id) {
 }
 
 
-function _on_screen($screen) {
+function NO_on_screen($screen) {
 
   return (arg(1) == $screen);
 
 }
 
 
-function _has_job($game_user) {
+function NO_has_job($game_user) {
 
   $sql = 'SELECT sum(payout) as job_income
     FROM land_ownership AS lo
@@ -445,7 +444,7 @@ function _has_job($game_user) {
 }
 
 
-function _has_sent_message($game_user) {
+function NO_has_sent_message($game_user) {
 
   $sql = 'SELECT count(id) as count
     FROM user_messages
@@ -458,7 +457,7 @@ function _has_sent_message($game_user) {
 }
 
 
-function _has_equipment($game_user, $id, $quantity) {
+function NO_has_equipment($game_user, $id, $quantity) {
 
   $sql = 'SELECT quantity
     FROM equipment_ownership
@@ -472,7 +471,7 @@ function _has_equipment($game_user, $id, $quantity) {
 }
 
 
-function _has_clan_equipment($game_user, $id, $quantity) {
+function NO_has_clan_equipment($game_user, $id, $quantity) {
 
   $sql = 'SELECT quantity
     FROM clan_equipment_ownership
@@ -486,7 +485,7 @@ function _has_clan_equipment($game_user, $id, $quantity) {
 }
 
 
-function _show_land($game_user, $item, $options = array()) {
+function NO_show_land($game_user, $item, $options = array()) {
 
   global $game, $phone_id;
   include(drupal_get_path('module', $game) . '/game_defs.inc');
@@ -889,7 +888,7 @@ EOF;
 }
 
 
-function _recalc_income(&$game_user) {
+function NO_recalc_income(&$game_user) {
 
 // sometimes the income gets hacked - fix here
 
@@ -942,7 +941,7 @@ function _recalc_income(&$game_user) {
 }
 
 
-function _show_actions_menu($game_user) {
+function NO_show_actions_menu($game_user) {
 
   global $game, $phone_id;
   include(drupal_get_path('module', $game) . '/game_defs.inc');
@@ -963,7 +962,7 @@ EOF;
 }
 
 
-function _show_aides_menu($game_user) {
+function NO_show_aides_menu($game_user) {
 
   global $game, $phone_id;
   include(drupal_get_path('module', $game) . '/game_defs.inc');
@@ -1004,7 +1003,7 @@ EOF;
 }
 
 
-function show_elections_menu($game_user) {
+function NO_show_elections_menu($game_user) {
 
   global $game, $phone_id;
   include(drupal_get_path('module', $game) . '/game_defs.inc');
@@ -1163,7 +1162,7 @@ EOF;
 }
 
 
-function show_clan_menu($game_user) {
+function NO_show_clan_menu($game_user) {
 
   global $game, $phone_id;
   include(drupal_get_path('module', $game) . '/game_defs.inc');
@@ -1193,7 +1192,7 @@ EOF;
 }
 
 
-function _show_quest($game_user, $item, $percentage_target,
+function NO_show_quest($game_user, $item, $percentage_target,
   $percentage_divisor, $quest_group, $party_title, $outcome = '',
   $exp_added_str = '', $money_added_str = '', $disbursements_doubled = '',
   $consumption_html = '', $disbursement_html = '',
@@ -1474,7 +1473,7 @@ EOF;
 }
 
 
-function _show_favor($game_user, $item, $view = 'initiator', $bounty = -1) {
+function NO_show_favor($game_user, $item, $view = 'initiator', $bounty = -1) {
 
   global $game, $phone_id;
   include(drupal_get_path('module', $game) . '/game_defs.inc');
@@ -1677,7 +1676,7 @@ EOF;
 }
 
 
-function equipment_gain(&$game_user, $id, $quantity) {
+function NO_equipment_gain(&$game_user, $id, $quantity) {
 
   if ($id == 0) { // BUG?  how do these get here?
     mail('joseph@cheek.com', $game_user->name . ' trying to get equipment 0!',
@@ -1733,7 +1732,7 @@ function equipment_gain(&$game_user, $id, $quantity) {
 }
 
 
-function clan_equipment_gain(&$game_user, $id, $quantity) {
+function NO_clan_equipment_gain(&$game_user, $id, $quantity) {
 
   $sql = 'select * from equipment where id = %d;';
   $result = db_query($sql, $id);
@@ -1771,7 +1770,7 @@ function clan_equipment_gain(&$game_user, $id, $quantity) {
 }
 
 
-function equipment_lose(&$game_user, $id, $quantity) {
+function NO_equipment_lose(&$game_user, $id, $quantity) {
 
   $sql = 'select * from equipment where id = %d;';
   $result = db_query($sql, $id);
@@ -1811,7 +1810,7 @@ function equipment_lose(&$game_user, $id, $quantity) {
 }
 
 
-function clan_equipment_lose(&$game_user, $id, $quantity) {
+function NO_clan_equipment_lose(&$game_user, $id, $quantity) {
 
   $sql = 'select * from equipment where id = %d;';
   $result = db_query($sql, $id);
@@ -1844,7 +1843,7 @@ function clan_equipment_lose(&$game_user, $id, $quantity) {
 }
 
 
-function land_gain(&$game_user, $id, $quantity, $ex_price = 0) {
+function NO_land_gain(&$game_user, $id, $quantity, $ex_price = 0) {
 
   global $game, $phone_id;
 
@@ -1900,7 +1899,7 @@ function land_gain(&$game_user, $id, $quantity, $ex_price = 0) {
 }
 
 
-function land_lose(&$game_user, $id, $quantity, $ex_price = 0) {
+function NO_land_lose(&$game_user, $id, $quantity, $ex_price = 0) {
 
   global $game, $phone_id;
 
@@ -1959,26 +1958,23 @@ function land_lose(&$game_user, $id, $quantity, $ex_price = 0) {
 }
 
 
-function competency_gain($game_user, $id, $quantity = 1) {
+function competency_gain($game_user, $id, $level = 1) {
 
   if (gettype($id) == 'string') { // find id from string
 
-    $sql = 'select id from competencies
-      where name = "%s";';
+    $sql = 'select * from competencies where name = "%s";';
     $result = db_query($sql, $id);
     $item = db_fetch_object($result);
 
     if (!empty($item)) {
-
       $id = $item->id;
+    }
+    else { // not found! create it
 
-    } else { // not found! create it
+      $sql = 'insert into competencies (name, level) values ("%s", %d);';
+      $result = db_query($sql, $id, $level);
 
-      $sql = 'insert into competencies name = "%s";';
-      $result = db_query($sql, $id);
-
-      $sql = 'select id from competencies
-        where name = "%s";';
+      $sql = 'select * from competencies where name = "%s";';
       $result = db_query($sql, $id);
       $item = db_fetch_object($result);
       $id = $item->id;
@@ -1986,24 +1982,56 @@ function competency_gain($game_user, $id, $quantity = 1) {
     }
 
   }
+  else {
+    $sql = 'select * from competencies where id = %d;';
+    $result = db_query($sql, $id);
+    $item = db_fetch_object($result);
 
-  $sql = 'select use_count from user_competencies
+  }
+
+  $sql = 'select use_count, timestamp from user_competencies
     where fkey_competencies_id = %d and fkey_users_id = %d;';
   $result = db_query($sql, $id, $game_user->id);
   $data = db_fetch_object($result);
 
+  if ((time() - strtotime($date->timestamp)) < 300) {
+firep('Last gain of competency ' . $item->name . ' too recent');
+    return FALSE;
+  }
+
   if (!empty($data)) { // already there
 
-    $sql = 'update user_competencies set use_count = use_count + %d
+    $comp_before = competency_level($game_user, $id);
+    $sql = 'update user_competencies set use_count = use_count + 1
       where fkey_competencies_id = %d and fkey_users_id = %d;';
-    $result = db_query($sql, $quantity, $id, $game_user->id);
+    $result = db_query($sql, $id, $game_user->id);
+    $comp_after = competency_level($game_user, $id);
 
-  } else {
+    if ($comp_after->level > $comp_before->level) { // leveled up!
+
+      send_user_message(1, $game_user->id, 1,
+        'You have increased your competency &quot;<span class="initial-caps">'
+      . $item->name . '</span>&quot;!&nbsp; You are now '
+      . $comp_after->level_name_2 . ' and have gained '
+      . $comp_after->level . ' luck.');
+
+      $sql = 'update users set luck = luck + %d where id = %d;';
+      $result = db_query($sql, $comp_after->level, $game_user->id);
+
+    }
+
+  }
+  else { // new competency
 
     $sql = 'insert into user_competencies
       (fkey_users_id, fkey_competencies_id, use_count) values
-      (%d, %d, %d);';
-    $result = db_query($sql, $game_user->id, $id, $quantity);
+      (%d, %d, 1);';
+    $result = db_query($sql, $game_user->id, $id);
+
+    send_user_message(1, $game_user->id, 1,
+      'You have started learning a new competency, &quot;<span
+      class="initial-caps">'
+    . $item->name . '</span>&quot;!');
 
   }
 
@@ -2019,7 +2047,7 @@ function competency_lose($game_user, $id, $quantity = 1) {
 }
 
 
-function election_won($game_user, $id) {
+function NO_election_won($game_user, $id) {
 
   $sql = 'delete from elected_officials where fkey_users_id = %d;';
   $result = db_query($sql, $game_user->id);
@@ -2034,7 +2062,7 @@ function election_won($game_user, $id) {
 }
 
 
-function action_use(&$game_user, $quantity = 1) {
+function NO_action_use(&$game_user, $quantity = 1) {
 
   if ($game_user->actions < $quantity) return FALSE;
   if ($quantity < 1) return FALSE;
@@ -2060,7 +2088,7 @@ function action_use(&$game_user, $quantity = 1) {
 }
 
 
-function _karma($game_user, $text, $quantity) {
+function NO_karma($game_user, $text, $quantity) {
 
   $sql = 'update users set karma = karma + %d
     where id = %d;';
@@ -2088,20 +2116,7 @@ function competency_level($game_user, $id) {
     $item = db_fetch_object($result);
 
     if (!empty($item)) {
-
       $id = $item->id;
-
-    } else { // not found! create it
-
-      $sql = 'insert into competencies name = "%s";';
-      $result = db_query($sql, $id);
-
-      $sql = 'select id from competencies
-        where name = "%s";';
-      $result = db_query($sql, $id);
-      $item = db_fetch_object($result);
-      $id = $item->id;
-
     }
 
   }
@@ -2114,53 +2129,49 @@ function competency_level($game_user, $id) {
   if ($comp->use_count < 20) {
 
     $comp->level = 0; // Not Competent
-    $comp->level_name = 'Not Competent';
     $comp->min = 0; // minimum to attain this level
     $comp->next = 20; // use_count to attain next level
 
   } elseif ($comp->use_count < 100) {
 
     $comp->level = 1;
-    $comp->level_name = 'Minimally Competent';
     $comp->min = 20; // minimum to attain this level
     $comp->next = 100; // use_count to attain next level
 
   } elseif ($comp->use_count < 350) {
 
     $comp->level = 2;
-    $comp->level_name = 'Marginally Competent';
     $comp->min = 100; // minimum to attain this level
     $comp->next = 350; // use_count to attain next level
 
   } elseif ($comp->use_count < 1000) {
 
     $comp->level = 3;
-    $comp->level_name = 'Competent';
     $comp->min = 350; // minimum to attain this level
     $comp->next = 1000; // use_count to attain next level
 
   } elseif ($comp->use_count < 2500) {
 
     $comp->level = 4;
-    $comp->level_name = 'More Competent';
     $comp->min = 1000; // minimum to attain this level
     $comp->next = 2500; // use_count to attain next level
 
   } else {
 
     $comp->level = 5;
-    $comp->level_name = 'Masterfully Competent';
     $comp->min = 2500; // minimum to attain this level
-    $comp->next = $comp->use_count; // PHP_INT_MAX; // use_count to attain next level
+    $comp->next = $comp->use_count; // cannot attain next level
 
   }
 
+  $comp->level_name = competency_level_name($comp->level, TRUE);
+  $comp->level_name_2 = competency_level_name($comp->level);
   return $comp;
 
 }
 
 
-function competency_min_count($level) {
+function NO_competency_min_count($level) {
 // return the minimum use count for a given competency level [0..5]
 
   $min_count = array(
@@ -2177,7 +2188,7 @@ function competency_min_count($level) {
 }
 
 
-function _competency_level_name($id, $req = FALSE) {
+function competency_level_name($id, $req = FALSE) {
 
   if ($req) {
 
@@ -2231,7 +2242,7 @@ function fetch_user_by_id($id) {
 
   $sql = 'SELECT users.*,
     user_creations.datetime as startdate,
-    `values`.party_title, `values`.party_icon, `values`.name,
+    `values`.clan_title, `values`.clan_icon, `values`.name,
     elected_positions.name as ep_name,
     elected_positions.id as ep_level,
     elected_officials.approval_rating,
@@ -2271,7 +2282,7 @@ function fetch_user_by_id($id) {
   $result = db_query($sql, $id);
   $item = db_fetch_object($result);
 
-  if (empty($item->ep_name)) $item->ep_name = 'Subjugate';
+//   if (empty($item->ep_name)) $item->ep_name = 'Subjugate';
   if (empty($item->ep_level)) $item->ep_level = 0;
 
   $user_cache[$id] = $item;
@@ -2282,7 +2293,7 @@ firep($item);
 }
 
 
-function hierarchy_status($game_user, $level) {
+function NO_hierarchy_status($game_user, $level) {
 
   global $game, $phone_id;
   include(drupal_get_path('module', $game) . '/game_defs.inc');
@@ -2424,7 +2435,7 @@ function hierarchy_status($game_user, $level) {
 }
 
 
-function _hierarchy_competency_check($game_user, $req_comp, $req_level = 1) {
+function NO_hierarchy_competency_check($game_user, $req_comp, $req_level = 1) {
 
   $check = competency_level($game_user, $req_comp);
   $target =
@@ -2451,7 +2462,7 @@ function _hierarchy_competency_check($game_user, $req_comp, $req_level = 1) {
 }
 
 
-function show_equipment($game_user, $item, $options = array()) {
+function NO_show_equipment($game_user, $item, $options = array()) {
 
   global $game, $phone_id;
   include(drupal_get_path('module', $game) . '/game_defs.inc');
@@ -2816,7 +2827,7 @@ EOF;
 }
 
 
-function equipment_check_wear_out(&$game_user, $id) {
+function NO_equipment_check_wear_out(&$game_user, $id) {
 
   $sql = 'select * from equipment where id = %d;';
   $result = db_query($sql, $id);
@@ -2858,5 +2869,14 @@ firep($eq->name . ' wore out!');
   $eo = db_fetch_object($result);
 
   return(array($lost, $failure_reason, $eo->quantity));
+
+}
+
+
+function send_user_message($from, $to, $private = 0, $message) {
+
+  $sql = 'insert into user_messages (fkey_users_from_id,
+    fkey_users_to_id, private, message) values (%d, %d, %d, "%s");';
+  db_query($sql, $from, $to, $private, $message);
 
 }

@@ -29,7 +29,7 @@
   }
 
   $show_all = FALSE;
-  
+
   if (($phone_id_to_check == $phone_id) ||
     ($_GET['show_all'] == 'yes'))
     $show_all = TRUE;
@@ -44,20 +44,20 @@
   } else {
     $clan_link = t('None');
   }
-    
+
   if ($item->is_clan_leader) {
     $clan_acronym .= '*';
     $clan_link .= " (leader)";
   }
-  
+
   if (($game_user->fkey_clans_id) &&
     ($game_user->fkey_clans_id == $item->fkey_clans_id)) {
-      
+
       $clan_link = '<a href="/' . $game . '/clan_list/' . $arg2 .
         '/' . $game_user->fkey_clans_id . '">' . $clan_link . '</a>';
-      
+
   }
-  
+
   echo <<< EOF
 <div class="title">
   $item->ep_name <span class="username">$item->username</span> $clan_acronym
@@ -67,10 +67,10 @@ EOF;
 
   if ($phone_id_to_check == $phone_id) { // show more stats if it's you
 
-    $sql = 'SELECT * FROM  `user_competencies` 
+    $sql = 'SELECT * FROM  `user_competencies`
       LEFT JOIN competencies ON fkey_competencies_id = competencies.id
       WHERE fkey_users_id = %d
-      ORDER BY level, name ASC;';
+      ORDER BY level DESC, name ASC;';
     $result = db_query($sql, $item->id);
     while ($item = db_fetch_object($result)) $comps[] = $item;
 
@@ -92,11 +92,11 @@ EOF;
       $need_more = $comp->next - $comp->use_count;
 
       echo <<< EOF
-  <div class="heading wider">&lt;&nbsp;$comp->name&nbsp;&gt; :</div>
+  <div class="heading wider initial-caps">$comp->name :</div>
   <div class="value">
-    $pip 
+    $pip
     <span class="small">
-      ($comp->level_name, next: +$need_more)
+      &nbsp;($comp->level_name, next: +$need_more)
     </span>
   </div>
   <br/>

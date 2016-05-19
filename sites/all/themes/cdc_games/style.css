@@ -583,6 +583,7 @@ li {
   font-size: 10px;
   color: #ccc;
   clear: both;
+  text-align: left;
 }
 
 .news .message-body {
@@ -592,6 +593,7 @@ li {
   border-radius: 4px;
   -moz-border-radius: 4px;
   background-color: #111;
+  text-align: left;
 }
 
 .news .message-body.private {
@@ -1032,4 +1034,18 @@ a .event-text {
 
 .new-main-menu {
   position: relative;
+}
+
+.competency-pip {
+  border-right: solid 2px #888;
+  border-radius: 2px;
+  margin-right: 2px;
+}
+
+.competency-pip.attained {
+  border-right: solid 2px #ddd;
+}
+
+.initial-caps {
+  text-transform: capitalize;
 }

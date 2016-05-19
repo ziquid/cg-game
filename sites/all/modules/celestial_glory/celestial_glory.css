@@ -383,3 +383,11 @@ a.version {
   font-weight: bold;
   text-shadow: 0 0 8px yellow;
 }
+
+.competency-pip {
+  border-right: solid 2px #693318 !important;
+}
+
+.competency-pip.attained {
+  border-right: solid 2px yellow !important;
+}

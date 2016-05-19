@@ -1296,7 +1296,6 @@ function _celestial_glory_action_pick_roses_function(&$outcome_reason,
     global $game, $phone_id;
 
     $fetch_user = '_' . arg(0) . '_fetch_user';
-
     $game_user = $fetch_user();
     include(drupal_get_path('module', $game) . '/game_defs.inc');
 
@@ -1346,6 +1345,7 @@ firep($data, 'rose quantity');
         You picked a rose!
       </div>';
 
+    competency_gain($game_user, 'gardener');
     return TRUE;
 
   }
@@ -1646,7 +1646,8 @@ firep($target_values_id, 'family of target');
       t('You have eaten and feel more energetic') . '</div><div class="action-effect">' .
       t('(You gained @energy energy)', array('@energy' => $energy_bonus)) . '</div>';
 
-    return true;
+    competency_gain($game_user, 'feasting');
+    return TRUE;
 
   }
 

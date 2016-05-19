@@ -748,9 +748,14 @@ EOF;
 
       $username = 'from ' . $item->ep_name . ' ' . $item->username . ' ' .
         $clan_acronym;
-      $reply = '<div class="message-reply-wrapper"><div class="message-reply">
-        <a href="/' . $game . '/user/' . $arg2 . '/' . $item->phone_id .
-        '">View / Respond</a></div></div>';
+      if ($item->username != 'Celestial Glory Game') {
+        $reply = '<div class="message-reply-wrapper"><div class="message-reply">
+          <a href="/' . $game . '/user/' . $arg2 . '/' . $item->phone_id .
+          '">View / Respond</a></div></div>';
+      }
+      else {
+        $reply = '';
+      }
     }
 
     echo <<< EOF
