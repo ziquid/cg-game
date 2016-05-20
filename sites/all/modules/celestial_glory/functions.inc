@@ -2141,6 +2141,7 @@ function competency_level($game_user, $id) {
     if ($comp->use_count >= $min && $comp->use_count < $max) {
       $comp->level = $level;
       $comp->min = $min;
+      $comp->max = $max;
       $comp->next = $max;
 
       if ($level == 5) {

@@ -1,6 +1,6 @@
 <?php
 
-  $version = 'v2.0.22, 16 May 2016';
+  $version = 'v2.1, 20 May 2016';
 
 //  set_time_limit(10); // this page must not bog down server
 
@@ -360,6 +360,26 @@ if (($today == '2012-12-26') || $game_user->username == 'abc123')
           </p>
           <p>
             Spend 80% less time waiting for energy to refill!
+          </p>
+        </div>';
+
+      break;
+
+    case EVENT_COMPETENCIES_ANNOUCEMENT:
+
+      $event_text = '<div class="event">
+          <div class="event-title">
+            Celestial Glory 2.1 introduces ~&nbsp;COMPETENCIES&nbsp;~
+          </div>
+          <h3>
+            Competencies are in-game achievements<br>that give you Luck!
+          </h3>
+          <br>
+          <p>
+            Check your competencies from your Profile Page
+          </p>
+          <p>
+            &ndash; See if you can find all 45! &ndash;
           </p>
         </div>';
 

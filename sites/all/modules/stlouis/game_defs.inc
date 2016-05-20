@@ -12,6 +12,7 @@
   define(EVENT_AMETHYST_DONE, 1007);
   define(EVENT_SPEED_ENERGY, 1008);
   define(EVENT_MOTHERS_DAY, 1009);
+  define(EVENT_COMPETENCIES_ANNOUCEMENT, 1010);
 
   $debate_time = 1200;
   $zombie_debate_wait = 180; // 300
@@ -103,6 +104,10 @@
 
     if (($date >= '2016-05-06') && ($date <= '2016-05-09')) {
       $event_type = EVENT_MOTHERS_DAY;
+    }
+
+    if (($date >= '2016-05-20') && ($date <= '2016-05-30')) {
+      $event_type = EVENT_COMPETENCIES_ANNOUCEMENT;
     }
 
     $alderman = 'Chief Priest';
