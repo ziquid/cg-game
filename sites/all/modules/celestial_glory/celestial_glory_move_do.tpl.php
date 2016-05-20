@@ -110,6 +110,8 @@ firep($actions_to_move);
 
     }
 
+    competency_gain($game_user, 'wanderlust');
+
     $resigned_text = '';
 
 // you lose your old type 1 position, if any (type 1 = neighborhood)
@@ -128,6 +130,8 @@ firep($actions_to_move);
 // mail('joseph@cheek.com', 'loss of seat due to move',
 //   "$game_user->username has lost seat of type $item->type due to move to " .
 //   "$new_hood->name.");
+
+      competency_gain($game_user, 'resignation');
 
       $sql = 'delete from elected_officials where fkey_users_id = %d;';
       $result = db_query($sql, $game_user->id);

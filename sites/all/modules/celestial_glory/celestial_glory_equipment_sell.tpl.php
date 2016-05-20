@@ -68,6 +68,12 @@
 
   if ($equipment_succeeded) {
 
+    competency_gain($game_user, 'seller');
+
+    if ($quantity >= 100) {
+      competency_gain($game_user, 'master seller');
+    }
+
      $sql = 'update equipment_ownership set quantity = quantity - %d where
        fkey_equipment_id = %d and fkey_users_id = %d;';
     $result = db_query($sql, $quantity, $equipment_id, $game_user->id);

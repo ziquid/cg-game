@@ -74,10 +74,16 @@ EOF;
     $result = db_query($sql, $item->id);
     while ($item = db_fetch_object($result)) $comps[] = $item;
 
+    $old_level = 0;
+
     foreach ($comps as $comp) {
 
-      $comp = (object) array_merge((array) $comp,
-        (array) competency_level($game_user, (int) $comp->fkey_competencies_id));
+      $level = $comp->level;
+      $comp = (object) array_merge(
+        (array) $comp,
+        (array) competency_level($game_user,
+          intval($comp->fkey_competencies_id))
+      );
 // Quick-n-dirty: merge the two arrays
 
       $pip = '';
@@ -91,6 +97,11 @@ EOF;
 
       $need_more = $comp->next - $comp->use_count;
 
+      if ($level != $old_level) {
+        echo '<div class="title">~~ Level ' . $level
+        . ' ~~</div>';
+      }
+
       echo <<< EOF
   <div class="heading wider initial-caps">$comp->name :</div>
   <div class="value">
@@ -99,8 +110,10 @@ EOF;
       &nbsp;($comp->level_name, next: +$need_more)
     </span>
   </div>
-  <br/>
+  <br>
 EOF;
+
+      $old_level = $level;
 
     }
 

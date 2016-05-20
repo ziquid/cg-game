@@ -127,7 +127,6 @@ firep($item);
 
 // experience
 
-// comment these out until i figure out the right formulas
   $sql = 'SELECT sum(equipment.elocution_bonus * equipment_ownership.quantity)
     as elocution from equipment
 
@@ -203,6 +202,8 @@ firep("opp total influence: sqrt($item->experience) + ($item->elocution *
 
   if ($my_influence > $opp_influence) { // you won!  woohoo!
 
+    competency_gain($game_user, 'challenger');
+
     $experience_gained = mt_rand(floor($item->level / 3),
       ceil($item->level * 2 / 3));
 // the experience you gain is based on their level
@@ -232,9 +233,7 @@ firep("opp total influence: sqrt($item->experience) + ($item->elocution *
       $gain_extra = ' and Boxing Points<br/>';
 
     } else {
-
       $gain_extra = '';
-
     }
 
 // start the actions clock if needed
@@ -460,6 +459,8 @@ firep("update equipment_ownership set fkey_users_id = $game_user->id
     }
 */ // flag day
   } else { // you lost
+
+    competency_gain($item, 'defender');
 
     $experience_gained = mt_rand(floor($game_user->level / 3),
       ceil($game_user->level * 2 / 3));

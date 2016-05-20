@@ -1967,7 +1967,7 @@ function competency_gain($game_user, $id, $level = 1) {
     $item = db_fetch_object($result);
 
     if (!empty($item)) {
-      $id = $item->id;
+      $id = (int) $item->id;
     }
     else { // not found! create it
 
@@ -1977,7 +1977,7 @@ function competency_gain($game_user, $id, $level = 1) {
       $sql = 'select * from competencies where name = "%s";';
       $result = db_query($sql, $id);
       $item = db_fetch_object($result);
-      $id = $item->id;
+      $id = (int) $item->id;
 
     }
 
@@ -1994,11 +1994,8 @@ function competency_gain($game_user, $id, $level = 1) {
   $result = db_query($sql, $id, $game_user->id);
   $data = db_fetch_object($result);
 
-firep(time(), 'time now');
-firep(strtotime($data->timestamp), 'last gain');
-firep(time() - strtotime($data->timestamp), 'difference');
   if ((time() - strtotime($data->timestamp)) < 300) {
-firep('Last gain of competency ' . $item->name . ' too recent');
+firep('Last gain of competency &quot;' . $item->name . '&quot; too recent');
     return FALSE;
   }
 
@@ -2039,13 +2036,6 @@ firep('Last gain of competency ' . $item->name . ' too recent');
   }
 
   return TRUE;
-
-}
-
-
-function competency_lose($game_user, $id, $quantity = 1) {
-
-  return competency_gain($game_user, $id, 0 - $quantity);
 
 }
 
@@ -2110,18 +2100,30 @@ function NO_karma($game_user, $text, $quantity) {
 
 function competency_level($game_user, $id) {
 // return the user's competency level [0..5] for a given competency
+  include(drupal_get_path('module', $game) . '/game_defs.inc');
 
   if (gettype($id) == 'string') { // find id from string
 
-    $sql = 'select id from competencies
-      where name = "%s";';
+    $sql = 'select * from competencies where name = "%s";';
     $result = db_query($sql, $id);
     $item = db_fetch_object($result);
 
     if (!empty($item)) {
       $id = $item->id;
     }
+    else {
+      echo 'competency_level for id ' . $id . ' doesn\'t exist!';
+      slack_send_message('competency_level for id ' . $id . 'doesn\'t exist!',
+        $slack_channel);
+      slack_send_message(print_r($game_user, TRUE), $slack_channel);
+      die;
+    }
 
+  }
+  else {
+    $sql = 'select * from competencies where id = %d;';
+    $result = db_query($sql, $id);
+    $item = db_fetch_object($result);
   }
 
   $sql = 'select use_count from user_competencies
@@ -2129,41 +2131,26 @@ function competency_level($game_user, $id) {
   $result = db_query($sql, $id, $game_user->id);
   $comp = db_fetch_object($result);
 
-  if ($comp->use_count < 20) {
+  $level = 0;
 
-    $comp->level = 0; // Not Competent
-    $comp->min = 0; // minimum to attain this level
-    $comp->next = 20; // use_count to attain next level
+  while ($level <= 5) {
 
-  } elseif ($comp->use_count < 100) {
+    $min = competency_min_count($level, $item->level);
+    $max = competency_min_count($level + 1, $item->level);
 
-    $comp->level = 1;
-    $comp->min = 20; // minimum to attain this level
-    $comp->next = 100; // use_count to attain next level
+    if ($comp->use_count >= $min && $comp->use_count < $max) {
+      $comp->level = $level;
+      $comp->min = $min;
+      $comp->next = $max;
 
-  } elseif ($comp->use_count < 350) {
+      if ($level == 5) {
+        $comp->next = $comp->use_count; // cannot attain next level
+      }
 
-    $comp->level = 2;
-    $comp->min = 100; // minimum to attain this level
-    $comp->next = 350; // use_count to attain next level
+      break;
+    }
 
-  } elseif ($comp->use_count < 1000) {
-
-    $comp->level = 3;
-    $comp->min = 350; // minimum to attain this level
-    $comp->next = 1000; // use_count to attain next level
-
-  } elseif ($comp->use_count < 2500) {
-
-    $comp->level = 4;
-    $comp->min = 1000; // minimum to attain this level
-    $comp->next = 2500; // use_count to attain next level
-
-  } else {
-
-    $comp->level = 5;
-    $comp->min = 2500; // minimum to attain this level
-    $comp->next = $comp->use_count; // cannot attain next level
+    $level++;
 
   }
 
@@ -2174,19 +2161,41 @@ function competency_level($game_user, $id) {
 }
 
 
-function NO_competency_min_count($level) {
-// return the minimum use count for a given competency level [0..5]
+function competency_min_count($level, $comp_level) {
+// return the minimum use count for a given level [0..5] and competency level
+// [1..3]
 
   $min_count = array(
-    0,
-    20,
-    100,
-    350,
-    1000,
-    2500,
+    1 => array(
+      0,
+      20,
+      100,
+      350,
+      1000,
+      2500,
+      PHP_INT_MAX
+    ),
+    2 => array(
+      0,
+      10,
+      50,
+      175,
+      500,
+      1250,
+      PHP_INT_MAX
+    ),
+    3 => array(
+      0,
+      2,
+      10,
+      35,
+      100,
+      250,
+      PHP_INT_MAX
+    ),
   );
 
-  return $min_count[$level];
+  return $min_count[$comp_level][$level];
 
 }
 

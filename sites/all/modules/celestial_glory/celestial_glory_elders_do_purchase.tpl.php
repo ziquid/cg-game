@@ -5,8 +5,6 @@
   $fetch_user = '_' . arg(0) . '_fetch_user';
   $fetch_header = '_' . arg(0) . '_header';
 
-// mail('joseph@cheek.com', 'testing 5', 'got here!');
-
   $purchasing_luck = TRUE;
   $game_user = $fetch_user();
 
@@ -119,6 +117,7 @@ response status is: ' . $response->status);
   }
 //  drupal_goto($game . '/elders/' . $phone_id);
 
-  echo 'YES';
+  competency_gain($game_user, 'lucky', 3);
 
+  echo 'YES';
   exit;

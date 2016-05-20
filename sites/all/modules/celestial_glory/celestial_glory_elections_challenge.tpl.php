@@ -483,7 +483,8 @@ mail('joseph@cheek.com',
       date('Y-m-d', time() - 1728000),
       $game_user->fkey_neighborhoods_id);
 
-  } else if ($item->type == 2) { // party
+  }
+  else if ($item->type == 2) { // party
 
     $sql = 'SELECT users.*, clan_members.fkey_clans_id,
       ua_ip.`value` AS last_IP, ua_sdk.`value` AS sdk
@@ -510,7 +511,8 @@ mail('joseph@cheek.com',
     $result = db_query($sql, date('Y-m-d', time() - 1728000),
       date('Y-m-d', time() - 1728000), $game_user->fkey_values_id);
 
-  } else if ($item->type == 3) { // district
+  }
+  else if ($item->type == 3) { // district
 
     $sql = 'SELECT users.*, clan_members.fkey_clans_id,
       ua_ip.`value` AS last_IP, ua_sdk.`value` AS sdk
@@ -817,8 +819,7 @@ firep('resident votes for incumbent');
 
   } // foreach voter
 firep('total votes are ' . $votes);
-firep('voter IP array:');
-firep($ip_array);
+firep($ip_array, 'voter IP array');
 
   $experience_change = mt_rand(10 + ($game_user->level * 2),
     15 + ($game_user->level * 3)); // influence changed
@@ -837,6 +838,9 @@ firep($ip_array);
 
   if ($votes < 0) { // you won!  woohoo!
 
+    competency_gain($game_user, 'breacher');
+    competency_gain($game_user, $item->ep_name, 3);
+
     if (substr($phone_id, 0, 3) == 'ai-')
       echo "<!--\n<ai \"election-won\"/>\n-->";
 
@@ -848,6 +852,8 @@ firep($ip_array);
 
     if ($item->ep_id == 1) {
 // you beat the Alderman - all officials in that neighborhood lose their seats
+
+      competency_gain($game_user, 'revolutionary', 3);
 
       $data = array();
       $sql = 'SELECT users.id FROM elected_officials
@@ -866,6 +872,7 @@ firep($ip_array);
         $sql = 'insert into challenge_messages (fkey_users_from_id,
           fkey_users_to_id, message) values (%d, %d, "%s");';
         $result = db_query($sql, $game_user->id, $official->id, $message);
+        competency_gain($official, 'partisan', 2);
 
       }
 
@@ -944,6 +951,8 @@ EOF;
           array('@place' => $all_officials_in)) . '</div>';
 
   } else { // you lost
+
+    competency_gain($item, 'holder');
 
     if (substr($phone_id, 0, 3) == 'ai-')
       echo "<!--\n<ai \"election-lost\"/>\n-->";

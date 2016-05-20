@@ -251,7 +251,7 @@
 
   if ($quest_succeeded) {
 
-    competency_gain($game_user, 'questing');
+    competency_gain($game_user, 'quester');
 
     $old_energy = $game_user->energy;
     $game_user->energy -= $game_quest->required_energy;
@@ -315,6 +315,8 @@
 
       if ($pc->bonus_given < $percentage_divisor) {
 
+        competency_gain($game_user, 'quest finisher');
+
         $game_user->experience += $game_quest->experience;
         $game_user->money += $money_added;
 
@@ -374,6 +376,7 @@ EOF;
   have <span class="highlighted">$quest_group->completed</span> new skill points
   to spend</a></p>
 EOF;
+          competency_gain($game_user, 'quest groupie', 3);
 
 // update user stats
           $sql = 'update users set skill_points = skill_points + %d
@@ -422,6 +425,8 @@ EOF;
 
         if ($quest_group->completed == ($quest_group->total * 2)) {
 // woohoo!  user just completed an entire group the second time!
+
+          competency_gain($game_user, 'second-mile saint', 3);
 
           $sql = 'select * from quest_group_bonus
             where fkey_quest_groups_id = %d;';
@@ -811,6 +816,8 @@ EOF;
 EOF;
 
 // add/update db entry
+
+        competency_gain($game_user, 'looter');
 
         if ($game_quest->fkey_loot_equipment_id == 51 &&
           $event_type == EVENT_GATHER_AMETHYST) {

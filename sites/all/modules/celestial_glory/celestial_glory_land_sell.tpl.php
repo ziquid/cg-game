@@ -70,6 +70,12 @@
 //    $game_user->money -= $game_land->price;
 //    $game_user->income += $game_land->payout;
 
+    competency_gain($game_user, 'seller');
+
+    if ($quantity >= 100) {
+      competency_gain($game_user, 'master seller');
+    }
+
     $sql = 'update land_ownership set quantity = quantity - %d where
       fkey_land_id = %d and fkey_users_id = %d;';
       $result = db_query($sql, $quantity, $land_id, $game_user->id);

@@ -45,7 +45,6 @@
 EOF;
 
     db_set_active('default');
-
     return;
 
   }
@@ -53,10 +52,15 @@ EOF;
 // if they have chosen a clan
   if ($clan_id != 0) {
 
-    if ($clan_id == $game_user->fkey_values_id) // no change?  just show stats
+    if ($clan_id == $game_user->fkey_values_id) { // no change?  just show stats
+      db_set_active('default');
       drupal_goto($game . '/user/' . $arg2);
+    }
 
 // changing clans?  dock experience, bring level down to match
+
+    competency_gain($game_user, 'dissenter', 3);
+
     $new_experience = floor($game_user->experience * 0.75);
     if ($new_experience < 75) $new_experience = 75;
 
@@ -124,12 +128,15 @@ EOF;
     $set_value = '_' . arg(0) . '_set_value';
     $set_value($game_user->id, 'next_major_action', time() + 86400);
 
-    if ($game_user->clan == 0) // first time choosing?  go to debates
+    if ($game_user->clan == 0) { // first time choosing?  go to debates
+      db_set_active('default');
       drupal_goto($game . '/debates/' . $arg2);
+    }
 
 // otherwise keep him/her from challenging for a day
 // and show his/her character profile
     $set_value($game_user->id, 'cant_challenge', time() + 86400);
+    db_set_active('default');
     drupal_goto($game . '/user/' . $arg2);
 
   }
@@ -215,4 +222,3 @@ EOF;
   echo '</div>';
 
   db_set_active('default');
-

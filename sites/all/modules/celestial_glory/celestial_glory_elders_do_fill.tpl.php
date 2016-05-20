@@ -71,6 +71,7 @@ EOF;
 
       if ($game_user->luck < 1) {
 
+        competency_gain($game_user, 'out of luck');
         $fetch_header($game_user);
 
         echo '<div class="land-failed">' . t('Out of @s!', array('@s' => $luck))
@@ -85,6 +86,7 @@ EOF;
 
       }
 
+      competency_gain($game_user, 'refueler');
       if ($game_user->actions < $game_user->actions_max) {
         $sql = 'update users set actions = actions_max, luck = luck - 1
           where id = %d;';
@@ -97,6 +99,7 @@ EOF;
 
       if ($game_user->luck < 1) {
 
+        competency_gain($game_user, 'out of luck');
         $fetch_header($game_user);
 
         echo '<div class="land-failed">' . t('Out of @s!', array('@s' => $luck))
@@ -111,6 +114,7 @@ EOF;
 
       }
 
+      competency_gain($game_user, 'refueler');
       if ($game_user->energy < $game_user->energy_max) {
 
         $sql = 'update users set energy = energy_max, luck = luck - 1
@@ -125,6 +129,7 @@ EOF;
 
       if ($game_user->luck < 1) {
 
+        competency_gain($game_user, 'out of luck');
         $fetch_header($game_user);
 
         echo '<div class="land-failed">' . t('Out of @s!', array('@s' => $luck))
@@ -139,6 +144,7 @@ EOF;
 
       }
 
+      competency_gain($game_user, 'refueler');
       $offer = ($game_user->income - $game_user->expenses) * 5;
       $offer = min($offer, $game_user->level * 10000);
       $offer = max($offer, $game_user->level * 100);
@@ -151,4 +157,5 @@ EOF;
 
   }
 
+  db_set_active('default');
   drupal_goto($game . '/user/' . $arg2);

@@ -22,6 +22,8 @@
   $offer = min($offer, $game_user->level * 10000);
   $offer = max($offer, $game_user->level * 100);
 
+  competency_gain($game_user, 'seeks wisdom');
+
   echo <<< EOF
 <div class="title">Visit the $elders</div>
 <div class="subtitle">You have $game_user->luck&nbsp;$luck</div>

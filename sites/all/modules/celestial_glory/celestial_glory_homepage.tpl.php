@@ -15,6 +15,8 @@
 
   $message = check_plain($_GET['message']);
 
+  competency_gain($game_user, 'where the heart is');
+
   if ($game_user->level < 6) {
 
     echo <<< EOF

@@ -34,12 +34,17 @@
   $result = db_query($sql, $game_user->id, $equipment_id);
   $game_equipment = db_fetch_object($result); // limited to 1 in DB
   $orig_quantity = $count = $quantity;
-  $equipment_price = 0;
+  $equipment_price = $max_affordable = 0;
 
   while ($count--) {
 
     $equipment_price += $game_equipment->price +
       (($game_equipment->quantity + $count) *  $game_equipment->price_increase);
+
+    if ($equipment_price <= $game_user->money) {
+      $max_affordable = $orig_quantity - $count;
+    }
+
 // firep("count is $count and equipment_price is $equipment_price");
   }
 // firep($game_equipment);
@@ -54,6 +59,8 @@
 
 // enough money?
   if ($game_user->money < $equipment_price) {
+
+    competency_gain($game_user, 'broke');
 
     $equipment_succeeded = FALSE;
     $ai_output = 'equipment-failed no-money';
@@ -102,7 +109,7 @@
     $ai_output = 'equipment-failed loot-only';
     $outcome_reason = '<div class="land-failed">' . t('Sorry!') .
       '</div><div class="subtitle">' .
-      t('This item cannot be purchased &mdash;<br/>it must be earned') .
+      t('This item cannot be purchased &mdash;<br>it must be earned') .
       '</div><br/>';
 
   }
@@ -116,7 +123,7 @@
     $ai_output = 'equipment-failed wrong-hood';
     $outcome_reason = '<div class="land-failed">' . t('Sorry!') .
       '</div><div class="subtitle">' .
-      t('You have searched all of @location<br/>but you cannot find this item here',
+      t('You have searched all of @location<br>but you cannot find this item here',
         array('@location' => $game_user->location)) .
       '</div><br/>';
 
@@ -131,7 +138,7 @@
     $ai_output = 'equipment-failed wrong-party';
     $outcome_reason = '<div class="land-failed">' . t('Sorry!') .
       '</div><div class="subtitle">' .
-      t('No one seems willing to sell this item<br/>to a member of your @party',
+      t('No one seems willing to sell this item<br>to a member of your @party',
         array('@party' => $party_small_lower)) .
       '</div><br/>';
 
@@ -151,6 +158,12 @@
   }
 
   if ($equipment_succeeded) {
+
+    competency_gain($game_user, 'buyer');
+
+    if ($quantity >= 100) {
+      competency_gain($game_user, 'big spender');
+    }
 
     if ($game_equipment->quantity == '') { // no record exists - insert one
 
@@ -349,12 +362,19 @@ EOF;
         <select name="quantity">
 EOF;
 
+    if ($max_affordable) {
+      echo '<option selected="selected" value="' . $max_affordable . '">'
+      . $max_affordable . '</option>';
+      $orig_quantity = 0;
+    }
+
     foreach (array(1, 5, 10, 25, 50, 100) as $option) {
 
       if ($option == $orig_quantity) {
         echo '<option selected="selected" value="' . $option . '">' .
           $option . '</option>';
-      } else {
+      }
+      else {
         echo '<option value="' . $option . '">' . $option . '</option>';
       }
 

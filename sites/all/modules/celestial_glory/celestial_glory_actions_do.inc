@@ -963,6 +963,8 @@ EOF;
 
     $result = db_query($sql, $game_user->id, $target_id, $message);
 
+    competency_gain($target_user, 'outcast');
+
 // move user, empty Action
     $sql = 'update users set fkey_neighborhoods_id =
       (select fkey_neighborhoods_id from `values` where id = %d),

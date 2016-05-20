@@ -36,6 +36,10 @@
     $land_price += $game_land->price + (($game_land->quantity + $count) *
       $game_land->price_increase);
 
+    if ($land_price <= $game_user->money) {
+      $max_affordable = $orig_quantity - $count;
+    }
+
   }
 
   $land_succeeded = TRUE;
@@ -48,6 +52,8 @@
 // not enough money
 
   if ($game_user->money < $land_price) {
+
+    competency_gain($game_user, 'broke');
 
     $land_succeeded = FALSE;
     $ai_output = 'land-failed no-money';
@@ -120,6 +126,12 @@
 
 //    $game_user->money -= $game_land->price;
 //    $game_user->income += $game_land->payout;
+
+    competency_gain($game_user, 'buyer');
+
+    if ($quantity >= 100) {
+      competency_gain($game_user, 'big spender');
+    }
 
     if ($game_land->quantity == '') { // no record exists - insert one
 
@@ -229,6 +241,12 @@ firep("quantity: $quantity");
       <div class="quantity">
         <select name="quantity">
 EOF;
+
+  if ($max_affordable) {
+    echo '<option selected="selected" value="' . $max_affordable . '">'
+    . $max_affordable . '</option>';
+    $orig_quantity = 0;
+  }
 
   foreach (array(1, 5, 10, 25, 50, 100) as $option) {
 

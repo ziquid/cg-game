@@ -113,6 +113,8 @@ EOF;
 // check to see if prerequisites are met
   if ($game_user->actions < $action->cost) {
 
+    competency_gain($game_user, 'actionless');
+
     $action_succeeded = FALSE;
     $outcome_reason = '<div class="land-failed">' . t('Out of Action!') .
       '</div>';
@@ -129,6 +131,8 @@ EOF;
 
   if (($game_user->money < $action->values_cost) &&
     ($action->values_cost > 0)) {
+
+    competency_gain($game_user, 'broke');
 
     $action_succeeded = FALSE;
     $outcome_reason = '<div class="land-failed">' .
@@ -279,6 +283,13 @@ if ($action_succeeded) {
   if ($action->neighborhood_rating_change != 0) {
 
     $rat_change = $action->neighborhood_rating_change;
+
+    if ($rat_change > 0) {
+      competency_gain($game_user, 'pious');
+    }
+    else {
+      competency_gain($game_user, 'reveler');
+    }
 
     // affect rating
     $sql = 'update neighborhoods
