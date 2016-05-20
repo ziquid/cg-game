@@ -1994,7 +1994,10 @@ function competency_gain($game_user, $id, $level = 1) {
   $result = db_query($sql, $id, $game_user->id);
   $data = db_fetch_object($result);
 
-  if ((time() - strtotime($date->timestamp)) < 300) {
+firep(time(), 'time now');
+firep(strtotime($data->timestamp), 'last gain');
+firep(time() - strtotime($data->timestamp), 'difference');
+  if ((time() - strtotime($data->timestamp)) < 300) {
 firep('Last gain of competency ' . $item->name . ' too recent');
     return FALSE;
   }
