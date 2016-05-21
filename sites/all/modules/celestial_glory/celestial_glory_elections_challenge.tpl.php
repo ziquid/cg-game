@@ -43,7 +43,6 @@ EOF;
     $result = db_query($sql, $game_user->id);
 
     db_set_active('default');
-
     return;
 
   }
@@ -79,7 +78,6 @@ EOF;
 EOF;
 
     db_set_active('default');
-
     return;
 
   }
@@ -187,6 +185,8 @@ EOF;
 
   if ($game_user->actions < $item->energy_bonus) { // not enough action left
 
+    competency_gain($game_user, 'actionless');
+
     $fetch_header($game_user);
 
     echo <<< EOF
@@ -210,6 +210,8 @@ EOF;
 
   if (empty($item->id)) {
 // if you are running without an opponent, you automatically win
+
+    competency_gain($game_user, 'unopposed');
 
     if ($item->type == 2) { // party office
 // make it so s/he can't perform a major action for a day
