@@ -25,16 +25,22 @@
 
     if ($clan->fkey_clans_id != $msg->fkey_clans_id) { // not same clan?  uhoh!
   // FIXME jwc 10Apr2014 -- deduct karma
+      db_set_active('default');
       drupal_goto($game . '/home/' . $arg2);
     }
 
     if (!$clan->is_clan_leader) { // not clan leader?  uhoh!
   // FIXME jwc 10Apr2014 -- deduct karma
+      db_set_active('default');
       drupal_goto($game . '/home/' . $arg2);
     }
 
  } // not abc123
 
+  competency_gain($game_user, 'pruner');
+
   $sql = 'delete from clan_messages where id = %d;';
   $result = db_query($sql, $msg_id);
+
+  db_set_active('default');
   drupal_goto($game . '/clan_msg/' . $arg2 . '/' . $clan->fkey_clans_id);

@@ -18,9 +18,14 @@
 
   if ($msg->fkey_users_to_id != $game_user->id) { // not recipient of msg?
 // FIXME jwc 10Apr2014 -- deduct karma
+    db_set_active('default');
     drupal_goto($game . '/home/' . $arg2);
   }
 
+  competency_gain($game_user, 'pruner');
+
   $sql = 'delete from user_messages where id = %d;';
   $result = db_query($sql, $msg_id);
+
+  db_set_active('default');
   drupal_goto($game . '/user/' . $arg2);
