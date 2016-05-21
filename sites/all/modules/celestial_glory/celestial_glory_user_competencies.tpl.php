@@ -62,6 +62,8 @@
 <div class="title">
   $item->ep_name <span class="username">$item->username</span> $clan_acronym
 </div>
+<div class="subsubtitle">Recently-increased competencies are yellow</div>
+<div class="subsubtitle">Wait a few minutes before increasing them</div>
 <div class="user-profile">
 EOF;
 
@@ -85,14 +87,19 @@ EOF;
           intval($comp->fkey_competencies_id))
       );
 // Quick-n-dirty: merge the two arrays
-
+// firep($comp, 'competency');
       $pip = '';
 
       for ($c = 1; $c <= 5; $c++) {
-
         $competent = ($c <= $comp->level) ? 'attained' : '';
         $pip .= '<span class="competency-pip ' . $competent . '"></span>';
+      }
 
+      if ((time() - strtotime($comp->timestamp)) < 300) {
+        $too_soon = 'too-soon';
+      }
+      else {
+        $too_soon = '';
       }
 
       $need_more = $comp->next - $comp->use_count;
@@ -106,7 +113,7 @@ EOF;
   <div class="heading wider initial-caps">$comp->name :</div>
   <div class="value">
     $pip
-    <span class="small">
+    <span class="small $too_soon">
       &nbsp;($comp->level_name, next: +$need_more)
     </span>
   </div>

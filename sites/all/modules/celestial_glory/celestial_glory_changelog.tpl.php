@@ -22,6 +22,15 @@
   </div>
 
   <div class="subtitle">
+    v2.1.1, 20 May 2016
+  </div>
+  <ul>
+    <li>
+      Highlight competencies that have been recently increased.
+    </li>
+  </ul>
+
+  <div class="subtitle">
     v2.1, 20 May 2016
   </div>
   <ul>

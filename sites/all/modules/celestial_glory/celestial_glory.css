@@ -391,3 +391,7 @@ a.version {
 .competency-pip.attained {
   border-right: solid 2px yellow !important;
 }
+
+.too-soon {
+  color: rgba(255, 255, 70, 0.7);
+}
