@@ -86,7 +86,7 @@ EOF;
 
       }
 
-      competency_gain($game_user, 'refueler');
+      competency_gain($game_user, 'refueler', 2);
       if ($game_user->actions < $game_user->actions_max) {
         $sql = 'update users set actions = actions_max, luck = luck - 1
           where id = %d;';
@@ -114,7 +114,7 @@ EOF;
 
       }
 
-      competency_gain($game_user, 'refueler');
+      competency_gain($game_user, 'refueler', 2);
       if ($game_user->energy < $game_user->energy_max) {
 
         $sql = 'update users set energy = energy_max, luck = luck - 1
@@ -144,7 +144,7 @@ EOF;
 
       }
 
-      competency_gain($game_user, 'refueler');
+      competency_gain($game_user, 'refueler', 2);
       $offer = ($game_user->income - $game_user->expenses) * 5;
       $offer = min($offer, $game_user->level * 10000);
       $offer = max($offer, $game_user->level * 100);

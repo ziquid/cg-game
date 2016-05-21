@@ -90,6 +90,8 @@ EOF;
 
     $money = ceil($money);
 
+    competency_gain($game_user, 'daily bonus');
+
 firep("adding $money money because last_bonus_date = $last_bonus_date");
 
     $sql = 'update users set money = money + %d, last_bonus_date = "%s"
