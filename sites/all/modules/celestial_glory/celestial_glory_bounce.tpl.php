@@ -9,6 +9,12 @@
     $phone_id = $get_id();
 // echo $phone_id;
     echo <<< EOF
+<style>
+img {
+  text-align: center;
+}
+</style>
+<img src="/sites/default/files/images/cg_splash_new.jpg"/>
 <form method=post action="/$game/home/$arg2">
 <input type="Submit" value="Continue to the game"/>
 </form>
