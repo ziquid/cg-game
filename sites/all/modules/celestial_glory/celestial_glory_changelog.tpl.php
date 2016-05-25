@@ -22,6 +22,18 @@
   </div>
 
   <div class="subtitle">
+    v2.1.2, 25 May 2016
+  </div>
+  <ul>
+    <li>
+      Decrease energy time from five minutes to four minutes.
+    </li>
+    <li>
+      Fix FB login.
+    </li>
+  </ul>
+
+  <div class="subtitle">
     v2.1.1, 20 May 2016
   </div>
   <ul>

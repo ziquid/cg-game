@@ -1370,7 +1370,6 @@ function _celestial_glory_reset_event_tags_con($id) {
 function _celestial_glory_fetch_user() {
 
   global $game, $phone_id, $extra_messages, $next_level, $user;
-//   include (drupal_get_path('module', $game) . '/game_defs.inc');
 
 // only allow access through authorized clients
   if ((strpos($_SERVER['HTTP_USER_AGENT'], 'com.ziquid.celestialglory') === FALSE) &&
@@ -1430,6 +1429,7 @@ function _celestial_glory_fetch_user() {
   $arg2 = check_plain(arg(2));
   db_set_active('game_' . $game);
 
+  include (drupal_get_path('module', $game) . '/game_defs.inc');
 
 // check for banned users -- phone_id
 
@@ -1634,8 +1634,8 @@ firep($game_user);
 
     $changes_made = TRUE;
     $game_user->energy += $energy_bonus; // add 10 energy
-    $energy_next_gain += 300; // next add in $energy_wait secs
-    $secs_until += 300; // ditto
+    $energy_next_gain += $energy_wait; // next add in $energy_wait secs
+    $secs_until += $energy_wait; // ditto
 
   }
 
