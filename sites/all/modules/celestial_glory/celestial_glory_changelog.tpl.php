@@ -22,6 +22,18 @@
   </div>
 
   <div class="subtitle">
+    v2.1.3, 25 May 2016
+  </div>
+  <ul>
+    <li>
+      Add another competency
+    </li>
+    <li>
+      Show how many competencies found on competency screen.
+    </li>
+  </ul>
+
+  <div class="subtitle">
     v2.1.2, 25 May 2016
   </div>
   <ul>

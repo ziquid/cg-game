@@ -86,6 +86,8 @@ firep($actions_to_move);
 
     if ($game_user->actions < $actions_to_move) {
 
+      competency_gain($game_user, 'actionless');
+
       $fetch_header($game_user);
 
       echo '<div class="land-failed">' . t('Out of Action!') .
@@ -108,6 +110,10 @@ firep($actions_to_move);
       db_set_active('default');
       return;
 
+    }
+
+    if (empty($eq->action_verb)) {
+      competency_gain($game_user, 'primary children singing');
     }
 
     competency_gain($game_user, 'wanderlust');

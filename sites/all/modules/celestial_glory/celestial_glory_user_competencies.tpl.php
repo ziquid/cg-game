@@ -58,12 +58,32 @@
 
   }
 
+  $sql = 'select count(*) as total from competencies;';
+  $result = db_query($sql);
+  $count = db_fetch_object($result);
+  $total_comps = $count->total - 1;
+
+  $sql = 'select count(*) as total from user_competencies
+    where fkey_users_id = %d;';
+  $result = db_query($sql, $item->id);
+  $count = db_fetch_object($result);
+  $user_comps = $count->total;
+
+  if ($phone_id_to_check == $phone_id) {
+    $stats = t('You have discovered @user out of @total competencies',
+      array('@user' => $user_comps, '@total' => $total_comps));
+  }
+  else {
+    $stats = '';
+  }
+
   echo <<< EOF
 <div class="title">
   $item->ep_name <span class="username">$item->username</span> $clan_acronym
 </div>
-<div class="subsubtitle">Recently-increased competencies are yellow</div>
-<div class="subsubtitle">Wait a few minutes before increasing them</div>
+<div class="subsubtitle">$stats</div>
+<div class="subsubtitle">Recently-increased competencies are yellow<br>
+Wait a few minutes before increasing them</div>
 <div class="user-profile">
 EOF;
 
