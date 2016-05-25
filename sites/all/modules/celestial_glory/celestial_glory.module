@@ -1264,7 +1264,7 @@ function _celestial_glory_get_fbid() {
 
     $app_id = '234564386596716';
     $secret = '0b631d36aaba590fe31b2f1b9392aad7';
-    $canvas_page = 'https://apps.facebook.com/uprisingcelestial_glory/';
+    $canvas_page = 'https://apps.facebook.com/uprisingstlouis/';
 
   } else if (arg(0) == 'celestial_glory') {
 
@@ -1284,9 +1284,9 @@ function _celestial_glory_get_fbid() {
     'cookie' => TRUE,
   ));
 
-//  echo '<pre>'; print_r($_SERVER); echo '</pre>';
+ echo '<pre>'; print_r($_SERVER); echo '</pre>';
   $signed_request = $_REQUEST['signed_request'];
-//  echo '<pre>'; print_r($signed_request); echo '</pre>';
+ echo '<pre>'; print_r($signed_request); echo '</pre>';
 
 // Get User ID
   $user = $facebook->getUser();
