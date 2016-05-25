@@ -1284,12 +1284,13 @@ function _celestial_glory_get_fbid() {
     'cookie' => TRUE,
   ));
 
- echo '<pre>'; print_r($_SERVER); echo '</pre>';
+//   echo '<pre>'; print_r($_SERVER); echo '</pre>';
   $signed_request = $_REQUEST['signed_request'];
  echo '<pre>'; print_r($signed_request); echo '</pre>';
 
 // Get User ID
   $user = $facebook->getUser();
+echo '<pre>'; print_r($user); echo '</pre>';
   if ($user != '0') return 'fb=' . $user;
 
 // getUser() didn't work.  Try oAuth.  Maybe user needs to log in or
