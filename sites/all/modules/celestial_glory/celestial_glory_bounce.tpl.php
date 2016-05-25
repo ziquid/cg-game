@@ -10,8 +10,16 @@
 // echo $phone_id;
     echo <<< EOF
 <style>
-img {
+body {
   text-align: center;
+}
+img {
+  width: 320px;
+}
+input {
+  position: relative;
+  top: -256px;
+  font-size: 200%;
 }
 </style>
 <img src="/sites/default/files/images/cg_splash_new.jpg"/>
