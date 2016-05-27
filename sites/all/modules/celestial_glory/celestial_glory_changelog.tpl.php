@@ -22,11 +22,20 @@
   </div>
 
   <div class="subtitle">
+    v2.1.4, 27 May 2016
+  </div>
+  <ul>
+    <li>
+      Better notification to developers, support for in-game errors.
+    </li>
+  </ul>
+
+  <div class="subtitle">
     v2.1.3, 25 May 2016
   </div>
   <ul>
     <li>
-      Add another competency
+      Add another competency.
     </li>
     <li>
       Show how many competencies found on competency screen.
