@@ -20,6 +20,7 @@
   $energy_wait_str = '4 minutes';
 
   global $game;
+firep('$game in game_defs.inc is :' . $game . ':');
 /*
   if ($game == 'stlouis') {
 
