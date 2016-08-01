@@ -47,6 +47,7 @@
 /* turn off while Amazon is testing -- jwc 10May2014
 // allow multiple from my IP*/
   if (($item->count > 5) && (ip_address() != '14.140.251.170') && // Amazon testing IP
+    (ip_address() != '38.164.20.244') &&
     (ip_address() != '69.64.69.86') &&
     (ip_address() != '64.150.187.146')) {
     db_set_active('default');
