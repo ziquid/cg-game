@@ -169,6 +169,26 @@ function celestial_glory_cron() {
     where roses > 5 and id <> 6;';
   $result = db_query($sql);
 
+  // Move debatebots.
+  $sql = 'select users.id from users
+    where meta = "debatebot";';
+  $result = db_query($sql);
+  $data = array();
+  while ($item = db_fetch_object($result)) $data[] = $item;
+
+  foreach ($data as $item) {
+
+    $sql = 'select id from neighborhoods where has_elections = 1
+      order by rand() limit 1;';
+    $result = db_query($sql);
+    $hood = db_fetch_object($result);
+
+    $sql = 'update users set fkey_neighborhoods_id = %d
+      where id = %d;';
+    $result = db_query($sql, $hood->id, $item->id);
+
+  }
+
   db_set_active('default');
 
 }
