@@ -1,6 +1,6 @@
 <?php
 
-  $version = 'v2.1.4, 27 May 2016';
+  $version = 'v2.1.5, 21 Oct 2016';
 
 //  set_time_limit(10); // this page must not bog down server
 
@@ -367,7 +367,7 @@ if (($today == '2012-12-26') || $game_user->username == 'abc123')
 
       break;
 
-    case EVENT_COMPETENCIES_ANNOUCEMENT:
+    case EVENT_COMPETENCIES_ANNOUNCEMENT:
 
       $event_text = '<div class="event">
           <div class="event-title">
@@ -382,6 +382,24 @@ if (($today == '2012-12-26') || $game_user->username == 'abc123')
           </p>
           <p>
             &ndash; See if you can find all 45! &ndash;
+          </p>
+        </div>';
+
+      break;
+
+    case EVENT_DEBATEBOT_ANNOUNCEMENT:
+
+      $event_text = '<div class="event">
+          <div class="event-title">
+            ~ DebateBots ~
+          </div>
+          <h3>
+            Certain Non-Playing Characters (NPCs) exist solely to debate!
+          </h3>
+          <br>
+          <p>
+            You can only challenge one if it is in your region<br>
+            Beat it in a challenge to make it move
           </p>
         </div>';
 

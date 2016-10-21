@@ -431,6 +431,8 @@ EOF;
     // Debatebots
     if ($item->meta == 'debatebot') {
 
+      competency_gain($game_user, 'beat a bot');
+
       $sql = 'select id from neighborhoods where has_elections = 1
         and id <> %d
         order by rand() limit 1;';

@@ -22,6 +22,17 @@
   </div>
 
   <div class="subtitle">
+    v2.1.5, 21 Oct 2016
+  </div>
+  <ul>
+    <li>
+      Non-Playing Characters &ldquo;The DebateBots&rdquo; now show up on
+      the debate (&ldquo;Trials / Challenges&rdquo;) screen and move to a
+      different region when they are beaten in a debate.
+    </li>
+  </ul>
+
+  <div class="subtitle">
     v2.1.4, 27 May 2016
   </div>
   <ul>
