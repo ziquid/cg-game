@@ -78,7 +78,7 @@ firep($item);
 
   }
 
-  if (($item->meta != 'zombie' &&
+  if (($item->meta != 'zombie' && $item->meta != 'debatebot' &&
     (time() - strtotime($item->debates_last_time)) <= $debate_time) ||
     ($item->meta == 'zombie' &&
     (time() - strtotime($item->debates_last_time)) <= $zombie_debate_wait)) {
@@ -314,9 +314,9 @@ firep("opp total influence: sqrt($item->experience) + ($item->elocution *
 
           $points_to_add = 10;
 
-//          mail('joseph@cheek.com', "Zombie $item->id switched parties",
-//            "$item->username was beaten by super debater $game_user->username"
-//            . " and has switched to $party->clan_title!");
+          slack_send_message("Zombie $item->id ($item->username)"
+          . " was beaten by super debater $game_user->username"
+          . " and has switched to $party->clan_title!");
 
         } else if
           (($clan_player->fkey_clans_id != $clan_zombie->fkey_clans_id) &&
@@ -339,9 +339,9 @@ firep("opp total influence: sqrt($item->experience) + ($item->elocution *
 
           $points_to_add = 15;
 
-//          mail('joseph@cheek.com', "Zombie $item->id joined a clan",
-//            "$item->username was beaten by super debater $game_user->username"
-//            . " and has switched to $clan_name->name!");
+          slack_send_message("Zombie $item->id ($item->username)"
+          . " was beaten by super debater $game_user->username"
+          . " and has switched to $clan_name->name!");
 
 // already party and clan -- move them!
         } else if
@@ -391,15 +391,15 @@ EOF;
 
           $points_to_add = 10;
 
-//          mail('joseph@cheek.com', "Zombie conquered ($item->id)",
-//            "$item->username has five debate losses and has left!");
+          slack_send_message("Conquered zombie $item->id ($item->username)"
+          . " has five debate losses and has left!", $slack_channel);
 
       } else { // not 5 losses yet
 
         $points_to_add = ($item->debates_lost + 1) * 2;
 
-//        mail('joseph@cheek.com', "Zombie beaten but not conquered ($item->id)",
-//          "$item->username has less than five debate losses");
+        slack_send_message("Unconquered zombie $item->id ($item->username)"
+        . " has less than five debate losses", $slack_channel);
 
       } // # of losses
 
@@ -427,6 +427,27 @@ EOF;
 EOF;
 
     } // a zombie?
+
+    // Debatebots
+    if ($item->meta == 'debatebot') {
+
+      $sql = 'select id from neighborhoods where has_elections = 1
+        and id <> %d
+        order by rand() limit 1;';
+      $result = db_query($sql, $item->fkey_neighborhoods_id);
+      $hood = db_fetch_object($result);
+
+      $sql = 'update users set fkey_neighborhoods_id = %d
+        where id = %d;';
+      $result = db_query($sql, $hood->id, $item->id);
+
+      echo '<div class="subtitle">' . $item->username
+      . ' has retreated to another region.</div>';
+
+      slack_send_message("$item->username has lost a debate and moved to"
+        . " a new region.", $slack_channel);
+
+    }
 /*
 // flag day -- did they get a flag?
     $sql = 'select * from equipment_ownership where fkey_users_id = %d
@@ -531,8 +552,7 @@ firep("update equipment_ownership set fkey_users_id = $game_user->id
       echo '<div class="subtitle">' . $item->username .
         ' has gained 1000 influence.</div>';
 
-//      mail('joseph@cheek.com', "Zombie $item->id won the debate!",
-//        "growing stronger...");
+      slack_send_message("Zombie $item->id won the debate!");
 
     }
 

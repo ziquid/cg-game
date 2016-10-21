@@ -111,19 +111,25 @@ EOF;
     LEFT OUTER JOIN neighborhoods
       ON users.fkey_neighborhoods_id = neighborhoods.id
     WHERE users.id <> %d
-    AND (clans.id <> %d OR clans.id IS NULL OR users.meta = "zombie")
+    AND (clans.id <> %d OR clans.id IS NULL OR users.meta = "zombie"
+      OR users.meta = "debatebot")
     AND username <> ""
-    AND (debates_last_time < "%s" OR
-     (users.meta = "zombie" AND debates_last_time < "%s"))
-    AND users.level > %d
-    AND users.level < %d
-    ORDER BY abs(users.experience - %d) ASC
-    LIMIT 12;'; // and users.fkey_neighborhoods_id = %d
+    AND (
+      debates_last_time < "%s"
+      OR (users.meta = "zombie" AND debates_last_time < "%s")
+      OR (users.meta = "debatebot")
+      )
+    AND (
+      (users.level > %d AND users.level < %d)
+      OR (users.meta = "debatebot" AND users.fkey_neighborhoods_id = %d)
+      )
+    ORDER BY users.meta DESC, abs(users.experience - %d) ASC
+    LIMIT 12;';
   $result = db_query($sql, $game_user->id, $game_user->fkey_clans_id,
     date('Y-m-d H:i:s', time() - $debate_time),
     date('Y-m-d H:i:s', time() - $zombie_debate_wait),
-    $game_user->level - 15,
-    $game_user->level + 15, $game_user->experience);
+    $game_user->level - 15, $game_user->level + 15,
+    $game_user->fkey_neighborhoods_id, $game_user->experience);
 // jwc flag day - make debates much more active
   $count = 12;
   while ($count-- && $item = db_fetch_object($result)) $data[] = $item;
