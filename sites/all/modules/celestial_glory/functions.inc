@@ -2100,7 +2100,7 @@ function NO_karma($game_user, $text, $quantity) {
 
 function competency_level($game_user, $id) {
 // return the user's competency level [0..5] for a given competency
-  include(drupal_get_path('module', $game) . '/game_defs.inc');
+  include(drupal_get_path('module', check_plain(arg(0))) . '/game_defs.inc');
 
   if (gettype($id) == 'string') { // find id from string
 

@@ -410,10 +410,8 @@ EOF;
       $row = db_fetch_object($result);
 
       if (empty($row)) {
-
         $sql = 'insert into event_points set fkey_users_id = %d;';
         $result = db_query($sql, $game_user->id);
-
       }
 
       $points = $row->points + $points_to_add;
@@ -448,6 +446,22 @@ EOF;
 
       slack_send_message("$item->username has lost a debate and moved to"
         . " a new region.", $slack_channel);
+
+      // Give debatebot another token.
+      $sql = 'select * from equipment_ownership where fkey_users_id = %d
+        and fkey_equipment_id = %d;';
+      $result = db_query($sql, $item->id, $item->meta_int);
+      $row = db_fetch_object($result);
+
+      if (empty($row)) {
+        $sql = 'insert into equipment_ownership set fkey_users_id = %d,
+          fkey_equipment_id = %d, quantity = 1;';
+      }
+      else {
+        $sql = 'update equipment_ownership set quantity = quantity + 1
+          where fkey_users_id = %d and fkey_equipment_id = %d;';
+      }
+      $result = db_query($sql, $item->id, $item->meta_int);
 
     }
 /*
