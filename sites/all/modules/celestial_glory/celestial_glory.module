@@ -183,7 +183,7 @@ function celestial_glory_cron() {
     $result = db_query($sql);
     $hood = db_fetch_object($result);
 
-    $sql = 'update users set fkey_neighborhoods_id = %d
+    $sql = 'update users set fkey_neighborhoods_id = %d, money = money + 100
       where id = %d;';
     $result = db_query($sql, $hood->id, $item->id);
 
