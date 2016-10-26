@@ -212,7 +212,7 @@ li {
   background-color: #442211;
 }
 
-.level-up .with-image {
+.level-up.with-image {
   min-height: 128px;
 }
 
