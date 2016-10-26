@@ -2893,3 +2893,35 @@ function send_user_message($from, $to, $private = 0, $message) {
   db_query($sql, $from, $to, $private, $message);
 
 }
+
+function game_zombie_name() {
+
+  $first = array(
+    'Angry',
+    'Beastly',
+    'Creepy',
+    'Dreadful',
+    'Eerie',
+    'Ferocious',
+    'Gruesome',
+    'Heinous',
+    'Infected',
+    'Jaundiced',
+  ); // https://s-media-cache-ak0.pinimg.com/736x/d5/87/a4/d587a4917ff097a6ed2697e5b84dc4c7.jpg
+
+  $last = array(
+    'Rotten',
+    'Stinky',
+    'Twitcher',
+    'Undead',
+    'Vicious',
+    'Werewolf',
+    'Xtra Creep',
+    'Yellow',
+    'Zero',
+  );
+
+  return 'Zombie ' . $first[mt_rand(0, count($first) - 1)] . ' '
+    . $last[mt_rand(0, count($last) - 1)];
+
+}

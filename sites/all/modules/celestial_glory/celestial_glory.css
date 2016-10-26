@@ -212,6 +212,10 @@ li {
   background-color: #442211;
 }
 
+.level-up .with-image {
+  min-height: 128px;
+}
+
 .choose-clan-name {
   margin-left: 6px;
   font-weight: bold;
