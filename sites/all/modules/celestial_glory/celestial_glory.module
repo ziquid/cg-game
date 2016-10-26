@@ -1898,12 +1898,12 @@ firep('a prize is deserved!');
       if ($new_goal_obj->points == 0) $new_goal_obj->points = 99999999;
 
 // which prize should be given?
-      if ($goal_obj->points >= 50000) {
-        $prize_id = 37; // large gift
-      } else if ($goal_obj->points >= 5000) {
-        $prize_id = 36; // med gift
+      if ($goal_obj->points >= 5000) {
+        $prize_id = 66; // large gift
+      } else if ($goal_obj->points >= 500) {
+        $prize_id = 65; // med gift
       } else {
-        $prize_id = 35; // small gift
+        $prize_id = 64; // small gift
       }
 
 // does user have any of this present?
