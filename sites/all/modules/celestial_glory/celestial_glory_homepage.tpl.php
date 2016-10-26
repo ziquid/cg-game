@@ -412,7 +412,7 @@ if (($today == '2012-12-26') || $game_user->username == 'abc123')
             ~ Zombies ~
           </div>
           <h3>
-            It's that time of year again!  Challenge zombies to win prizes!
+            It\'s that time of year again!  Challenge zombies to win prizes!
           </h3>
           <br>
           <p>
