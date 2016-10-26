@@ -405,6 +405,24 @@ if (($today == '2012-12-26') || $game_user->username == 'abc123')
 
       break;
 
+    case EVENT_ZOMBIE_ANNOUNCEMENT:
+
+      $event_text = '<div class="event">
+          <div class="event-title">
+            ~ Zombies ~
+          </div>
+          <h3>
+            It's that time of year again!  Challenge zombies to win prizes!
+          </h3>
+          <br>
+          <p>
+            Super debaters can control zombies<br>
+            Normal debaters can make zombies disappear
+          </p>
+        </div>';
+
+      break;
+
   }
 
 // dead presidents event

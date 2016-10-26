@@ -22,6 +22,15 @@
   </div>
 
   <div class="subtitle">
+    v2.1.6, 26 Oct 2016
+  </div>
+  <ul>
+    <li>
+      Support for zombies and prizes for points.
+    </li>
+  </ul>
+
+  <div class="subtitle">
     v2.1.5, 21 Oct 2016
   </div>
   <ul>
