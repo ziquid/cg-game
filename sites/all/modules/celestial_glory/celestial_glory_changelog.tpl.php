@@ -28,6 +28,9 @@
     <li>
       Hunt for zombies action.
     </li>
+    <li>
+      New zombies are now level 25 or higher.
+    </li>
   </ul>
 
   <div class="subtitle">
