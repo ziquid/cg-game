@@ -4323,21 +4323,24 @@ EOF;
     $data = array();
     while ($item = db_fetch_object($result)) $data[] = $item;
 
+    $sql = 'insert into user_messages (fkey_users_from_id,
+      fkey_users_to_id, message) values (%d, %d, "%s");';
     foreach ($data as $item) {
-
-      $sql = 'insert into user_messages (fkey_users_from_id,
-        fkey_users_to_id, message) values (%d, %d, "%s");';
       $result = db_query($sql, $item->id, $game_user->id,
-        $item->username . ' ' . $item->id . ' loves politicsss...');
-
+        $item->username . ' ' . $item->id . ' loves brainsss...');
     }
 
     $num = count($data);
-
     $outcome_reason .= '<div class="subtitle">' . $num .
-      ' Dead Presidents have posted on your wall</div>';
+      ' zombies have posted on your wall</div>';
     return TRUE;
+  }
 
+  function _celestial_glory_action_hunt_for_zombies_function(&$outcome_reason,
+    $target, &$can_do_again) {
+
+    return _stlouis_action_hunt_for_zombies_function($outcome_reason,
+      $target, $can_do_again);
   }
 
 

@@ -22,6 +22,15 @@
   </div>
 
   <div class="subtitle">
+    v2.1.7, 31 Oct 2016
+  </div>
+  <ul>
+    <li>
+      Hunt for zombies action.
+    </li>
+  </ul>
+
+  <div class="subtitle">
     v2.1.6, 26 Oct 2016
   </div>
   <ul>

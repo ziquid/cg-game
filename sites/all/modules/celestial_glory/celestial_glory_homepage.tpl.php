@@ -1,6 +1,6 @@
 <?php
 
-  $version = 'v2.1.5, 21 Oct 2016';
+  $version = 'v2.1.7, 31 Oct 2016';
 
 //  set_time_limit(10); // this page must not bog down server
 
@@ -417,7 +417,8 @@ if (($today == '2012-12-26') || $game_user->username == 'abc123')
           <br>
           <p>
             Super debaters can control zombies<br>
-            Normal debaters can make zombies disappear
+            Normal debaters can make zombies disappear<br>
+            Use the new action <strong>&ldquo;Hunt for zombies&rdquo;</strong> to find them
           </p>
         </div>';
 
