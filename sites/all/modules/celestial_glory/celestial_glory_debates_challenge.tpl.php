@@ -320,7 +320,7 @@ firep("opp total influence: sqrt($item->experience) + ($item->elocution *
 
         } else if
           (($clan_player->fkey_clans_id != $clan_zombie->fkey_clans_id) &&
-          ($clan_player->fkey_clans_id > 0) || $phone_id == 'abc123') {
+          ($clan_player->fkey_clans_id > 0)) {
 // second -- join clan
 
           $sql = 'delete from clan_members where fkey_users_id = %d;';
@@ -348,7 +348,6 @@ firep("opp total influence: sqrt($item->experience) + ($item->elocution *
           ((($clan_player->fkey_clans_id == $clan_zombie->fkey_clans_id) &&
           ($clan_player->fkey_clans_id > 0) &&
           ($item->fkey_values_id == $game_user->fkey_values_id))
-          || $phone_id == 'abc123'
           ) { // move them!
 
           $hoods = array();
