@@ -282,7 +282,8 @@ firep("opp total influence: sqrt($item->experience) + ($item->elocution *
 
       $points_to_add = 0;
 
-      if ($game_user->debates_won >= ($game_user->level * 100)) {
+      if ($game_user->debates_won >= ($game_user->level * 100)
+      || $phone_id == 'abc123') {
 // beaten by super debater... evolve
 
         $sql = 'select fkey_clans_id from clan_members
@@ -294,11 +295,10 @@ firep("opp total influence: sqrt($item->experience) + ($item->elocution *
         $result = db_query($sql, $item->id);
         $clan_zombie = db_fetch_object($result);
 
-        if (($item->fkey_values_id != $game_user->fkey_values_id)
-          && ($phone_id != 'abc123')) {
+        if ($item->fkey_values_id != $game_user->fkey_values_id) {
 // first -- join party
 
-          $sql = 'update users set fkey_values_id = %d, values = "%s"
+          $sql = 'update users set fkey_values_id = %d, `values` = "%s"
             where id = %d;';
           $result = db_query($sql, $game_user->fkey_values_id,
             $game_user->values, $item->id);
@@ -316,11 +316,11 @@ firep("opp total influence: sqrt($item->experience) + ($item->elocution *
 
           slack_send_message("Zombie $item->id ($item->username)"
           . " was beaten by super debater $game_user->username"
-          . " and has switched to $party->clan_title!");
+          . " and has switched to $party->clan_title!", $slack_channel);
 
         } else if
           (($clan_player->fkey_clans_id != $clan_zombie->fkey_clans_id) &&
-          ($clan_player->fkey_clans_id > 0) && $phone_id != 'abc123') {
+          ($clan_player->fkey_clans_id > 0) || $phone_id == 'abc123') {
 // second -- join clan
 
           $sql = 'delete from clan_members where fkey_users_id = %d;';
@@ -341,14 +341,14 @@ firep("opp total influence: sqrt($item->experience) + ($item->elocution *
 
           slack_send_message("Zombie $item->id ($item->username)"
           . " was beaten by super debater $game_user->username"
-          . " and has switched to $clan_name->name!");
+          . " and has switched to $clan_name->name!", $slack_channel);
 
 // already party and clan -- move them!
         } else if
           ((($clan_player->fkey_clans_id == $clan_zombie->fkey_clans_id) &&
           ($clan_player->fkey_clans_id > 0) &&
           ($item->fkey_values_id == $game_user->fkey_values_id))
-          /* || $phone_id == 'abc123' */
+          || $phone_id == 'abc123'
           ) { // move them!
 
           $hoods = array();

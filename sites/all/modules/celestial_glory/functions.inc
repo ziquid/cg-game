@@ -2907,17 +2907,19 @@ function game_zombie_name() {
     'Heinous',
     'Infected',
     'Jaundiced',
+    'Killer',
   ); // https://s-media-cache-ak0.pinimg.com/736x/d5/87/a4/d587a4917ff097a6ed2697e5b84dc4c7.jpg
 
   $last = array(
-    'Rotten',
-    'Stinky',
+    'Quaint Stench',
+    'Rottie',
+    'Stinkbag',
     'Twitcher',
     'Undead',
-    'Vicious',
-    'Werewolf',
+    'Valkyrie',
+    'Walker',
     'Xtra Creep',
-    'Yellow',
+    'Yard Bump',
     'Zero',
   );
 

@@ -190,8 +190,7 @@ function celestial_glory_cron() {
   }
 
   // Add zombies?
-  $sql = 'select count(*) as count from users where last_access < "%s"
-    and level >= 25;';
+  $sql = 'select count(*) as count from users where last_access < "%s";';
   $result = db_query($sql, date('Y-m-d', time() - (86400 * 180)));
   $old_users = db_fetch_object($result);
 
@@ -205,7 +204,7 @@ function celestial_glory_cron() {
     if ($zombies->count < 50) {
 
       $sql = 'select id from users where last_access < "%s"
-        and level >= 25 order by rand() limit 100;';
+        order by rand() limit 100;';
       $result = db_query($sql, date('Y-m-d', time() - (86400 * 180)));
       $zombie_users = array();
       while ($item = db_fetch_object($result)) $zombie_users[] = $item;
@@ -213,9 +212,12 @@ function celestial_glory_cron() {
       // Change each user to a zombie.
       foreach ($zombie_users as $zombie) {
         $name = game_zombie_name();
-        $sql = 'update users set meta = "zombie", username = "%s"
+        if ($zombie->level < 25) {
+          $zombie->level += 25 + mt_rand(0,50);
+        }
+        $sql = 'update users set meta = "zombie", username = "%s", level = %d
           where id = %d;';
-        $result = db_query($sql, $name, $zombie->id);
+        $result = db_query($sql, $name, $zombie->level, $zombie->id);
       }
 
       // Notify the game players.
