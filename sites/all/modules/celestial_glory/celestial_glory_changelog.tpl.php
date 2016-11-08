@@ -22,6 +22,15 @@
   </div>
 
   <div class="subtitle">
+    v2.1.8, 07 Nov 2016
+  </div>
+  <ul>
+    <li>
+      Fix some zombie bugs.
+    </li>
+  </ul>
+
+  <div class="subtitle">
     v2.1.7, 31 Oct 2016
   </div>
   <ul>
