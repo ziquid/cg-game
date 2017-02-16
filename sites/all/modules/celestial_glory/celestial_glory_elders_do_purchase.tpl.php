@@ -98,7 +98,8 @@ response status is: ' . $response->status);
 // stop iOS luck hacking
     if (arg(4) == 'abc123') $luck = 0;
 
-// mail('joseph@cheek.com', 'testing 30', "luck is $luck");
+    // Stop all luck credits until hacking is fixed -- jwc 15Feb2017
+    $luck = 0;
 
     $sql = 'update users set luck = luck + %d
       where id = %d;';
