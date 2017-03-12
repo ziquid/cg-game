@@ -71,26 +71,20 @@ EOF;
 
   }
 
-  if ($game == 'stlouis') {
+  if (arg(1) == 'crafting') {
+    $crafting_active = 'active';
+    $actions_type = 'Crafting';
+  } else {
+    $normal_active = 'active';
+    $actions_type = 'Normal';
+  }
 
-    if (arg(3) == 'banking') {
-      $banking_active = 'active';
-      $actions_type = 'Banking';
-      $order_by = 'actions.id ASC';
-    } else {
-      $normal_active = 'active';
-      $actions_type = 'Normal';
-      $order_by = 'required_level DESC';
-    }
-
-    echo <<< EOF
+  echo <<< EOF
 <div class="news">
   <a href="/$game/actions/$arg2" class="button $normal_active">Normal</a>
-  <a href="/$game/actions/$arg2/banking" class="button $banking_active">Banking</a>
+  <a href="/$game/crafting/$arg2" class="button $crafting_active">Crafting</a>
 </div>
 EOF;
-
-  }
 
   if ($game_user->level < 20) {
 
@@ -118,8 +112,8 @@ EOF;
 </div>
 <div class="try-an-election-wrapper">
   <div class="try-an-election">
-    <a href="/$game/agents/$arg2">
-      Hire agents
+    <a href="/$game/home/$arg2">
+      Go Home
     </a>
   </div>
 </div>

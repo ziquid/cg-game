@@ -435,6 +435,14 @@ function celestial_glory_menu() {
     'type' => MENU_CALLBACK,
   );
 
+  $items['celestial_glory/crafting/%'] = array(
+    'title' => 'Celestial Glory Crafting',
+    'page callback' => 'celestial_glory_crafting_list_callback',
+    'page arguments' => array(2),
+    'access arguments' => array('access celestial_glory content'),
+    'type' => MENU_CALLBACK,
+  );
+
   $items['celestial_glory/equipment/%'] = array(
     'title' => 'Celestial Glory Equipment',
     'page callback' => 'celestial_glory_equipment_list_callback',
@@ -1143,6 +1151,15 @@ function celestial_glory_actions_do_callback($phone_id, $action_id) {
 
 }
 
+function celestial_glory_crafting_list_callback($phone_id) {
+
+  if (empty($phone_id)) {
+    return drupal_access_denied();
+  }
+
+  return theme('celestial_glory_crafting_list', $phone_id);
+
+}
 
 function celestial_glory_equipment_list_callback($phone_id) {
 
@@ -1687,6 +1704,13 @@ function celestial_glory_theme() {
       'arguments' => array(
         'phone_id' => null,
         'action_id' => null,
+      )
+    ),
+
+    'celestial_glory_crafting_list' => array(
+      'template' => 'celestial_glory_crafting_list',
+      'arguments' => array(
+        'phone_id' => null,
       )
     ),
 
