@@ -436,7 +436,7 @@ if (($today == '2012-12-26') || $game_user->username == 'abc123')
           <br>
           <p>
             Right now you can turn Raw Amethyst into Refined Amethyst
-            and Refined Amethyst into Pure Amethyst.  The Crafting tab is
+            and Refined Amethyst into Perfect Amethyst.  The Crafting tab is
             on the Actions page.
           </p>
         </div>';
@@ -468,8 +468,12 @@ if (($today == '2012-12-26') || $game_user->username == 'abc123')
   echo <<< EOF
 $extra_bonus
 <div class="title">
-<img src="/sites/default/files/images/{$game}_title.png"/>
+  <img src="/sites/default/files/images/{$game}_title.png"/>
+  <a class="version" href="/$game/changelog/$arg2">
+    $version
+  </a>
 </div>
+
 <div class="new-main-menu">
   <img src="/sites/default/files/images/{$game}_home_menu{$extra_menu}.png"
   usemap="#new_main_menu"/>
@@ -548,9 +552,6 @@ EOF;
 <div class="location">
   $game_user->location
 </div>
-<a class="version" href="/$game/changelog/$arg2">
-  $version
-</a>
 $event_text
 <div class="news">
   <div class="title">

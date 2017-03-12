@@ -14,7 +14,7 @@ h3, h4 {
   font: 16px Arial, Helvetica, sans-serif;
   clear: both;
   margin-top: 12px;
-  margin-bottom: 10px;
+  margin-bottom: 6px;
   text-align: center;
   font-weight: bold;
 }
@@ -1045,9 +1045,7 @@ a .event-text {
 
 .version {
   font: 8px Helvetica, Arial, sans-serif;
-  position: absolute;
-  left: 16px;
-  top: 356px;
+  display: block;
 }
 
 .new-main-menu {
