@@ -174,7 +174,7 @@ li {
   color: #bf6f2f;
 }
 
-.quest-failed, .election-failed, .land-failed {
+.quest-failed, .election-failed, .land-failed, .title.failed {
   color: #a41c43;
 }
 

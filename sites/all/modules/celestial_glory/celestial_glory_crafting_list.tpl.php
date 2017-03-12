@@ -76,6 +76,7 @@ EOF;
     echo <<< EOF
 <ul>
   <li>Use crafting to create new items from existing items</li>
+  <li>Crafting always uses one action</li>
 </ul>
 EOF;
 
@@ -91,7 +92,18 @@ EOF;
 <form class="item-picklist" action="/$game/crafting_do/$arg2">
 EOF;
 
-  // Get list of equipment owned.
+  // Get list of equipment useful to crafting
+  $useful_equipment = array();
+  $sql = 'SELECT * from crafting;';
+  $result = db_query($sql);
+  while ($item = db_fetch_object($result)) {
+    $useful_equipment[$item->fkey_equipment_id_1] = TRUE;
+    $useful_equipment[$item->fkey_equipment_id_2] = TRUE;
+    $useful_equipment[$item->fkey_equipment_id_3] = TRUE;
+  }
+//  firep($useful_equipment, 'useful equipment');
+
+  // Get list of equipment owned, filtered by what is craftable.
   $data = array();
   $sql = 'SELECT equipment.*, equipment_ownership.quantity
     FROM equipment
@@ -101,15 +113,15 @@ EOF;
       AND equipment_ownership.fkey_users_id = %d
 
     WHERE
-
       equipment_ownership.quantity > 0
-
+    AND
+      equipment.id IN (%s)
     OR
 
       "%s" = "abc123"
 
     ORDER BY equipment.name ASC';
-  $result = db_query($sql, $game_user->id, $arg2);
+  $result = db_query($sql, $game_user->id, implode(',', array_keys($useful_equipment)), $arg2);
   while ($item = db_fetch_object($result)) {
     $item->quantity = 0 + $item->quantity;
     $data[] = $item;

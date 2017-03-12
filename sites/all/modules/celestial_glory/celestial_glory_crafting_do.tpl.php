@@ -257,6 +257,7 @@ EOF;
 }
 
 // Tell the user.
+$game_user = $fetch_user();
 $fetch_header($game_user);
 
 if (arg(1) == 'crafting' || arg(1) == 'crafting_do') {
