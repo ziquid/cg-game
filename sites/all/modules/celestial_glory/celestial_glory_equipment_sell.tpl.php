@@ -145,7 +145,7 @@ firep("quantity: $quantity");
   else
     $equipment_price = number_format($equipment_price);
 
-  if ($game_equipmenmt->quantity_limit > 0) {
+  if ($game_equipment->quantity_limit > 0) {
     $quantity_limit = '<em>(Limited to ' . $game_equipment->quantity_limit
     . ')</em>';
   } else {

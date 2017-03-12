@@ -49,8 +49,6 @@ EOF;
       where id = %d;';
     $result = db_query($sql, $game_user->id);
 
-    sleep(15);
-
     db_set_active('default');
     drupal_goto($game . '/home/' . $arg2);
 

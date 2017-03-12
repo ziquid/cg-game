@@ -43,21 +43,6 @@ EOF;
   if (empty($game_user->username))
     drupal_goto($game . '/choose_name/' . $arg2);
 
-  $sql = 'select name, district, roses from neighborhoods where id = %d;';
-  $result = db_query($sql, $game_user->fkey_neighborhoods_id);
-  $data = db_fetch_object($result);
-  $location = $data->name;
-  $district = $data->district;
-  $roses = $data->roses;
-
-  $sql = 'select clan_title from `values` where id = %d;';
-  $result = db_query($sql, $game_user->fkey_values_id);
-  $data = db_fetch_object($result);
-  $clan_title = preg_replace('/^The /', '', $data->clan_title);
-
-  $sql_to_add = '';
-  $actions_active = 'AND actions.active = 1';
-
   if (($game_user->meta == 'frozen') && ($phone_id != 'abc123')) {
 
     echo <<< EOF
@@ -149,8 +134,8 @@ EOF;
   }
 
   echo <<< EOF
-  <div class="crafting-submit-button-wrapper">
-    <input class="crafting-submit-button" type="submit" Value="Craft"/>
+  <div class="try-an-election-wrapper">
+    <input class="try-an-election" type="submit" Value="Craft"/>
    </div>
 </form>
 EOF;

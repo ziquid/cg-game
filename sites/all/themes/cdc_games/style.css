@@ -19,7 +19,7 @@ h3, h4 {
   font-weight: bold;
 }
 
-.title.error {
+.title.error, .title.failed {
   color: red;
 }
 
@@ -412,13 +412,15 @@ li {
   color: #fff;
 }
 
+a.crafting-submit-button {
+  text-decoration: none;
+  color: white;
+}
+
 .crafting-submit-button-wrapper {
   text-align: center;
   width: 100%;
-}
-
-.crafting-submit-button {
-  margin: 8px 0;
+  margin-top: 16px;
 }
 
 .land .target {
@@ -834,9 +836,13 @@ li {
   width: 15em;
 }
 
-.try-an-election a {
+.try-an-election a, a.try-an-election, input.try-an-election {
   text-decoration: none;
   color: #fff;
+}
+
+a.try-an-election, input.try-an-election {
+  display: block;
 }
 
 .election-succeeded {
