@@ -15,6 +15,7 @@
   define(EVENT_COMPETENCIES_ANNOUNCEMENT, 1010);
   define(EVENT_DEBATEBOT_ANNOUNCEMENT, 1011);
   define(EVENT_ZOMBIE_ANNOUNCEMENT, 1012);
+  define(EVENT_CRAFTING_ANNOUNCEMENT, 1013);
 
   $debate_time = 1200;
   $zombie_debate_wait = 180; // 300
@@ -115,6 +116,10 @@ firep('$game in game_defs.inc is :' . $game . ':');
 
     if (($date >= '2016-10-26') && ($date <= '2016-10-31')) {
       $event_type = EVENT_ZOMBIE_ANNOUNCEMENT;
+    }
+
+    if (($date >= '2017-03-11') && ($date <= '2017-03-17')) {
+      $event_type = EVENT_CRAFTING_ANNOUNCEMENT;
     }
 
     $alderman = 'Chief Priest';

@@ -1,6 +1,6 @@
 <?php
 
-  $version = 'v2.1.8, 07 Nov 2016';
+  $version = 'v2.2.0, 11 Mar 2017';
 
 //  set_time_limit(10); // this page must not bog down server
 
@@ -419,6 +419,25 @@ if (($today == '2012-12-26') || $game_user->username == 'abc123')
             Super debaters can control zombies<br>
             Normal debaters can make zombies disappear<br>
             Use the new action <strong>&ldquo;Hunt for zombies&rdquo;</strong> to find them
+          </p>
+        </div>';
+
+      break;
+
+    case EVENT_CRAFTING_ANNOUNCEMENT:
+
+      $event_text = '<div class="event">
+          <div class="event-title">
+            ~ C R A F T I N G ~
+          </div>
+          <h3>
+            Celestial Glory 2.2.0 presents Crafting, allowing you to turn three existing items into one new item!
+          </h3>
+          <br>
+          <p>
+            Right now you can turn Raw Amethyst into Refined Amethyst
+            and Refined Amethyst into Pure Amethyst.  The Crafting tab is
+            on the Actions page.
           </p>
         </div>';
 

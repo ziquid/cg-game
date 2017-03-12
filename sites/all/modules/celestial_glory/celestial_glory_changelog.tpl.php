@@ -22,6 +22,15 @@
   </div>
 
   <div class="subtitle">
+    v2.2.0, 11 Mar 2017
+  </div>
+  <ul>
+    <li>
+      Crafting!
+    </li>
+  </ul>
+
+  <div class="subtitle">
     v2.1.8, 07 Nov 2016
   </div>
   <ul>
