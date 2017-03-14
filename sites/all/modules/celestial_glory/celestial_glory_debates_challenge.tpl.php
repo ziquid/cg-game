@@ -479,8 +479,8 @@ EOF;
         }
         db_query($sql, $game_user->id, $item->meta_int);
 
-        echo '<div class="subtitle">' . $item->username
-          . ' left a token for you.</div>';
+        echo '<div class="subtitle">In haste to leave, ' . $item->username
+          . ' dropped a token.&nbsp; You pick it up.</div>';
 
         slack_send_message("$item->username left behind a token", $slack_channel);
       }
