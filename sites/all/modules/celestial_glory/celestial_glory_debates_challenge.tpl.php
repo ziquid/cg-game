@@ -460,7 +460,30 @@ EOF;
         $sql = 'update equipment_ownership set quantity = quantity + 1
           where fkey_users_id = %d and fkey_equipment_id = %d;';
       }
-      $result = db_query($sql, $item->id, $item->meta_int);
+      db_query($sql, $item->id, $item->meta_int);
+
+      // Give user a debatebot token, possibly.
+      if (mt_rand(0, 2) == 0) {
+        $sql = 'SELECT * FROM equipment_ownership WHERE fkey_users_id = %d
+        AND fkey_equipment_id = %d;';
+        $result = db_query($sql, $game_user->id, $item->meta_int);
+        $row = db_fetch_object($result);
+
+        if (empty($row)) {
+          $sql = 'INSERT INTO equipment_ownership SET fkey_users_id = %d,
+          fkey_equipment_id = %d, quantity = 1;';
+        }
+        else {
+          $sql = 'UPDATE equipment_ownership SET quantity = quantity + 1
+          WHERE fkey_users_id = %d AND fkey_equipment_id = %d;';
+        }
+        db_query($sql, $game_user->id, $item->meta_int);
+
+        echo '<div class="subtitle">' . $item->username
+          . ' left a token for you.</div>';
+
+        slack_send_message("$item->username left behind a token", $slack_channel);
+      }
 
     }
 /*

@@ -190,7 +190,8 @@ function celestial_glory_cron() {
   }
 
   // Add zombies?
-  $sql = 'select count(*) as count from users where last_access < "%s";';
+  $sql = 'select count(*) as count from users where last_access < "%s"
+    and meta = "";';
   $result = db_query($sql, date('Y-m-d', time() - (86400 * 180)));
   $old_users = db_fetch_object($result);
 
