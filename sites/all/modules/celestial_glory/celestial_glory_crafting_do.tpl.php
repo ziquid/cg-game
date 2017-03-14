@@ -99,7 +99,7 @@ if ($action_succeeded) {
     check_plain($_GET['item_2']),
     check_plain($_GET['item_3']),
   );
-  asort($items);
+  sort($items);
 //  firep($items);
 
 // Forgot to select three items?
