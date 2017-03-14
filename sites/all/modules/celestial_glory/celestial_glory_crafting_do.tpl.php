@@ -138,9 +138,10 @@ if ($action_succeeded) {
         continue;
       }
       $title = 'Crafting Failed';
+      $name = $data[$eid]->name;
       $outcome_reason = <<< EOF
 <div class="subtitle">
-  You need more {$data[$eid]->name}!
+  You need more $name!
 </div>
 <div class="try-an-election-wrapper">
   <a class="try-an-election" href="/$game/crafting/$arg2">
