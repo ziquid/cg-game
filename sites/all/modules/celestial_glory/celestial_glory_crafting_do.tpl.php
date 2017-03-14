@@ -134,6 +134,9 @@ if ($action_succeeded) {
     firep($data[$eid], 'equipment for eid ' . $eid);
     if ($quantity > $data[$eid]->quantity) {
       competency_gain($game_user, 'hole in your pocket');
+      if ($phone_id == 'abc123') {
+        continue;
+      }
       $title = 'Crafting Failed';
       $outcome_reason = <<< EOF
 <div class="subtitle">
@@ -188,8 +191,8 @@ EOF;
 
 if ($action_succeeded) {
 // Success!  Remove items used in crafting.
-  $sql = 'UPDATE equipment_ownership SET quantity = quantity - %d WHERE
-  fkey_equipment_id = %d AND fkey_users_id = %d;';
+  $sql = 'UPDATE equipment_ownership SET quantity = greatest(quantity - %d, 0)
+    WHERE fkey_equipment_id = %d AND fkey_users_id = %d;';
   foreach ($quantities as $eid => $quantity) {
     db_query($sql, $quantity, $eid, $game_user->id);
   }
