@@ -326,8 +326,8 @@ firep(time());
           array('@min' => $min, '@sec' => $sec))
         . '</div>';
 
-mail('joseph@cheek.com', $target_name . ' tried to join a clan',
-  "but isn't allowed to for $min:$sec longer.");
+      slack_send_message($target_name . ' tried to join a clan ' .
+        "but isn't allowed to for $min:$sec longer.", $slack_channel);
 
       return FALSE;
 
@@ -921,17 +921,21 @@ EOF;
     $data = db_fetch_object($result);
     $location = $data->name;
 
-// can't boot zombies
-
+    // Can't boot zombies or debatebots.
     if ($target_user->meta == 'zombie') {
-
       $outcome_reason = '<div class="land-failed">' .
         t('Action Failed!') .
         '</div><div class="action-effect">Zombies do not respect political
         borders.&nbsp; Have you tried debating them?</div>';
-
       return FALSE;
+    }
 
+    if ($target_user->meta == 'debatebot') {
+      $outcome_reason = '<div class="land-failed">' .
+        t('Action Failed!') .
+        '</div><div class="action-effect">Debatebots do not respect political
+        borders.&nbsp; Have you tried debating them?</div>';
+      return FALSE;
     }
 
 // add message to user
@@ -1238,36 +1242,27 @@ EOF;
 
     } // foreach position
 
-    return true;
-
+    return TRUE;
   }
 
-
-  function _celestial_glory_action_fill_out_your_family_tree_function(&$outcome_reason,
-    $target) {
+  function _celestial_glory_action_announce_a_challenge_function(&$outcome_reason,
+    $target, &$can_do_again) {
 
     global $game, $phone_id;
 
     $fetch_user = '_' . arg(0) . '_fetch_user';
-//    $fetch_header = '_' . arg(0) . '_header';
-
     $game_user = $fetch_user();
     include(drupal_get_path('module', $game) . '/game_defs.inc');
-//    $action_id = arg(3);
 
-    $sql = 'update users set family_members_found = family_members_found + 1,
-      experience = experience + %d where id = %d;';
-    $result = db_query($sql, floor(sqrt($game_user->initiative)), $game_user->id);
+    $sql = 'update users set fkey_neighborhoods_id = %d where meta = "debatebot";';
+    db_query($sql, $game_user->fkey_neighborhoods_id);
 
-    $outcome_reason .= '<div class="action-effect">You have now found and recorded ' .
-      ($game_user->family_members_found + 1) . ' family members!';
-    $outcome_reason .= '<div class="action-effect">You gain a bonus of ' .
-      floor(sqrt($game_user->initiative)) . ' ' . $experience;
+    $outcome_reason .= '<div class="action-effect">You sense the arrival of
+      many new challengers.</div>';
+    $can_do_again = FALSE;
 
-    return true;
-
+    return TRUE;
   }
-
 
 function _celestial_glory_action_bear_your_testimony_function(&$outcome_reason,
     $target) {
