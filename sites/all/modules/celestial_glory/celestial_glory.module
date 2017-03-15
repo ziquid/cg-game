@@ -1925,7 +1925,8 @@ function _celestial_glory_header($game_user) {
 firep('points: ' . $points_obj->points);
 firep('points for next prize: ' . $goal_obj->points);
 
-    if ($points_obj->points >= $goal_obj->points) { // user gets a prize!
+    // Does user get a prize?
+    if ($points_obj->points >= $goal_obj->points) {
 
 firep('a prize is deserved!');
 
@@ -1964,34 +1965,31 @@ firep('a prize is deserved!');
           (fkey_users_id, fkey_equipment_id, quantity)
           values
           (%d, %d, 1);';
-// if ($phone_id == 'abc123')
-        $result = db_query($sql, $game_user->id, $prize_id);
+        db_query($sql, $game_user->id, $prize_id);
 
-      } else { // update record
+      }
+      else { // update record
 
         $sql = 'update equipment_ownership
           set quantity = quantity + 1
           where fkey_users_id = %d
           and fkey_equipment_id = %d;';
-// if ($phone_id == 'abc123')
-        $result = db_query($sql, $game_user->id, $prize_id);
+        db_query($sql, $game_user->id, $prize_id);
 
       } // create or update record
 
-// update record of user getting this present
+      // Update record of user getting this present.
       $sql = 'update event_points set last_goal_achieved = %d
         where fkey_users_id = %d;';
-// if ($phone_id == 'abc123')
-      $result = db_query($sql, $goal_obj->points, $game_user->id);
+      db_query($sql, $goal_obj->points, $game_user->id);
 
-// get present title
+      // Get present title.
       $sql = 'select name from equipment
         where id = %d;';
       $result = db_query($sql, $prize_id);
       $equip_obj = db_fetch_object($result);
       $equip_name = str_replace(' ', '&nbsp;', strtolower($equip_obj->name));
 
-// if ($phone_id == 'abc123')
       $points_text = '<div class="subsubtitle">' . $debate .
         ' points: ' . $points_obj->points . ' &nbsp; Next prize at: ' .
         $new_goal_obj->points . ' points
@@ -2003,26 +2001,29 @@ firep('a prize is deserved!');
           $game . '-' . $prize_id . '.png" width="96">
         </div>
         <div class="level-up-text">For gaining ' . $goal_obj->points .
-          ' points, you have received a bonus of <strong>one&nbsp;' .
+          ' ' . $debate . ' points, you have received a bonus of <strong>one&nbsp;' .
           $equip_name . '!</strong></div>
         <div class="level-up-text">Look for another bonus at ' .
           $new_goal_obj->points . '&nbsp;points.</div>
       </div>';
 
-    } else { // user doesn't get a prize
+    }
+    else { // user doesn't get a prize
 
-// if ($phone_id == 'abc123')
-      $points_text = '<div class="subsubtitle">' . $debate .
-        ' points: ' . $points_obj->points . ' &nbsp; Next prize at: ' .
-        $goal_obj->points . ' points
-      </div>';
+      if (arg(1) == 'debates') {
+        $points_text = '<div class="subsubtitle">' . $debate .
+          ' points: ' . $points_obj->points . ' &nbsp; Next prize at: ' .
+          $goal_obj->points . ' points
+        </div>';
+
+      }
 
     } // does user get a prize?
 
   } // user has no points
 
 
-// show it!
+  // Show it!
 
   $hood = '';
 

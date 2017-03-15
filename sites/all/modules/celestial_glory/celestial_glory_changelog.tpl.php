@@ -22,6 +22,28 @@
   </div>
 
   <div class="subtitle">
+    v2.2.1, 14 Mar 2017
+  </div>
+  <ul>
+    <li>
+      Bugfix: debatebots had been turned into zombies.
+    </li>
+    <li>
+      Add crafting recipes for debatebot tokens.
+    </li>
+    <li>
+      Add &quot;Announce a challenge&quot; action to move all debatebots
+        to your region.
+    </li>
+    <li>
+      Add shamrocks for March challenge prizes.
+    </li>
+    <li>
+      Started March challenge.
+    </li>
+  </ul>
+
+  <div class="subtitle">
     v2.2.0, 11 Mar 2017
   </div>
   <ul>
