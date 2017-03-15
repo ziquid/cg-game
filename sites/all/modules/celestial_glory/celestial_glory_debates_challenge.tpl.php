@@ -276,11 +276,11 @@ firep("opp total influence: sqrt($item->experience) + ($item->elocution *
 
     }
 
+    $points_to_add = 0;
 
-// zombies
+    // Zombies!
     if ($item->meta == 'zombie' /* || $phone_id == 'abc123' */) {
 
-      $points_to_add = 0;
 
       if ($game_user->debates_won >= ($game_user->level * 100)
       || $phone_id == 'abc123') {
@@ -402,28 +402,27 @@ EOF;
 
       } // # of losses
 
-// create entry for debater
+    } // a zombie?
 
-      $sql = 'select * from event_points where fkey_users_id = %d;';
+    // Create entry for debater.
+    $sql = 'select * from event_points where fkey_users_id = %d;';
+    $result = db_query($sql, $game_user->id);
+    $row = db_fetch_object($result);
+
+    if (empty($row)) {
+      $sql = 'insert into event_points set fkey_users_id = %d;';
       $result = db_query($sql, $game_user->id);
-      $row = db_fetch_object($result);
+    }
 
-      if (empty($row)) {
-        $sql = 'insert into event_points set fkey_users_id = %d;';
-        $result = db_query($sql, $game_user->id);
-      }
+    $points_to_add += (int) date('n');
 
-      $points = $row->points + $points_to_add;
-
-      $sql = 'update event_points set points = %d
+    $sql = 'update event_points set points = points + %d
         where fkey_users_id = %d;';
-      $result = db_query($sql, $points, $game_user->id);
+    $result = db_query($sql, $points_to_add, $game_user->id);
 
-      echo <<< EOF
+    echo <<< EOF
 <div class="subsubtitle">You gained $points_to_add point(s)</div>
 EOF;
-
-    } // a zombie?
 
     // Debatebots
     if ($item->meta == 'debatebot') {

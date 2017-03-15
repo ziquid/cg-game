@@ -443,6 +443,16 @@ EOF;
 
   }
 
+if ($show_all) { // show more stats if it's you
+
+  $month = date('F');
+  echo <<< EOF
+<div class="heading">$month $debate Points:</div>
+<div class="value">$item->points</div><br/>
+EOF;
+
+}
+
   if ($event_type == EVENT_GATHER_AMETHYST) {
 
     echo <<< EOF

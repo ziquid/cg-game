@@ -1937,13 +1937,18 @@ firep('a prize is deserved!');
 
       if ($new_goal_obj->points == 0) $new_goal_obj->points = 99999999;
 
-// which prize should be given?
+      // Which prize should be given?
+      $sql = 'select * from monthly_prizes where id = %d;';
+      $result = db_query($sql, date('m'));
+      $prize = db_fetch_object($result);
       if ($goal_obj->points >= 5000) {
-        $prize_id = 66; // large gift
-      } else if ($goal_obj->points >= 500) {
-        $prize_id = 65; // med gift
-      } else {
-        $prize_id = 64; // small gift
+        $prize_id = $prize->fkey_equipment_id_large; // large gift
+      }
+      else if ($goal_obj->points >= 500) {
+        $prize_id = $prize->fkey_equipment_id_medium; // med gift
+      }
+      else {
+        $prize_id = $prize->fkey_equipment_id_small; // small gift
       }
 
 // does user have any of this present?
@@ -1987,8 +1992,8 @@ firep('a prize is deserved!');
       $equip_name = str_replace(' ', '&nbsp;', strtolower($equip_obj->name));
 
 // if ($phone_id == 'abc123')
-      $points_text = '<div class="subsubtitle">
-        Points: ' . $points_obj->points . ' &nbsp; Next prize at: ' .
+      $points_text = '<div class="subsubtitle">' . $debate .
+        ' points: ' . $points_obj->points . ' &nbsp; Next prize at: ' .
         $new_goal_obj->points . ' points
       </div>
       <div class="level-up with-image">
@@ -2007,8 +2012,8 @@ firep('a prize is deserved!');
     } else { // user doesn't get a prize
 
 // if ($phone_id == 'abc123')
-      $points_text = '<div class="subsubtitle">
-        Points: ' . $points_obj->points . ' &nbsp; Next prize at: ' .
+      $points_text = '<div class="subsubtitle">' . $debate .
+        ' points: ' . $points_obj->points . ' &nbsp; Next prize at: ' .
         $goal_obj->points . ' points
       </div>';
 
