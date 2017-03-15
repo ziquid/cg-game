@@ -247,7 +247,7 @@ firep("opp total influence: sqrt($item->experience) + ($item->elocution *
 
     $game_user = $fetch_user();
 
-    if ($event_type == EVENT_DEBATE) {
+//    if ($event_type == EVENT_DEBATE) {
 
       $bump = '_' . $game . '_bump_event_tags_con';
       $reset = '_' . $game . '_reset_event_tags_con';
@@ -255,7 +255,7 @@ firep("opp total influence: sqrt($item->experience) + ($item->elocution *
       $reset($item->id);
       firep($row);
 
-    }
+//    }
 
     $fetch_header($game_user);
 
@@ -269,12 +269,12 @@ firep("opp total influence: sqrt($item->experience) + ($item->elocution *
     if (substr($phone_id, 0, 3) == 'ai-')
       echo "<!--\n<ai \"debate-won\"/>\n-->";
 
-    if ($event_type == EVENT_DEBATE) {
+//    if ($event_type == EVENT_DEBATE) {
 
       echo '<div class="subsubtitle">You have ' . $row->tags_con .
       ' consecutive debate win(s) and ' . $row->points . ' point(s)</div>';
 
-    }
+//    }
 
     $points_to_add = 0;
 
@@ -569,7 +569,7 @@ firep("update equipment_ownership set fkey_users_id = $game_user->id
 
     $game_user = $fetch_user();
 
-    if ($event_type == EVENT_DEBATE) {
+//    if ($event_type == EVENT_DEBATE) {
 
       $bump = '_' . $game . '_bump_event_tags_con';
       $reset = '_' . $game . '_reset_event_tags_con';
@@ -577,7 +577,7 @@ firep("update equipment_ownership set fkey_users_id = $game_user->id
       $bump($item->id);
       firep($row);
 
-    }
+//    }
 
     $fetch_header($game_user);
 
@@ -604,12 +604,12 @@ firep("update equipment_ownership set fkey_users_id = $game_user->id
     if (substr($phone_id, 0, 3) == 'ai-')
       echo "<!--\n<ai \"debate-lost\"/>\n-->";
 
-    if ($event_type == EVENT_DEBATE) {
+//    if ($event_type == EVENT_DEBATE) {
 
       echo '<div class="subsubtitle">You have ' . $row->tags_con .
       ' consecutive debate win(s) and ' . $row->points . ' point(s)</div>';
 
-    }
+//    }
 
 /*
 // flag day -- did they get a flag?
