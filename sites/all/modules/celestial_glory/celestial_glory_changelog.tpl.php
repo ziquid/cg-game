@@ -22,6 +22,16 @@
   </div>
 
   <div class="subtitle">
+    v2.2.2, 18 Mar 2017
+  </div>
+  <ul>
+    <li>
+      Players now get extra challenge points for each consecutive challenge
+        win, up to 10.
+    </li>
+  </ul>
+
+  <div class="subtitle">
     v2.2.1, 14 Mar 2017
   </div>
   <ul>

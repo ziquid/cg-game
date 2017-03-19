@@ -1,8 +1,6 @@
 <?php
 
-  $version = 'v2.2.1, 14 Mar 2017';
-
-//  set_time_limit(10); // this page must not bog down server
+  $version = 'v2.2.2, 18 Mar 2017';
 
   global $game, $phone_id;
 
