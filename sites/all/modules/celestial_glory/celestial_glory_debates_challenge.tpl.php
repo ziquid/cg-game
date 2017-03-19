@@ -414,7 +414,7 @@ EOF;
       $result = db_query($sql, $game_user->id);
     }
 
-    $points_to_add += (int) date('n');
+    $points_to_add += (int) date('n') + min($row->tags_con, 10);
 
     $sql = 'update event_points set points = points + %d
         where fkey_users_id = %d;';
