@@ -1105,7 +1105,7 @@ firep($qg);
   $result = db_query($sql, $game_quest->group - 1);
   $qgo = db_fetch_object($result);
 
-  if (!empty($qgo->name)) {
+  if (!empty($qgo->name) && ($game_quest->group <= 1000)) {
 
     $older_group = $game_quest->group - 1;
     $older_missions_html =<<< EOF

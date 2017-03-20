@@ -43,6 +43,9 @@
       Game balancing: &quot;Announce a challenge&quot; can only be performed
         by players in seats.
     </li>
+    <li>
+      UI: Challenge results now show four kinds of equipment per line.
+    </li>
   </ul>
 
   <div class="subtitle">
