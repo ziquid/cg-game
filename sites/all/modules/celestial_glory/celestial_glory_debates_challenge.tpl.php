@@ -583,11 +583,11 @@ firep("update equipment_ownership set fkey_users_id = $game_user->id
 
     if ($item->meta == 'zombie') {
 
-      $sql = 'updates users set experience = experience + 1000
+      $sql = 'updates users set experience = experience + 500
         where id = %d;';
       $result = db_query($sql, $item->id);
       echo '<div class="subtitle">' . $item->username .
-        ' has gained 1000 influence.</div>';
+        ' has gained 500 ' . $experience . '.</div>';
 
       slack_send_message("Zombie $item->id won the debate!");
 

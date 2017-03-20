@@ -1,6 +1,6 @@
 <?php
 
-  $version = 'v2.2.2, 18 Mar 2017';
+  $version = 'v2.2.3, 20 Mar 2017';
 
   global $game, $phone_id;
 

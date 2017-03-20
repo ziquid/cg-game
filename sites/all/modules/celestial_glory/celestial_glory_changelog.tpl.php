@@ -22,6 +22,30 @@
   </div>
 
   <div class="subtitle">
+    v2.2.3, 20 Mar 2017
+  </div>
+  <ul>
+    <li>
+      Added challenge rewards for challenge points through 50,000.
+        Rebalanced some rewards.
+    </li>
+    <li>
+      Game balancing: Zombie spirituality and levels have been rebalanced.
+    </li>
+    <li>
+      Game balancing: Zombies now receive only 500 Spirituality when they
+        win a challenge.
+    </li>
+    <li>
+      Bugfix: Found the word 'influence'.  Changed to 'spirituality'.
+    </li>
+    <li>
+      Game balancing: &quot;Announce a challenge&quot; can only be performed
+        by players in seats.
+    </li>
+  </ul>
+
+  <div class="subtitle">
     v2.2.2, 18 Mar 2017
   </div>
   <ul>

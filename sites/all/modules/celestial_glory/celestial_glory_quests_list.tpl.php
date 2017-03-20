@@ -150,7 +150,7 @@ firep($qg);
   $result = db_query($sql, $group_to_show - 1);
   $qgo = db_fetch_object($result);
 
-  if (!empty($qgo->name)) {
+  if (!empty($qgo->name) && ($group_to_show <= 1000)) {
 
     $older_group = $group_to_show - 1;
     $older_missions_html =<<< EOF
