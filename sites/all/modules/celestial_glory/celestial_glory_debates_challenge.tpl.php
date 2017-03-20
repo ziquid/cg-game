@@ -678,7 +678,7 @@ firep($item);
     echo <<< EOF
 <div class="debate-used">
   <img src="/sites/default/files/images/$item->type/$game-$item->id.png"
-  border="0" width="96"><span class="debate-num"> x $item->quantity</span></div>
+  border="0"><span class="debate-num"> x $item->quantity</span></div>
 EOF;
 
   }
@@ -725,7 +725,7 @@ firep($item);
     echo <<< EOF
 <div class="debate-used">
   <img src="/sites/default/files/images/$item->type/$game-$item->id.png"
-  border="0" width="96"><span class="debate-num"> x $item->quantity</span></div>
+  border="0"><span class="debate-num"> x $item->quantity</span></div>
 EOF;
 
   }

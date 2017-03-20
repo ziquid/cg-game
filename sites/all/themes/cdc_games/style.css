@@ -938,9 +938,13 @@ a.try-an-election, input.try-an-election {
 .debate-used {
   text-align: center;
   font-size: 14px;
-  padding: 8px 5px 4px;
+  padding: 8px 3px 3px;
   display: inline-block;
   position: relative;
+}
+
+.debate-used img {
+  width: 72px;
 }
 
 .debate-used .debate-num {
