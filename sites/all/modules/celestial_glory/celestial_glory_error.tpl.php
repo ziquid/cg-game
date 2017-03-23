@@ -1,5 +1,7 @@
 <?php
 
+global $game;
+
 $game = check_plain(arg(0));
 $get_phoneid = '_' . $game . '_get_phoneid';
 $phone_id = $get_phoneid();
