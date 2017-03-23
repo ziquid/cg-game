@@ -39,19 +39,19 @@
     $default_value = 'Faith';
   }
 
-// check to make sure not too many from the same IP address
+  // Check to make sure not too many from the same IP address.
   $sql = 'select count(`value`) as count from user_attributes
     where `key` = "last_IP" and `value` = "%s";';
   $result = db_query($sql, ip_address());
   $item = db_fetch_object($result);
-/* turn off while Amazon is testing -- jwc 10May2014
-// allow multiple from my IP*/
-  if (($item->count > 5) && (ip_address() != '14.140.251.170') && // Amazon testing IP
-    (ip_address() != '38.164.20.244') && // TI
-    (ip_address() != '158.69.123.231') && // OVH2
-    (ip_address() != '64.150.187.146')) {
-    db_set_active('default');
-    drupal_goto($game . '/error/' . $arg2 . '/E-2242');
+  if ($item->count > 5) {
+    $sql = 'select * from ip_whitelist where ip_address = "%s";';
+    $result = db_query($sql, ip_address());
+    $ips = db_fetch_object($result);
+    if (empty($ips)) {
+      db_set_active('default');
+      drupal_goto($game . '/error/' . $arg2 . '/E-2242');
+    }
   }
 
   $sql = 'insert into users set phone_id = "%s", username = "", experience = 0,
