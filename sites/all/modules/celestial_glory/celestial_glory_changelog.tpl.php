@@ -22,6 +22,15 @@
   </div>
 
   <div class="subtitle">
+    v2.2.4, 22 Mar 2017
+  </div>
+  <ul>
+    <li>
+      &quot;Spring is in the Air&quot; Quests!
+    </li>
+  </ul>
+  
+  <div class="subtitle">
     v2.2.3, 20 Mar 2017
   </div>
   <ul>
