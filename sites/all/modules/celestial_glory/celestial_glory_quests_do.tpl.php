@@ -31,6 +31,16 @@
   if ($event_type == EVENT_QUESTS_100)
     $game_quest->required_energy = min($game_quest->required_energy, 100);
 
+  // April Fools!  33% chance that loot will be April Fools loot.
+  if (($game_quest->fkey_loot_equipment_id > 1)
+    && (date('m-d') == '04-01')
+    && (mt_rand(0, 2) == 0)) {
+    $sql = 'select fkey_equipment_id from loot_april_fools
+      order by rand() limit 1;';
+    $result = db_query($sql);
+    $loot_april_fools = db_fetch_object($result);
+    $game_quest->fkey_loot_equipment_id = $loot_april_fools->fkey_equipment_id;
+  }
   $quest_succeeded = TRUE;
   $outcome_reason = '<div class="quest-succeeded">' . t('Success!') .
     '</div>';

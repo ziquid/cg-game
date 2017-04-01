@@ -17,6 +17,7 @@
   define(EVENT_ZOMBIE_ANNOUNCEMENT, 1012);
   define(EVENT_CRAFTING_ANNOUNCEMENT, 1013);
   define(EVENT_SPRING_QUESTS, 1014);
+  define(EVENT_APRIL_FOOLS, 1015);
 
   $debate_time = 1200;
   $zombie_debate_wait = 180; // 300
@@ -124,6 +125,14 @@ firep('$game in game_defs.inc is :' . $game . ':');
     }
 
     if (($date >= '2017-03-22') && ($date <= '2017-03-31')) {
+      $event_type = EVENT_SPRING_QUESTS;
+    }
+
+    if (date('m-d') == '04-01')) {
+      $event_type = EVENT_APRIL_FOOLS;
+    }
+
+    if (($date >= '2017-04-02') && ($date <= '2017-04-07')) {
       $event_type = EVENT_SPRING_QUESTS;
     }
 

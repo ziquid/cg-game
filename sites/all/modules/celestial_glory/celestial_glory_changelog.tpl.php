@@ -22,6 +22,15 @@
   </div>
 
   <div class="subtitle">
+    v2.2.5, 01 Apr 2017
+  </div>
+  <ul>
+    <li>
+      Happy April Fools Day!
+    </li>
+  </ul>
+
+  <div class="subtitle">
     v2.2.4, 22 Mar 2017
   </div>
   <ul>

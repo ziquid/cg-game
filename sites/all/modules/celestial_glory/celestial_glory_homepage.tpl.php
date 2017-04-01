@@ -1,6 +1,6 @@
 <?php
 
-  $version = 'v2.2.4, 22 Mar 2017';
+  $version = 'v2.2.5, 01 Apr 2017';
 
   global $game, $phone_id;
 
@@ -447,7 +447,7 @@ if (($today == '2012-12-26') || $game_user->username == 'abc123')
           <div class="event-title">
             ❀ Spring is in the Air ❀
           </div>
-          Springtime event Mar 22 - 31
+          Springtime event Mar 22 - Apr 07
         <!--<br>
           ~ Complete the quest group once to gain <strong>8</strong> skill points ~
         <br>
@@ -456,6 +456,16 @@ if (($today == '2012-12-26') || $game_user->username == 'abc123')
         <br>
           <a href="/' . $game . '/quests/' . $arg2 . '/'
         . EVENT_SPRING_QUESTS . '">Start the Quests</a>
+        </div>';
+
+      break;
+
+    case EVENT_APRIL_FOOLS:
+
+      $event_text = '<div class="event">
+          <div class="event-title">
+            &#xe105; Happy April Fools! &#xe105;
+          </div>
         </div>';
 
       break;
