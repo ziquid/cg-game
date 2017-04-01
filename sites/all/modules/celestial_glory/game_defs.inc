@@ -128,7 +128,7 @@ firep('$game in game_defs.inc is :' . $game . ':');
       $event_type = EVENT_SPRING_QUESTS;
     }
 
-    if (date('m-d') == '04-01')) {
+    if (date('m-d') == '04-01') {
       $event_type = EVENT_APRIL_FOOLS;
     }
 
