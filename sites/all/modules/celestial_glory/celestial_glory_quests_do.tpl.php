@@ -32,7 +32,7 @@
     $game_quest->required_energy = min($game_quest->required_energy, 100);
 
   // April Fools!  33% chance that loot will be April Fools loot.
-  if (($game_quest->fkey_loot_equipment_id > 1)
+  if (($game_quest->fkey_loot_equipment_id > 0)
     && (date('m-d') == '04-01')
     && (mt_rand(0, 2) == 0)) {
     $sql = 'select fkey_equipment_id from loot_april_fools
