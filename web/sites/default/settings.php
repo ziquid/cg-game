@@ -90,12 +90,6 @@
  *   $db_url = 'mysqli://username:password@localhost/databasename';
  *   $db_url = 'pgsql://username:password@localhost/databasename';
  */
-$db_url['default'] = 'mysqli://drupal6:drupal6@database/drupal6';
-$db_url['game_cg'] = 'mysqli://drupal6:drupal6@database/cg_game';
-$db_url['game_stlouis'] = 'mysqli://drupal6:drupal6@database/uslce_game';
-$db_url['game_stlouis_slave'] = 'mysqli://drupal6:drupal6@database/uslce_game';
-$db_url['game_wonderland'] = 'mysqli://drupal6:drupal6@database/wonderland_game';
-$db_url['game_detroit'] = 'mysqli://drupal6:drupal6@database/detroit_game';
 
 $db_prefix = '';
 
