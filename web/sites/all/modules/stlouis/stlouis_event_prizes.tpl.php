@@ -1,29 +1,16 @@
 <?php
 
-/**
- * @file stlouis_event_prizes.tpl.php
- * stlouis event prizes page
- *
- * Synced with CG: no
- * Synced with 2114: no
- * Ready for phpcbf: no
- * Ready for MVC separation: no
- * Controller moved to callback include: no
- * View only in theme template: no
- * All db queries in controller: no
- * Minimal function calls in view: no
- * Removal of globals: no
- * Removal of game_defs include: no
- * .
- */
-
   global $game, $phone_id;
-  include drupal_get_path('module', 'zg') . '/includes/' . $game . '_defs.inc';
-  $game_user = zg_fetch_player();
-  zg_fetch_header($game_user);
 
-  if ($game_user->meta == 'admin') {
-    db_set_active();
+  $fetch_user = '_' . arg(0) . '_fetch_user';
+  $fetch_header = '_' . arg(0) . '_header';
+
+  $game_user = $fetch_user();
+  $fetch_header($game_user);
+  include_once(drupal_get_path('module', $game) . '/game_defs.inc');
+
+  if ($phone_id != 'abc123') {
+    db_set_active('default');
     return;
   }
 
@@ -33,23 +20,23 @@
 </div>
 EOF;
 
-  $prizes = [
-    [100, 1, 37],
-    [80, 1, 37],
-    [60, 3, 37],
-    [50, 5, 37],
-    [40, 10, 37],
-    [30, 30, 37],
-    [25, 1, 38],
-    [20, 1, 38],
-    [15, 3, 38],
-    [10, 5, 38],
-    [5, 10, 38],
-    [4, 10, 38],
-    [3, 10, 38],
-    [2, 10, 38],
-    [1, 50, 38],
-  ];
+  $prizes = array(
+    array(100, 1, 37),
+    array(80, 1, 37),
+    array(60, 3, 37),
+    array(50, 5, 37),
+    array(40, 10, 37),
+    array(30, 30, 37),
+    array(25, 1, 38),
+    array(20, 1, 38),
+    array(15, 3, 38),
+    array(10, 5, 38),
+    array(5, 10, 38),
+    array(4, 10, 38),
+    array(3, 10, 38),
+    array(2, 10, 38),
+    array(1, 50, 38),
+  );
 
   foreach ($prizes as $prize) {
 // top $top get $quantity gifts #$prize_id
@@ -68,23 +55,21 @@ EOF;
     $sql = 'select fkey_users_id as id, users.username from event_points
       left join users on fkey_users_id = users.id
       order by points DESC
-
-      limit %d;';
+      limit %d;'; // top %d players
     $result = db_query($sql, $top);
-    $data = [];
+    $data = array();
     while ($item = db_fetch_object($result)) $data[] = $item;
 
     foreach ($data as $user) {
 
-      // Does user have any of this present?
+// does user have any of this present?
       $sql = 'select quantity from equipment_ownership
         where fkey_users_id = %d
         and fkey_equipment_id = %d;';
       $result = db_query($sql, $user->id, $prize_id);
       $equip_quantity = db_fetch_object($result);
 
-      // Create record.
-      if (empty($equip_quantity)) {
+      if (empty($equip_quantity)) { // create record
 
         $sql = 'insert into equipment_ownership
           (fkey_users_id, fkey_equipment_id, quantity)
@@ -96,10 +81,8 @@ EOF;
 echo '<div class="subsubtitle">creating record for ' . $user->username .
   '</div>';
 
-      }
-      else {
+      } else { // update record
 
-        // Update record.
         $sql = 'update equipment_ownership
           set quantity = quantity + %d
           where fkey_users_id = %d
@@ -111,10 +94,10 @@ echo '<div class="subsubtitle">updating record for ' . $user->username .
   '</div>';
 
 
-      }
+      } // create or update record
 
-    }
+    } // foreach user
 
-  }
+  } // foreach prize
 
-  db_set_active();
+  db_set_active('default');

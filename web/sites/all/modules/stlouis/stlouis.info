@@ -1,6 +1,7 @@
+; $Id$
 name = StLouis
 description = Uprising: St. Louis game
-package = ziquid games
+package = cheekdotcom games
 core = 6.x
 
-version = "6.x-0.98"
+version = "6.x-0.01"

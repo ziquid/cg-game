@@ -1,27 +1,14 @@
 <?php
 
-/**
- * @file stlouis_zombie_move.tpl.php
- * Stlouis zombie move page
- *
- * Synced with CG: no
- * Synced with 2114: no
- * Ready for phpcbf: no
- * Ready for MVC separation: no
- * Controller moved to callback include: no
- * View only in theme template: no
- * All db queries in controller: no
- * Minimal function calls in view: no
- * Removal of globals: no
- * Removal of game_defs include: no
- * .
- */
-
   global $game, $phone_id;
 
-  include drupal_get_path('module', 'zg') . '/includes/' . $game . '_defs.inc';
-  $game_user = zg_fetch_player();
-  zg_fetch_header($game_user);
+  $fetch_user = '_' . arg(0) . '_fetch_user';
+  $fetch_header = '_' . arg(0) . '_header';
+
+  $game_user = $fetch_user();
+  include_once(drupal_get_path('module', $game) . '/game_defs.inc');
+  $arg2 = check_plain(arg(2));
+  $fetch_header($game_user);
 
   $sql = 'select * from users
     where id = %d;';
@@ -42,13 +29,12 @@
   $item = db_fetch_object($result);
   $location = $item->name;
 
-  // Move them!
   if (($game_user->debates_won >= ($game_user->level * 100) &&
     ($clan_player->fkey_clans_id == $clan_zombie->fkey_clans_id) &&
     ($clan_player->fkey_clans_id > 0) &&
     ($zombie->fkey_values_id == $game_user->fkey_values_id) &&
     ($zombie->meta == 'zombie'))
-    || $game_user->meta == 'admin') {
+    || $phone_id == 'abc1234') { // move them!
 
       $sql = 'update users set fkey_neighborhoods_id = %d
         where id = %d;';
@@ -69,8 +55,7 @@ EOF;
 //      mail('joseph@cheek.com', "Zombie $zombie_id has moved to $location",
 //        "due to action from $game_user->username.");
 
-  }
-  else {
+  } else {
 
       echo <<< EOF
 <div class="subtitle">$zombie->username cannot move to $location.</div>
@@ -82,9 +67,9 @@ EOF;
 </div>
 EOF;
 
-//      mail('joseph@cheek.com', "Zombie $zombie_id cannot move to $location",
-//        "due to action from $game_user->username.");
+      mail('joseph@cheek.com', "Zombie $zombie_id cannot move to $location",
+        "due to action from $game_user->username.");
 
   }
-
-  db_set_active();
+  
+  db_set_active('default');

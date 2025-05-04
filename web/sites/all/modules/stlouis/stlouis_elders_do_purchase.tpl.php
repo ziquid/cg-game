@@ -1,207 +1,124 @@
 <?php
 
-/**
- * @file
- * Stlouis elders do purchase.
- *
- * Synced with CG: yes
- * Synced with 2114: yes
- * Ready for phpcbf: done.
- * Ready for MVC separation: no
- * Controller moved to callback include: no
- * View only in theme template: no
- * All db queries in controller: no
- * Minimal function calls in view: no
- * Removal of globals: no
- * Removal of game_defs include: no
- * .
- */
+  global $game, $phone_id, $purchasing_luck;
 
-global $game, $phone_id, $purchasing_luck;
-include drupal_get_path('module', 'zg') . '/includes/' . $game . '_defs.inc';
-$purchasing_luck = TRUE;
-$game_user = zg_fetch_player();
+  $fetch_user = '_' . arg(0) . '_fetch_user';
+  $fetch_header = '_' . arg(0) . '_header';
 
-$ip_address = ip_address();
-if (($ip_address == '66.211.170.66') ||
-  // Paypal sandboxes.
-  ($ip_address == '173.0.81.1') ||
-  ($ip_address == '173.0.81.33') ||
-  ($ip_address == '173.0.82.126') ||
-  (strpos($_SERVER['HTTP_USER_AGENT'], 'com.ziquid.uslce') !== FALSE)) {
+// mail('joseph@cheek.com', 'testing 5', 'got here!');
 
-  // IOS receipt data attached -- check it.
-  if (arg(4) == 'withAppleReceipt') {
+  $purchasing_luck = TRUE;
+  $game_user = $fetch_user();
 
-    $receipt_data = $_POST['receiptdata'];
-    $receipt_json = json_encode(['receipt-data' => $receipt_data]);
-    $appleURL = 'https://buy.itunes.apple.com/verifyReceipt';
+  if (($_SERVER['REMOTE_ADDR'] == '66.211.170.66') ||
+    ($_SERVER['REMOTE_ADDR'] == '173.0.81.1') ||
+    ($_SERVER['REMOTE_ADDR'] == '173.0.81.33') ||
+    ($_SERVER['REMOTE_ADDR'] == '173.0.82.126') || // <-- paypal sandbox
+    (strpos($_SERVER['HTTP_USER_AGENT'], 'com.ziquid.celestialglory') !== FALSE) ||
+    (strpos($_SERVER['HTTP_USER_AGENT'], 'com.cheek.celestialglory')
+      !== FALSE)) {
 
-    $params = [
-      'http' => [
+
+    if (arg(4) == 'withAppleReceipt') { // iOS receipt data attached
+
+      $receipt_data = $_POST['receiptdata'];
+      $receipt_json = json_encode(array('receipt-data' => $receipt_data));
+      $appleURL = 'https://buy.itunes.apple.com/verifyReceipt';
+
+// call apple URL to check receipt
+      $params = array('http' => array(
         'method' => 'POST',
         'content' => $receipt_json,
-      ],
-    ];
+      ));
 
-    $ctx = stream_context_create($params);
-    $fp = fopen($appleURL, 'rb', FALSE, $ctx);
+      $ctx = stream_context_create($params);
+      $fp = fopen($appleURL, 'rb', false, $ctx);
 
-    if (!$fp) {
-      mail('joseph@ziquid.com', 'unable to verify Apple receipt',
-        'could not fopen() ' . $appleURL . '.');
-    }
+      if (!$fp)
+        mail('joseph@ziquid.com', 'unable to verify Apple receipt',
+          'could not fopen() ' . $appleURL . '.');
 
-    $response_json = stream_get_contents($fp);
+      $response_json = stream_get_contents($fp);
 
-    if ($response_json === FALSE) {
-      mail('joseph@ziquid.com', 'unable to verify Apple receipt',
-        'could not read data from ' . $appleURL . 'due to error' .
-        $php_errormsg . '.');
-    }
+      if ($response_json === FALSE)
+        mail('joseph@ziquid.com', 'unable to verify Apple receipt',
+          'could not read data from ' . $appleURL . 'due to error
+' . $php_errormsg . '.');
 
-    $response = json_decode($response_json);
+      $response = json_decode($response_json);
 ob_start();
 var_dump($response);
 $response_dump = ob_get_contents();
 ob_end_clean();
 
-    mail('joseph@ziquid.com', 'iOS receipt check response',
-      'receipt_data is ' . $receipt_data .
-      'response is: ' . $response_dump . 'response_json is: ' . $response_json .
-      'response status is: ' . $response->status);
+      mail('joseph@ziquid.com', 'iOS receipt check response',
+        'receipt_data is ' . $receipt_data .
+        'response is: ' . $response_dump . '
+response_json is: ' . $response_json . '
+response status is: ' . $response->status);
 
-    // Uhoh!  Receipt not validated!
-    if ($response->status !== 0) {
-      echo 'NO';
-      exit;
-    }
+      if ($response->status !== 0) { // uhoh!  receipt not validated!
+        echo 'NO';
+        exit;
+      }
 
-    if (substr($response->receipt->bid, 0, 11) !== 'com.ziquid.') {
-      // Uhoh! Hack!  FIXME -- debit karma.
-      game_karma($game_user, 'Trying to do luck hacking.', -1000);
-      echo 'NO';
-      exit;
-    }
-  }
+      if (substr($response->receipt->bid, 0, 10) !== 'com.cheek.') {
+// uhoh!  hack
+// FIXME -- debit karma
+        echo 'NO';
+        exit;
+      }
 
-  $luck = 10;
-  $type = 'purchase';
-  $subtype = '';
+    } // check iOS receipt data
 
-  // Paypal.
-  if (arg(3) == '30') {
-    $luck = 30;
-    $subtype = 'paypal';
-  }
-  if (arg(3) == '35') {
-    $luck = 35;
-    $subtype = 'paypal';
-  }
+    $luck = 10;
 
-  // Google.
-  if (arg(3) == 'luck_35') {
-    $luck = 35;
-    $subtype = 'google';
-  }
+    if (arg(3) == '30') $luck = 30; // paypal
 
-  // Blackberry.
-  if (arg(3) == 'buy_luck_35') {
-    $luck = 35;
-    $subtype = 'blackberry';
-  }
+    if (arg(3) == '35') $luck = 35; // paypal
+    if (arg(3) == 'luck_35') $luck = 35; // google
+    if (arg(3) == 'buy_luck_35') $luck = 35; // blackberry
+    if (arg(3) == 'com.cheek.stlouis.luck.35') $luck = 35; // apple
+    if (arg(3) == 'com.cheek.celestialglory.luck.35') $luck = 35; // apple
+    if (arg(3) == 'com.cheek.celestial_glory.luck.35') $luck = 35; // apple
 
-  // Apple.
-  if (arg(3) == 'com.ziquid.uslce.luck.35') {
-    $luck = 35;
-    $subtype = 'apple';
-  }
-  if (arg(3) == 'com.ziquid.celestialglory.luck.35') {
-    $luck = 35;
-    $subtype = 'apple';
-  }
-  if (arg(3) == 'com.ziquid.celestial_glory.luck.35') {
-    $luck = 35;
-    $subtype = 'apple';
-  }
+    if (arg(3) == 'buy_luck_120') $luck = 120; // blackberry
 
-  // Blackberry.
-  if (arg(3) == 'buy_luck_120') {
-    $luck = 120;
-    $subtype = 'blackberry';
-  }
+    if (arg(3) == '130') $luck = 130; // paypal
 
-  // Paypal.
-  if (arg(3) == '130') {
-    $luck = 130;
-    $subtype = 'paypal';
-  }
-  if (arg(3) == '150') {
-    $luck = 150;
-    $subtype = 'paypal';
-  }
+    if (arg(3) == '150') $luck = 150; // paypal
+    if (arg(3) == 'luck.150') $luck = 150; // google
+    if (arg(3) == 'com.cheek.stlouis.luck.150') $luck = 150; // apple
+    if (arg(3) == 'com.cheek.celestialglory.luck.150') $luck = 150; // apple
+    if (arg(3) == 'com.cheek.celestial_glory.luck.150') $luck = 150; // apple
 
-  // Google.
-  if (arg(3) == 'luck.150') {
-    $luck = 150;
-    $subtype = 'google';
-  }
+    if (arg(3) == '320') $luck = 320; // paypal
+    if (arg(3) == 'luck.320') $luck = 320; // google
+    if (arg(3) == 'com.cheek.celestialglory.luck.320') $luck = 320; // apple
+    if (arg(3) == 'com.cheek.celestial_glory.luck.320') $luck = 320; // apple
 
-  // Apple.
-  if (arg(3) == 'com.ziquid.uslce.luck.150') {
-    $luck = 150;
-    $subtype = 'apple';
-  }
-  if (arg(3) == 'com.ziquid.celestialglory.luck.150') {
-    $luck = 150;
-    $subtype = 'apple';
-  }
-  if (arg(3) == 'com.ziquid.celestial_glory.luck.150') {
-    $luck = 150;
-    $subtype = 'apple';
-  }
+// stop iOS luck hacking
+    if (arg(4) == 'abc123') $luck = 0;
 
-  // Paypal.
-  if (arg(3) == '320') {
-    $luck = 320;
-    $subtype = 'paypal';
-  }
+// mail('joseph@cheek.com', 'testing 30', "luck is $luck");
 
-  // Google.
-  if (arg(3) == 'luck.320') {
-    $luck = 320;
-    $subtype = 'google';
-  }
+    $sql = 'update users set luck = luck + %d
+      where id = %d;';
+    $result = db_query($sql, $luck, $game_user->id);
 
-  // Paypal.
-  if (arg(3) == '700') {
-    $luck = 700;
-    $subtype = 'paypal';
-  }
-  if (arg(3) == '1000') {
-    $luck = 1000;
-    $subtype = 'paypal';
-  }
-  if (arg(3) == '4500') {
-    $luck = 4500;
-    $subtype = 'paypal';
-  }
+    $sql = 'insert into purchases (fkey_users_id, purchase)
+      values (%d, "%s");';
+    $msg = 'User ' . $game_user->username . ' purchased ' . $luck .
+      ' Luck (currently ' . $game_user->luck . ') at URL ' .
+            $_SERVER['REQUEST_URI'] . ' (IP Address ' . $_SERVER['REMOTE_ADDR']
+            . ')';
+    $result = db_query($sql, $game_user->id, $msg);
 
-  // Stop iOS luck hacking.
-  if (arg(4) == 'abc123') {
-    // Uhoh! Hack!  FIXME -- debit karma.
-    game_karma($game_user, 'Trying to do luck hacking.', -1000);
-    echo 'NO';
-    exit;
+    mail('joseph@ziquid.com', $game . ' Luck purchase', $msg);
+
   }
+//  drupal_goto($game . '/elders/' . $phone_id);
 
-  $msg = 'User ' . $game_user->username . ' purchased ' . $luck .
-    ' Luck via ' . $subtype . ' (currently ' . $game_user->luck . ') at URL ' .
-    $_SERVER['REQUEST_URI'] . ' (IP Address ' . $ip_address
-    . ')';
-  zg_luck($game_user, $luck, $game_user->luck, $luck, $game_user->luck + $luck, $msg, 'purchase', $subtype);
-  mail('joseph@ziquid.com', $game . ' Luck purchase', $msg);
-}
+  echo 'YES';
 
-echo 'YES';
-exit;
+  exit;

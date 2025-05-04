@@ -1,26 +1,14 @@
 <?php
 
-/**
- * @file stlouis_event_info.tpl.php
- * Stlouis event info page
- *
- * Synced with CG: no
- * Synced with 2114: no
- * Ready for phpcbf: no
- * Ready for MVC separation: no
- * Controller moved to callback include: no
- * View only in theme template: no
- * All db queries in controller: no
- * Minimal function calls in view: no
- * Removal of globals: no
- * Removal of game_defs include: no
- * .
- */
-
   global $game, $phone_id;
-  include drupal_get_path('module', 'zg') . '/includes/' . $game . '_defs.inc';
-  $game_user = zg_fetch_player();
-  zg_fetch_header($game_user);
+
+  $fetch_user = '_' . arg(0) . '_fetch_user';
+  $fetch_header = '_' . arg(0) . '_header';
+
+  $game_user = $fetch_user();
+  $fetch_header($game_user);
+  include_once(drupal_get_path('module', $game) . '/game_defs.inc');
+  $arg2 = check_plain(arg(2));
 
   echo <<< EOF
 <div class="title">
@@ -161,4 +149,4 @@ and cannot tag nor perform any actions until you are unfrozen by a teammate.
 </div>
 EOF;
 
-  db_set_active();
+  db_set_active('default');
