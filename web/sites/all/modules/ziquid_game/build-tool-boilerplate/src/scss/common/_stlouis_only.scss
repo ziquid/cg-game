@@ -1,0 +1,19 @@
+video {
+  &#wise-old-man, &.wise-old-man {
+    width: 80px;
+    border-radius: 11px;
+    position: absolute;
+  }
+  &#video-overlay {
+    display: block;
+  }
+}
+
+.speech-bubble.with-video {
+  margin-left: 85px;
+}
+
+.wise_old_man.with-video {
+  background-image: none;
+  width: 100px;
+}
